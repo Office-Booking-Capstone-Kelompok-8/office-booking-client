@@ -1,5 +1,7 @@
 import React from 'react';
 import imgLogin from './../../assets/img/people-admin-login.png';
+import Icon from '@mdi/react';
+import { mdiAccount } from '@mdi/js';
 
 const LoginAdmin = () => {
   return (
@@ -8,7 +10,9 @@ const LoginAdmin = () => {
         <img src={imgLogin} alt="login-banner" className="w-75" />
       </div>
       <div className="col d-flex bg-indigo-100 justify-content-center align-items-center">
-        gambar
+        <div className="w-5">
+          <Icon path={mdiAccount} className="text-primary" />
+        </div>
       </div>
     </div>
   );
