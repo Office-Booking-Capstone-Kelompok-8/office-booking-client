@@ -1,0 +1,40 @@
+.logo{
+    width: 30%;
+}
+.text-logo{
+    font-size: 20px;
+}
+#side_nav{
+    box-shadow: 0px 8px 24px rgba(112, 144, 176, 0.25);
+    min-height: 100vh;
+    width: 260px;
+}
+.navbar {
+    background: #FFFFFF;
+    box-shadow: 0px 8px 24px rgba(112, 144, 176, 0.25);
+    width: 1280px;  
+}
+.search{
+    border-radius: 9px;
+    border: 1px solid #3583EF;
+    width: 436px;
+}
+.user-wrapper{
+    display: flex;
+    align-items: center;
+}
+.user-wrapper h4{
+    font-size: 18px;
+}
+.user-wrapper img{
+    border-radius: 50%;
+    margin-right: 1rem;
+    width: 40px;
+    height: 40px;
+}
+.user-wrapper small{
+    display: inline-block;
+}
+.icons{
+    color: #124B7B;;
+}
