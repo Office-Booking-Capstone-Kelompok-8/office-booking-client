@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 :root {
   --color-primary: #0D6AEC;
   --color-primary-light: #5E9CF2;
@@ -10,6 +11,12 @@
   --color-gray: #FBFBFF;
   --color-gray-light: #F9F9F9;
 }
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Color */
 
 .bg-primary {
   background-color: var(--color-primary) !important;
@@ -214,4 +221,15 @@
 }
 .h-full {
   height: 100vh;
+}
+
+/* Font */
+.text-sm {
+  font-size: .75rem !important;
+}
+.text-md {
+  font-size: 1rem !important;
+}
+.text-lg {
+  font-size: 1.5rem !important;
 }
