@@ -1,13 +1,83 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root {
+  --color-primary: #0D6AEC;
+  --color-primary-light: #5E9CF2;
+  --color-error: #F74133;
+  --color-error-light: #ffa099d9;
+  --color-success: #4CAF52;
+  --color-success-light: #82c787;
+  --color-warning: #FF9602;
+  --color-warning-light: #f3ab47;
+  --color-gray: #FBFBFF;
+  --color-gray-light: #F9F9F9;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.bg-primary {
+  background-color: var(--color-primary) !important;
 }
+.text-primary {
+  background-color: var(--color-primary) !important;
+}
+
+.bg-primary-light {
+  background-color: var(--color-primary-light) !important;
+}
+.text-primary-light {
+  background-color: var(--color-primary-light) !important;
+}
+
+.bg-success {
+  background-color: var(--color-success) !important;
+}
+.text-success {
+  background-color: var(--color-success) !important;
+}
+
+.bg-success-light {
+  background-color: var(--color-success-light) !important;
+}
+.text-success-light {
+  background-color: var(--color-success-light) !important;
+}
+
+.bg-warning {
+  background-color: var(--color-warning) !important;
+}
+.text-warning {
+  background-color: var(--color-warning) !important;
+}
+
+.bg-warning-light {
+  background-color: var(--color-warning-light) !important;
+}
+.text-warning-light {
+  background-color: var(--color-warning-light) !important;
+}
+
+.bg-error {
+  background-color: var(--color-error) !important;
+}
+.text-error {
+  background-color: var(--color-error) !important;
+}
+
+.bg-error-light {
+  background-color: var(--color-error-light) !important;
+}
+.text-error-light {
+  background-color: var(--color-error-light) !important;
+}
+
+.bg-gray {
+  background-color: var(--color-gray) !important;
+}
+.text-gray {
+  background-color: var(--color-gray) !important;
+}
+
+.bg-gray-light {
+  background-color: var(--color-gray-light) !important;
+}
+.text-gray-light {
+  background-color: var(--color-gray-light) !important;
+}
+

@@ -1,11 +1,14 @@
-import './App.css';
 import SetupRoute from './routes';
 
 function App() {
   return (
-    <div>
+    <main
+      style={{
+        overflowX: 'hidden',
+      }}
+    >
       <SetupRoute />
-    </div>
+    </main>
   );
 }
 
