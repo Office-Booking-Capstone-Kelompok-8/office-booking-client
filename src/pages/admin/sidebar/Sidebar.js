@@ -14,7 +14,7 @@ import {
 const Sidebar = () => {
   return (
     <div
-      className="d-flex flex-column justify-content-between shadow-lg sidebar"
+      className="d-flex flex-column justify-content-between shadow sidebar"
       style={{
         backgroundColor: 'white',
         zIndex: 10,

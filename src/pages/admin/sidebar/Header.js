@@ -1,12 +1,12 @@
 import React from 'react';
 import './Styles.css';
 import Icon from '@mdi/react';
-import { mdiEmailOutline, mdiBellOutline, mdiSearchWeb } from '@mdi/js';
+import { mdiEmailOutline, mdiBellOutline, mdiMagnify } from '@mdi/js';
 
 const Header = () => {
   return (
     <nav
-      className="d-flex shadow-lg p-3 justify-content-between"
+      className="d-flex shadow-sm p-3 justify-content-between"
       style={{
         position: 'sticky',
         top: 0,
@@ -20,7 +20,7 @@ const Header = () => {
           style={{ backgroundColor: 'transparent', border: 'none' }}
           className="w-4 text-gray-dark d-none d-md-block"
         >
-          <Icon path={mdiSearchWeb} />
+          <Icon path={mdiMagnify} />
         </button>
         <input
           className="search"

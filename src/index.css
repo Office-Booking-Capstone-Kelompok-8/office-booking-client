@@ -250,3 +250,11 @@ body {
   font-size: 1.5rem !important;
 }
 
+a {
+  text-decoration: none;
+}
+
+.breadcrumb-arrow {
+  margin-left: 10px;
+  margin-right: 10px;
+}

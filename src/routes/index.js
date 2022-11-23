@@ -6,7 +6,7 @@ import UpdateBuilding from '../pages/admin/buildings/UpdateBuilding';
 import AddCustomer from '../pages/admin/customers/AddCustomer';
 import Customers from '../pages/admin/customers/Customers';
 import UpdateCustomer from '../pages/admin/customers/UpdateCustomer';
-import Dashboard from '../pages/admin/Dashboard';
+import Dashboard from '../pages/admin/dashboard/Dashboard';
 import AddReservation from '../pages/admin/reservations/AddReservation';
 import Reservations from '../pages/admin/reservations/Reservations';
 import UpdateReservation from '../pages/admin/reservations/UpdateReservation';

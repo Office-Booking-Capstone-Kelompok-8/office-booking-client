@@ -16,7 +16,9 @@ function App() {
         style={{ overflow: 'auto', position: 'relative' }}
       >
         <Header />
-        <SetupRoute />
+        <div className="p-3">
+          <SetupRoute />
+        </div>
       </div>
     </main>
   );
