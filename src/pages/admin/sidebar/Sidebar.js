@@ -7,12 +7,13 @@ import {
     mdiViewDashboard, 
     mdiOfficeBuilding, 
     mdiAccountMultipleOutline,
-    mdiMessageTextOutline } 
+    mdiMessageTextOutline,
+    mdiLogin } 
 from '@mdi/js';
 
 const Sidebar = () => {
-    const[isOpen, setIsOpen] = useState(false);
-    const toggle = () => setIsOpen (!isOpen);
+    // const[isOpen, setIsOpen] = useState(false);
+    // const toggle = () => setIsOpen (!isOpen);
     const activeLink = "text-primary text-decoration-none";
     const normalLink = "text-primary-light text-decoration-none";
   return (
@@ -21,24 +22,24 @@ const Sidebar = () => {
             <div className='header-box px-5 pt-3 pb-4 d-flex justify-content-center'>
                 <h1 className='text-logo'><img src={logo}  alt="logo" className='logo'/> <span className='text-primary'>OfficeZone</span></h1>
             </div>
-            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            {/* <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon" onClick={toggle}></span>
-            </button>
+            </button> */}
             <div className="navbar-collapse" id="navbarNav">
                 <ul className='navbar-link px-3'>
-                    <li className='nav-item text-decoration-none d-block'>
+                    <li className='nav-item d-block'>
                         <NavLink to="/admin"
                             className={({ isActive }) =>
                             isActive ? activeLink : normalLink}>
                             <Icon path={mdiViewDashboard}
                                 title="User Profile"
                                 size={1}
-                                className=' m-3'
+                                className='m-3'
                             />
                             Dashboard
                         </NavLink>
                     </li>
-                    <li className='nav-item text-decoration-none d-block'>
+                    <li className='nav-item d-block'>
                         <NavLink to="/"
                             className={({ isActive }) =>
                             isActive ? activeLink : normalLink}>
@@ -50,7 +51,7 @@ const Sidebar = () => {
                             Buildings
                         </NavLink>
                     </li>
-                    <li className='nav-item text-decoration-none d-block'>
+                    <li className='nav-item d-block'>
                         <NavLink to="/"
                             className={({ isActive }) =>
                             isActive ? activeLink : normalLink}>
@@ -62,7 +63,7 @@ const Sidebar = () => {
                             Reservation
                         </NavLink>
                     </li>
-                    <li className='nav-item text-decoration-none d-block'>
+                    <li className='nav-item d-block'>
                         <NavLink to="/"
                             className={({ isActive }) =>
                             isActive ? activeLink : normalLink}>
@@ -74,7 +75,7 @@ const Sidebar = () => {
                             Customers
                         </NavLink>
                     </li>
-                    <li className='nav-item text-decoration-none d-block'>
+                    <li className='nav-item d-block'>
                         <NavLink to="/"
                             className={({ isActive }) =>
                             isActive ? activeLink : normalLink}>
@@ -84,6 +85,17 @@ const Sidebar = () => {
                                 className='m-3'
                             />
                             Reviews
+                        </NavLink>
+                    </li>
+                    <li className='logout d-block'>
+                        <NavLink to="/"
+                            className="text-decoration-none">
+                            <Icon path={mdiLogin}
+                                title="User Profile"
+                                size={1}
+                                className='text-primary m-3'
+                            />
+                            Logout
                         </NavLink>
                     </li>
                 </ul>

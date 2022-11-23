@@ -26,10 +26,10 @@ const Header = () => {
                         size={1}
                         className='icons m-3'
                     />
-                    <img src=""  alt="user" className='m-3' />
+                    <img src="https://tse3.mm.bing.net/th?id=OIP.cDqgnRzfbofSK9VVDpRSeQHaHa&pid=Api&P=0"  alt="user" className='m-3' />
                     <div>
-                        <h4>John Noe</h4>
-                        <small>Super admin</small>
+                        <h4 className='text-md'>John Noe</h4>
+                        <small className='text-sm'>Super admin</small>
                     </div>
                 </div>
             </div>

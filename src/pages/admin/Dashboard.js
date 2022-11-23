@@ -9,8 +9,8 @@ const Dashboard = () => {
             <Sidebar />
             <div>
               <Header/>
-              <div className='dasboard' id='dasboard'>
-                <h1>Dashboard</h1>
+              <div className='container-fluid pt-3' id='dasboard'>
+                <h3 className='text-lg'>Dashboard</h3>
               </div>
             </div>
             </div>
