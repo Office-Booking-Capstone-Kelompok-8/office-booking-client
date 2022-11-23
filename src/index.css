@@ -2,6 +2,7 @@
 :root {
   --color-primary: #0D6AEC;
   --color-primary-light: #5E9CF2;
+  --color-primary-dark: #124B7B;
   --color-error: #F74133;
   --color-error-light: #ffa099d9;
   --color-success: #4CAF52;
@@ -10,6 +11,7 @@
   --color-warning-light: #f3ab47;
   --color-gray: #FBFBFF;
   --color-gray-light: #F9F9F9;
+  --color-gray-dark: #bbbbbb;
 }
 
 body {
@@ -30,6 +32,13 @@ body {
 }
 .text-primary-light {
   color: var(--color-primary-light) !important;
+}
+
+.bg-primary-dark {
+  background-color: var(--color-primary-dark) !important;
+}
+.text-primary-dark {
+  color: var(--color-primary-dark) !important;
 }
 
 .bg-success {
@@ -86,6 +95,13 @@ body {
 }
 .text-gray-light {
   color: var(--color-gray-light) !important;
+}
+
+.bg-gray-dark {
+  background-color: var(--color-gray-dark) !important;
+}
+.text-gray-dark {
+  color: var(--color-gray-dark) !important;
 }
 
 .w-1 {
@@ -233,3 +249,4 @@ body {
 .text-lg {
   font-size: 1.5rem !important;
 }
+
