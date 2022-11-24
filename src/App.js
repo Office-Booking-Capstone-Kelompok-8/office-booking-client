@@ -1,5 +1,5 @@
+import Sidebar from './components/admin/sidebar/Sidebar';
 import Header from './pages/admin/sidebar/Header';
-import Sidebar from './pages/admin/sidebar/Sidebar';
 import SetupRoute from './routes';
 
 function App() {
