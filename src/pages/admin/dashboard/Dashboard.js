@@ -4,6 +4,8 @@ import buildings from './../../../assets/img/building-dashboard.png';
 import './styles.css';
 import BarChart from '../../../components/admin/BarChart';
 import CalendarComponent from '../../../components/admin/Calendar';
+import Icon from '@mdi/react';
+import { mdiClockTimeFourOutline } from '@mdi/js';
 
 const Dashboard = () => {
   return (
@@ -80,7 +82,219 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="col-12 col-md-5 col-lg-4">
-          <CalendarComponent />
+          <div className="mb-3">
+            <CalendarComponent />
+          </div>
+          <div className="p-3">
+            <h5 className="mb-4">Reservation</h5>
+            <div
+              style={{
+                height: '65vh',
+                overflowX: 'auto',
+                paddingRight: '1rem',
+              }}
+            >
+              <div className="shadow p-3 mb-4">
+                <div className="d-flex justify-content-between align-items-center">
+                  <span className="fw-bold">Lily Meeting Room</span>
+                  <div className="text-warning d-flex align-items-center">
+                    <Icon
+                      path={mdiClockTimeFourOutline}
+                      size={1}
+                      style={{ marginRight: '.7rem' }}
+                    />
+                    <span>Pending</span>
+                  </div>
+                </div>
+                <span className="text-sm text-gray-dark">Jakarta Pusat</span>
+                <div className="d-flex justify-content-start mt-2">
+                  <div style={{ width: '30%', marginRight: '1rem' }}>
+                    <img
+                      src="https://cdn.pixabay.com/photo/2016/04/28/20/57/building-1359707_960_720.jpg"
+                      alt="building-images"
+                      style={{
+                        width: '100%',
+                        borderRadius: '12px',
+                      }}
+                    />
+                  </div>
+                  <div className="d-flex justify-content-between flex-column">
+                    <span className="d-block text-gray-dark">Abdur</span>
+                    <span className="d-block">16 Nov - 12 Des</span>
+                    <span className="d-block text-lg fw-bold">
+                      Rp. 12.000.000
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="shadow p-3 mb-4">
+                <div className="d-flex justify-content-between align-items-center">
+                  <span className="fw-bold">Lily Meeting Room</span>
+                  <div className="text-warning d-flex align-items-center">
+                    <Icon
+                      path={mdiClockTimeFourOutline}
+                      size={1}
+                      style={{ marginRight: '.7rem' }}
+                    />
+                    <span>Pending</span>
+                  </div>
+                </div>
+                <span className="text-sm text-gray-dark">Jakarta Pusat</span>
+                <div className="d-flex justify-content-start mt-2">
+                  <div style={{ width: '30%', marginRight: '1rem' }}>
+                    <img
+                      src="https://cdn.pixabay.com/photo/2016/04/28/20/57/building-1359707_960_720.jpg"
+                      alt="building-images"
+                      style={{
+                        width: '100%',
+                        borderRadius: '12px',
+                      }}
+                    />
+                  </div>
+                  <div className="d-flex justify-content-between flex-column">
+                    <span className="d-block text-gray-dark">Abdur</span>
+                    <span className="d-block">16 Nov - 12 Des</span>
+                    <span className="d-block text-lg fw-bold">
+                      Rp. 12.000.000
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className="shadow p-3 mb-4">
+                <div className="d-flex justify-content-between align-items-center">
+                  <span className="fw-bold">Lily Meeting Room</span>
+                  <div className="text-warning d-flex align-items-center">
+                    <Icon
+                      path={mdiClockTimeFourOutline}
+                      size={1}
+                      style={{ marginRight: '.7rem' }}
+                    />
+                    <span>Pending</span>
+                  </div>
+                </div>
+                <span className="text-sm text-gray-dark">Jakarta Pusat</span>
+                <div className="d-flex justify-content-start mt-2">
+                  <div style={{ width: '30%', marginRight: '1rem' }}>
+                    <img
+                      src="https://cdn.pixabay.com/photo/2016/04/28/20/57/building-1359707_960_720.jpg"
+                      alt="building-images"
+                      style={{
+                        width: '100%',
+                        borderRadius: '12px',
+                      }}
+                    />
+                  </div>
+                  <div className="d-flex justify-content-between flex-column">
+                    <span className="d-block text-gray-dark">Abdur</span>
+                    <span className="d-block">16 Nov - 12 Des</span>
+                    <span className="d-block text-lg fw-bold">
+                      Rp. 12.000.000
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className="shadow p-3 mb-4">
+                <div className="d-flex justify-content-between align-items-center">
+                  <span className="fw-bold">Lily Meeting Room</span>
+                  <div className="text-warning d-flex align-items-center">
+                    <Icon
+                      path={mdiClockTimeFourOutline}
+                      size={1}
+                      style={{ marginRight: '.7rem' }}
+                    />
+                    <span>Pending</span>
+                  </div>
+                </div>
+                <span className="text-sm text-gray-dark">Jakarta Pusat</span>
+                <div className="d-flex justify-content-start mt-2">
+                  <div style={{ width: '30%', marginRight: '1rem' }}>
+                    <img
+                      src="https://cdn.pixabay.com/photo/2016/04/28/20/57/building-1359707_960_720.jpg"
+                      alt="building-images"
+                      style={{
+                        width: '100%',
+                        borderRadius: '12px',
+                      }}
+                    />
+                  </div>
+                  <div className="d-flex justify-content-between flex-column">
+                    <span className="d-block text-gray-dark">Abdur</span>
+                    <span className="d-block">16 Nov - 12 Des</span>
+                    <span className="d-block text-lg fw-bold">
+                      Rp. 12.000.000
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className="shadow p-3 mb-4">
+                <div className="d-flex justify-content-between align-items-center">
+                  <span className="fw-bold">Lily Meeting Room</span>
+                  <div className="text-warning d-flex align-items-center">
+                    <Icon
+                      path={mdiClockTimeFourOutline}
+                      size={1}
+                      style={{ marginRight: '.7rem' }}
+                    />
+                    <span>Pending</span>
+                  </div>
+                </div>
+                <span className="text-sm text-gray-dark">Jakarta Pusat</span>
+                <div className="d-flex justify-content-start mt-2">
+                  <div style={{ width: '30%', marginRight: '1rem' }}>
+                    <img
+                      src="https://cdn.pixabay.com/photo/2016/04/28/20/57/building-1359707_960_720.jpg"
+                      alt="building-images"
+                      style={{
+                        width: '100%',
+                        borderRadius: '12px',
+                      }}
+                    />
+                  </div>
+                  <div className="d-flex justify-content-between flex-column">
+                    <span className="d-block text-gray-dark">Abdur</span>
+                    <span className="d-block">16 Nov - 12 Des</span>
+                    <span className="d-block text-lg fw-bold">
+                      Rp. 12.000.000
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div className="shadow p-3 mb-4">
+                <div className="d-flex justify-content-between align-items-center">
+                  <span className="fw-bold">Lily Meeting Room</span>
+                  <div className="text-warning d-flex align-items-center">
+                    <Icon
+                      path={mdiClockTimeFourOutline}
+                      size={1}
+                      style={{ marginRight: '.7rem' }}
+                    />
+                    <span>Pending</span>
+                  </div>
+                </div>
+                <span className="text-sm text-gray-dark">Jakarta Pusat</span>
+                <div className="d-flex justify-content-start mt-2">
+                  <div style={{ width: '30%', marginRight: '1rem' }}>
+                    <img
+                      src="https://cdn.pixabay.com/photo/2016/04/28/20/57/building-1359707_960_720.jpg"
+                      alt="building-images"
+                      style={{
+                        width: '100%',
+                        borderRadius: '12px',
+                      }}
+                    />
+                  </div>
+                  <div className="d-flex justify-content-between flex-column">
+                    <span className="d-block text-gray-dark">Abdur</span>
+                    <span className="d-block">16 Nov - 12 Des</span>
+                    <span className="d-block text-lg fw-bold">
+                      Rp. 12.000.000
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
