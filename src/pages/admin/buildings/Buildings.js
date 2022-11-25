@@ -141,14 +141,20 @@ const Buildings = () => {
           </table>
         </div>
         <div className="d-flex justify-content-center">
-          <nav aria-label="Page navigation example">
+          <nav aria-label="...">
             <ul className="pagination">
               <li className="page-item disabled">
                 <Link className="page-link">Previous</Link>
               </li>
-              <li className="page-item"><Link className="page-link" to="#">1</Link></li>
-              <li className="page-item"><Link className="page-link" to="#">2</Link></li>
-              <li className="page-item"><Link className="page-link" to="#">3</Link></li>
+              <li className="page-item">
+                <Link className="page-link" to="#">1</Link>
+              </li>
+              <li className="page-item active" aria-current="page">
+                <Link className="page-link" to="#">2</Link>
+              </li>
+              <li className="page-item">
+                <Link className="page-link" to="#">3</Link>
+              </li>
               <li className="page-item">
                 <Link className="page-link" to="#">Next</Link>
               </li>
