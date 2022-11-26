@@ -1,7 +1,7 @@
 import React from 'react';
 import earnings from './../../../assets/img/earning-dashboard.png';
 import buildings from './../../../assets/img/building-dashboard.png';
-import './styles.css';
+import './../styles.css';
 import BarChart from '../../../components/admin/BarChart';
 import CalendarComponent from '../../../components/admin/Calendar';
 import Icon from '@mdi/react';

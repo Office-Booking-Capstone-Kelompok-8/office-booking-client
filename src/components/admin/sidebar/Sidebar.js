@@ -18,7 +18,7 @@ const Sidebar = () => {
       style={{
         backgroundColor: 'white',
         zIndex: 10,
-        width: '20%',
+        width: '20vw',
       }}
     >
       <div>

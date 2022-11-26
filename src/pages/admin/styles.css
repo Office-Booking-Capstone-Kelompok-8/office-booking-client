@@ -1,0 +1,91 @@
+.divider {
+  display: block;
+  height: 2.5rem;
+  width: 1px;
+  background-color: #000000;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  margin-top: -1rem;
+}
+
+/* Images Upload */
+label.img-upload {
+  padding: 2rem 4rem;
+  cursor: pointer;
+  border:  1px #bebebe dashed;
+  border-radius: 8px;
+  margin-right: 1rem;
+  align-self: flex-start;
+}
+
+.img-upload input {
+  display: none;
+}
+
+.img-preview {
+  max-width: 10rem;
+  margin-right: 1rem;
+  height: 7rem;
+}
+
+.img-wrap{
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.img-wrap img {
+  border: 1px rgb(163, 163, 163) solid;
+}
+
+.delete-img {
+  position: absolute;
+  z-index: 1;
+  height: 1.5rem;
+  width: 1.5rem;
+  cursor: pointer;
+  top: -1rem;
+  right: 0;
+}
+
+.label-main-img {
+  color: white;
+  display: block;
+  padding: 2px .3rem;
+  position: absolute;
+  border-radius: 100px;
+  top: 5px;
+  left: 5px;
+  font-size: 7px;
+}
+
+/* Input Field */
+.input-field {
+  width: 100%;
+  outline: none;
+  padding: 10px .5rem;
+  font-size: .8rem;
+  border-radius: 10px;
+  border: #3583EF solid 1px;
+}
+
+.react-select__control {
+  border-radius: 10px;
+  border: #3583EF 1px solid;
+}
+
+.button {
+  padding: .5rem 1rem;
+  border: none;
+  border-radius: 10px;
+}
+
+.button-outline {
+  background-color: white;
+  border: 1px solid #3583EF;
+  color: #3583EF;
+}
+
+.button-container {
+  background-color: #3583EF;
+  color: white;
+}
