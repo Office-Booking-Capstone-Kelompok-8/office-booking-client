@@ -1,5 +1,7 @@
 import React from 'react';
 
-export default function RegisterAdmin() {
-  return <div>RegisterAdmin</div>;
-}
+const RegisterAdmin = () => {
+  return <div>Register Admin</div>;
+};
+
+export default RegisterAdmin;

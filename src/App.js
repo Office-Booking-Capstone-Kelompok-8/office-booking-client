@@ -1,11 +1,10 @@
-import './App.css';
 import SetupRoute from './routes';
 
 function App() {
   return (
-    <div>
+    <main>
       <SetupRoute />
-    </div>
+    </main>
   );
 }
 
