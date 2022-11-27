@@ -1,7 +1,6 @@
 import { mdiCloseCircle, mdiFileImagePlus } from '@mdi/js';
 import Icon from '@mdi/react';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import Select from 'react-select';
 import { Form, Formik } from 'formik';
 import * as yup from 'yup';
@@ -26,17 +25,6 @@ const AddBuilding = () => {
 
   return (
     <div>
-      <div className="mb-4">
-        <h2>Add Building</h2>
-        <div>
-          <Link to={'/admin'}>Office Zone</Link>
-          <span className="breadcrumb-arrow">&gt;</span>
-          <Link to={'/admin/buildings'}>Buildings</Link>
-          <span className="breadcrumb-arrow">&gt;</span>
-          <span>Add Building</span>
-        </div>
-      </div>
-
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -149,6 +137,7 @@ const AddBuilding = () => {
                 </div>
               </div>
 
+              {/* Name Building */}
               <div className="row mb-4">
                 <label className="col-3" htmlFor="nameBuilding">
                   Building Name <span className="text-error">*</span>
@@ -162,6 +151,8 @@ const AddBuilding = () => {
                   />
                 </div>
               </div>
+
+              {/* City */}
               <div className="row mb-4">
                 <label className="col-3" htmlFor="nameBuilding">
                   City <span className="text-error">*</span>
@@ -187,6 +178,8 @@ const AddBuilding = () => {
                   />
                 </div>
               </div>
+
+              {/* District */}
               <div className="row mb-4">
                 <label className="col-3" htmlFor="nameBuilding">
                   District <span className="text-error">*</span>
@@ -212,6 +205,8 @@ const AddBuilding = () => {
                   />
                 </div>
               </div>
+
+              {/* Address */}
               <div className="row mb-4">
                 <label className="col-3" htmlFor="nameBuilding">
                   Full Address <span className="text-error">*</span>
@@ -241,6 +236,8 @@ const AddBuilding = () => {
                   </div>
                 </div>
               </div>
+
+              {/* Capacity */}
               <div className="row mb-4">
                 <label className="col-3" htmlFor="nameBuilding">
                   Capacity <span className="text-error">*</span>
@@ -257,6 +254,8 @@ const AddBuilding = () => {
                   </div>
                 </div>
               </div>
+
+              {/* Price */}
               <div className="row mb-4">
                 <label className="col-3" htmlFor="nameBuilding">
                   Price per month <span className="text-error">*</span>
@@ -302,6 +301,8 @@ const AddBuilding = () => {
                   />
                 </div>
               </div>
+
+              {/* Button */}
               <div className="row justify-content-end">
                 <button
                   type="button"

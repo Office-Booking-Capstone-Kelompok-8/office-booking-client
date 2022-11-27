@@ -7,35 +7,44 @@ import AddCustomer from '../pages/admin/customers/AddCustomer';
 import Customers from '../pages/admin/customers/Customers';
 import UpdateCustomer from '../pages/admin/customers/UpdateCustomer';
 import Dashboard from '../pages/admin/dashboard/Dashboard';
-import AddReservation from '../pages/admin/reservations/AddReservation';
+import LayoutAdmin from '../pages/admin/LayoutAdmin';
 import Reservations from '../pages/admin/reservations/Reservations';
-import UpdateReservation from '../pages/admin/reservations/UpdateReservation';
+import SearchResults from '../pages/admin/SearchResults';
 import LoginAdmin from '../pages/auth/LoginAdmin';
 import LandingPage from '../pages/enduser/LandingPage';
+import NotFound from '../pages/error/NotFound';
+import ServerUnavailable from '../pages/error/ServerUnavailable';
 
 export default function SetupRoute() {
   return (
     <Routes>
       {/* ADMIN */}
-      <Route path="/admin">
+      <Route path="/admin" element={<LayoutAdmin />}>
+        <Route path="search" element={<SearchResults />} />
         <Route index element={<Dashboard />} />
         <Route path="login" element={<LoginAdmin />} />
         {/* Buildings */}
-        <Route path="buildings" element={<Buildings />} />
-        <Route path="add-building" element={<AddBuilding />} />
-        <Route path="edit-building" element={<UpdateBuilding />} />
+        <Route path="buildings">
+          <Route index element={<Buildings />} />
+          <Route path="add-building" element={<AddBuilding />} />
+          <Route path="edit-building/:id" element={<UpdateBuilding />} />
+        </Route>
         {/* Reservation */}
         <Route path="reservations" element={<Reservations />} />
-        <Route path="add-reservation" element={<AddReservation />} />
-        <Route path="edit-reservation" element={<UpdateReservation />} />
         {/* Customer */}
-        <Route path="customers" element={<Customers />} />
-        <Route path="add-customer" element={<AddCustomer />} />
-        <Route path="edit-customer" element={<UpdateCustomer />} />
+        <Route path="customers">
+          <Route index element={<Customers />} />
+          <Route path="add-customer" element={<AddCustomer />} />
+          <Route path="edit-customer" element={<UpdateCustomer />} />
+        </Route>
       </Route>
 
       {/* END USER */}
       <Route path="/" element={<LandingPage />} />
+
+      {/* Not Found */}
+      <Route path="*" element={<NotFound />} />
+      <Route path="/admin/server-error" element={<ServerUnavailable />} />
     </Routes>
   );
 }

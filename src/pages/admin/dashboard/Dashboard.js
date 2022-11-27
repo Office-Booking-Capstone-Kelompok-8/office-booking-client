@@ -10,14 +10,6 @@ import { mdiClockTimeFourOutline } from '@mdi/js';
 const Dashboard = () => {
   return (
     <div>
-      <div className="mb-2">
-        <h2>Dashboard</h2>
-        <div>
-          <span>Office Zone</span>
-          <span className="breadcrumb-arrow">&gt;</span>
-          <span>Dashboard</span>
-        </div>
-      </div>
       <div className="row px-2">
         <div className="col-12 col-md-7 col-lg-8">
           <div className="row mb-3">

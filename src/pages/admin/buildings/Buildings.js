@@ -7,15 +7,9 @@ const Buildings = () => {
     <div>
       <div className="mb-2">
         <div className="row mb-3">
-          <h2>Buildings</h2>
-          <div className="col-md-6 text-gray-dark">
-            <span>OfficeZone</span>
-            <span className="breadcrumb-arrow">&gt;</span>
-            <span>Buildings</span>
-          </div>
-          <div className="col-md-6 d-flex justify-content-end">
+          <div className="col-md-12 d-flex justify-content-end">
             <Link
-              to="add-building"
+              to="/admin/buildings/add-building"
               className="btn bg-primary text-white text-sm me-5 px-5 py-2"
             >
               Add building
@@ -124,7 +118,7 @@ const Buildings = () => {
                 </td>
                 <td>
                   <Link
-                    to="/"
+                    to="/admin/buildings/edit-building/1"
                     className="btn bg-success text-sm me-4 text-white px-4 py-2"
                   >
                     Update
