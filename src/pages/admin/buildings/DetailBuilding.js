@@ -12,21 +12,21 @@ import {
 const DetailBuilding = () => {
   return (
     <div>
-        <div className="mb-2">
-            <div className="row mb-3">
-                <h2>Building Detail</h2>
-                <div className="col-md-6 col-lg-6 text-gray-dark">
-                    <span>officeZone</span>
-                    <span className="breadcrumb-arrow">&gt;</span>
-                    <span>Buildings</span>
-                    <span className="breadcrumb-arrow">&gt;</span>
-                    <span>building details</span>
-                </div>
-                <div className="col-md-6 col-lg-6 d-flex justify-content-end">
-                    <Link to="/admin/buildings/edit-building" className="btn bg-success text-white text-sm me-4 px-5 py-2">Update</Link>
-                    <button className="btn bg-error text-white text-sm me-5 px-5 py-2">Delete</button>
-                </div>
+        <div className="row mb-4">
+            <h2>Building Detail</h2>
+            <div className="col-md-6 col-lg-6 text-gray-dark">
+                <span>officeZone</span>
+                <span className="breadcrumb-arrow">&gt;</span>
+                <span>Buildings</span>
+                <span className="breadcrumb-arrow">&gt;</span>
+                <span>building details</span>
             </div>
+            <div className="col-md-6 col-lg-6 d-flex justify-content-end">
+                <Link to="/admin/buildings/edit-building" className="btn bg-success text-white text-sm me-4 px-5 py-2">Update</Link>
+                <button className="btn bg-error text-white text-sm me-5 px-5 py-2">Delete</button>
+            </div>
+        </div>
+        <div className='row mb-4'>
             <div className="col-12 col-md-12 col-lg-12">
                 <div className="row mb-3">
                     <div className="col-md-6 col-lg-6 p-3">
@@ -102,104 +102,103 @@ const DetailBuilding = () => {
                             <h3 className="text-md">50<span> people</span></h3>
                         </div>
                     </div>
-                    <div className='descriptions pt-5'>
-                        <h3 className='text-primary-dark'>Descriptions</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur. Sed massa velit faucibus vitae. Sed adipiscing egestas amet scelerisque. At aenean at sed commodo consectetur volutpat. 
-                            Venenatis tristique facilisi accumsan vitae amet morbi justo eu aliquam. 
-                            Sed tellus id placerat ipsum felis mauris eu convallis. 
-                            Ac scelerisque urna id at lectus sed amet nunc. 
-                            Duis velit sit consectetur lacus aenean accumsan amet aliquam. Hac eu neque sodales vitae commodo. Natoque morbi tortor aliquam nisi felis. Consectetur viverra sagittis nulla dictum scelerisque.
-                        </p>
-                    </div>
-                    <div className='facilities pt-5'>
-                        <h3 className='text-primary-dark'>Facilities</h3>
-                        <div className="d-flex align-items-center pt-4">
-                            <Icon
-                                path={mdiElevatorPassengerOutline}
-                                size={1.1}
-                                style={{ marginRight: '.7rem' }}
-                                className="text-primary"
-                            />
-                            <h3 className="text-md me-5">Elevator</h3>
-                            <Icon
-                                path={mdiElevatorPassengerOutline}
-                                size={1.1}
-                                style={{ marginRight: '.7rem' }}
-                                className="text-primary"
-                            />
-                            <h3 className="text-md">Elevator</h3>
-                        </div>
-                        <div className="d-flex align-items-center pt-4">
-                            <Icon
-                                path={mdiElevatorPassengerOutline}
-                                size={1.1}
-                                style={{ marginRight: '.7rem' }}
-                                className="text-primary"
-                            />
-                            <h3 className="text-md me-5">Elevator</h3>
-                            <Icon
-                                path={mdiElevatorPassengerOutline}
-                                size={1.1}
-                                style={{ marginRight: '.7rem' }}
-                                className="text-primary"
-                            />
-                            <h3 className="text-md">Elevator</h3>
-                        </div>
-                        <div className="d-flex align-items-center pt-4">
-                            <Icon
-                                path={mdiElevatorPassengerOutline}
-                                size={1.1}
-                                style={{ marginRight: '.7rem' }}
-                                className="text-primary"
-                            />
-                            <h3 className="text-md me-5">Elevator</h3>
-                            <Icon
-                                path={mdiElevatorPassengerOutline}
-                                size={1.1}
-                                style={{ marginRight: '.7rem' }}
-                                className="text-primary"
-                            />
-                            <h3 className="text-md">Elevator</h3>
-                        </div>
-                        <div className="d-flex align-items-center pt-4">
-                            <Icon
-                                path={mdiElevatorPassengerOutline}
-                                size={1.1}
-                                style={{ marginRight: '.7rem' }}
-                                className="text-primary"
-                            />
-                            <h3 className="text-md me-5">Elevator</h3>
-                            <Icon
-                                path={mdiElevatorPassengerOutline}
-                                size={1.1}
-                                style={{ marginRight: '.7rem' }}
-                                className="text-primary"
-                            />
-                            <h3 className="text-md">Elevator</h3>
-                        </div>
-                        <div className="d-flex align-items-center pt-4">
-                            <Icon
-                                path={mdiElevatorPassengerOutline}
-                                size={1.1}
-                                style={{ marginRight: '.7rem' }}
-                                className="text-primary"
-                            />
-                            <h3 className="text-md me-5">Elevator</h3>
-                            <Icon
-                                path={mdiElevatorPassengerOutline}
-                                size={1.1}
-                                style={{ marginRight: '.7rem' }}
-                                className="text-primary"
-                            />
-                            <h3 className="text-md">Elevator</h3>
-                        </div>
-                        
-                        
-                    </div>
                 </div>
             </div>
         </div>
+        <div className='descriptions pt-3 mb-3'>
+            <h3 className='text-primary-dark'>Descriptions</h3>
+            <p>Lorem ipsum dolor sit amet consectetur. Sed massa velit faucibus vitae. Sed adipiscing egestas amet scelerisque. At aenean at sed commodo consectetur volutpat. 
+                Venenatis tristique facilisi accumsan vitae amet morbi justo eu aliquam. 
+                Sed tellus id placerat ipsum felis mauris eu convallis. 
+                Ac scelerisque urna id at lectus sed amet nunc. 
+                Duis velit sit consectetur lacus aenean accumsan amet aliquam. Hac eu neque sodales vitae commodo. Natoque morbi tortor aliquam nisi felis. Consectetur viverra sagittis nulla dictum scelerisque.
+            </p>
+        </div>
+        <div className='facilities pt-5 mb-3'>
+            <h3 className='text-primary-dark'>Facilities</h3>
+            <div className="d-flex align-items-center pt-4">
+                <Icon
+                    path={mdiElevatorPassengerOutline}
+                    size={1.1}
+                    style={{ marginRight: '.7rem' }}
+                    className="text-primary"
+                />
+                <h3 className="text-md me-5">Elevator</h3>
+                <Icon
+                    path={mdiElevatorPassengerOutline}
+                    size={1.1}
+                    style={{ marginRight: '.7rem' }}
+                    className="text-primary"
+                />
+                <h3 className="text-md">Elevator</h3>
+            </div>
+            <div className="d-flex align-items-center pt-4">
+                <Icon
+                    path={mdiElevatorPassengerOutline}
+                    size={1.1}
+                    style={{ marginRight: '.7rem' }}
+                    className="text-primary"
+                />
+                <h3 className="text-md me-5">Elevator</h3>
+                <Icon
+                    path={mdiElevatorPassengerOutline}
+                    size={1.1}
+                    style={{ marginRight: '.7rem' }}
+                    className="text-primary"
+                />
+                <h3 className="text-md">Elevator</h3>
+            </div>
+            <div className="d-flex align-items-center pt-4">
+                <Icon
+                    path={mdiElevatorPassengerOutline}
+                    size={1.1}
+                    style={{ marginRight: '.7rem' }}
+                    className="text-primary"
+                />
+                <h3 className="text-md me-5">Elevator</h3>
+                <Icon
+                    path={mdiElevatorPassengerOutline}
+                    size={1.1}
+                    style={{ marginRight: '.7rem' }}
+                    className="text-primary"
+                />
+                <h3 className="text-md">Elevator</h3>
+            </div>
+            <div className="d-flex align-items-center pt-4">
+                <Icon
+                    path={mdiElevatorPassengerOutline}
+                    size={1.1}
+                    style={{ marginRight: '.7rem' }}
+                    className="text-primary"
+                />
+                <h3 className="text-md me-5">Elevator</h3>
+                <Icon
+                    path={mdiElevatorPassengerOutline}
+                    size={1.1}
+                    style={{ marginRight: '.7rem' }}
+                    className="text-primary"
+                />
+                <h3 className="text-md">Elevator</h3>
+            </div>
+            <div className="d-flex align-items-center pt-4">
+                <Icon
+                    path={mdiElevatorPassengerOutline}
+                    size={1.1}
+                    style={{ marginRight: '.7rem' }}
+                    className="text-primary"
+                />
+                <h3 className="text-md me-5">Elevator</h3>
+                <Icon
+                    path={mdiElevatorPassengerOutline}
+                    size={1.1}
+                    style={{ marginRight: '.7rem' }}
+                    className="text-primary"
+                />
+                <h3 className="text-md">Elevator</h3>
+            </div>
+        </div>
     </div>
+     
   )
 }
 
