@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import buildings from './../../../assets/img/building-dashboard.png';
+import { useNavigate } from 'react-router-dom';
 
 const Buildings = () => {
+  const navigate = useNavigate();
+
   return (
     <div>
       <div className="mb-2">
@@ -20,12 +23,12 @@ const Buildings = () => {
       <div className="row px-2">
         <div className="col-12 col-md-7 col-lg-8">
           <div className="row mb-3">
-            <div className="col-6 p-3">
+            <div className="col-md-6 col-lg-6 p-3">
               <div className="shadow-sm row rounded p-2 align-items-center">
-                <div className="col-4">
+                <div className="col-md-4 col-lg-4">
                   <img src={buildings} className="w-100" alt="buildings" />
                 </div>
-                <div className="col-8">
+                <div className="col-md-8 col-lg-8">
                   <h3 className="fw-bold">750</h3>
                   <span className="text-sm ">Total Buildings</span>
                   <div className="justify-content-between rounded d-flex flex-column flex-lg-row">
@@ -45,21 +48,21 @@ const Buildings = () => {
                 </div>
               </div>
             </div>
-            <div className="col-6 d-flex flex-column pt-3 p-5">
-              <div className="col-12 align-items-center d-flex flex-lg-row">
-                <div className="col-3 me-5 shadow-sm row rounded w-15 h-6">
+            <div className="col-md-6 col-lg-6 d-flex flex-column pt-3 p-5">
+              <div className="col-md-12 col-lg-12 align-items-center d-flex flex-lg-row">
+                <div className="col-md-3 col-lg-3 me-5 shadow-sm row rounded w-15 h-6">
                   <h3 className="fw-bold text-md">55</h3>
                   <span className="text-sm">Jakarta Pusat</span>
                 </div>
-                <div className="col-3 me-5 shadow-sm row rounded w-15 h-6">
+                <div className="col-md-3 col-lg-3 me-5 shadow-sm row rounded w-15 h-6">
                   <h3 className="fw-bold text-md">45</h3>
                   <span className="text-sm">Jakarta Timur</span>
                 </div>
-                <div className="col-3 me-5 shadow-sm row rounded w-15 h-6">
+                <div className="col-md-3 col-lg-3 me-5 shadow-sm row rounded w-15 h-6">
                   <h3 className="fw-bold text-md">67</h3>
                   <span className="text-sm">Jakarta Selatan</span>
                 </div>
-                <div className="col-3 me-5 shadow-sm row rounded w-15 h-6">
+                <div className="col-md-3 col-lg-3 me-5 shadow-sm row rounded w-15 h-6">
                   <h3 className="fw-bold text-md">5</h3>
                   <span className="text-sm">Jakarta Utara</span>
                 </div>
@@ -95,7 +98,11 @@ const Buildings = () => {
             </thead>
             <tbody>
               <tr>
-                <td>
+                <td
+                  onClick={() => {
+                    navigate('/admin/detail-building/:id');
+                  }}
+                >
                   <h1 className="text-primary-dark text-sm">
                     <img
                       src="https://tse3.mm.bing.net/th?id=OIP.cDqgnRzfbofSK9VVDpRSeQHaHa&pid=Api&P=0"

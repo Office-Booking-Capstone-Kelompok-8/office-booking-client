@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import AddBuilding from '../pages/admin/buildings/AddBuilding';
 import Buildings from '../pages/admin/buildings/Buildings';
 import UpdateBuilding from '../pages/admin/buildings/UpdateBuilding';
+import DetailBuilding from '../pages/admin/buildings/DetailBuilding';
 import AddCustomer from '../pages/admin/customers/AddCustomer';
 import Customers from '../pages/admin/customers/Customers';
 import UpdateCustomer from '../pages/admin/customers/UpdateCustomer';
