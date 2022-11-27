@@ -11,7 +11,7 @@ import {
 
 const DetailBuilding = () => {
   return (
-    <div>
+    <div >
         <div className="row mb-4">
             <h2>Building Detail</h2>
             <div className="col-md-6 col-lg-6 text-gray-dark">
@@ -37,7 +37,7 @@ const DetailBuilding = () => {
                                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
                             </div>
                             <div className="carousel-inner" style={{borderRadius: 12}}>
-                                <div className="carousel-item active">
+                                <div className="carousel-item active" style={{zIndex: -1}}>
                                     <img src="https://rupacita.com/wp-content/uploads/2020/11/connecticut-innovations-offices-new-haven-2-1536x919-1.jpg" className="d-block w-100" alt="office"/>
                                 </div>
                                 <div className="carousel-item">
