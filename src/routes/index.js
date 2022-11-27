@@ -30,7 +30,7 @@ export default function SetupRoute() {
         <Route path="reservations" element={<Reservations />} />
         <Route path="add-reservation" element={<AddReservation />} />
         <Route path="edit-reservation" element={<UpdateReservation />} />
-        {/* Buildings */}
+        {/* Customer */}
         <Route path="customers" element={<Customers />} />
         <Route path="add-customer" element={<AddCustomer />} />
         <Route path="edit-customer" element={<UpdateCustomer />} />
