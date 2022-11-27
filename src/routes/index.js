@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import AddBuilding from '../pages/admin/buildings/AddBuilding';
 import Buildings from '../pages/admin/buildings/Buildings';
 import UpdateBuilding from '../pages/admin/buildings/UpdateBuilding';
+import DetailBuilding from '../pages/admin/buildings/DetailBuilding';
 import AddCustomer from '../pages/admin/customers/AddCustomer';
 import Customers from '../pages/admin/customers/Customers';
 import UpdateCustomer from '../pages/admin/customers/UpdateCustomer';
@@ -23,7 +24,8 @@ export default function SetupRoute() {
         {/* Buildings */}
         <Route path="buildings" element={<Buildings />} />
         <Route path="add-building" element={<AddBuilding />} />
-        <Route path="edit-building" element={<UpdateBuilding />} />
+        <Route path="edit-building/:id" element={<UpdateBuilding />} />
+        <Route path="detail-building/:id" element={<DetailBuilding />} />
         {/* Reservation */}
         <Route path="reservations" element={<Reservations />} />
         <Route path="add-reservation" element={<AddReservation />} />
