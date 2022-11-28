@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import reservation from './../../../assets/img/reservation.png';
 import Icon from '@mdi/react';
@@ -7,9 +7,13 @@ import {
   mdiProgressCheck,
   mdiCloseCircleOutline,
   mdiAccountCreditCardOutline,
+  mdiDeleteOutline
 } from '@mdi/js';
 
 const Reservations = () => {
+  const [isActive, setIsActive] = useState(false);
+  const [selected, setSelected] = useState("");
+
   return (
     <div>
       <div className="row px-2">
@@ -92,9 +96,10 @@ const Reservations = () => {
               <tr>
                 <th className="text-sm text-gray-dark">Building Name</th>
                 <th className="text-sm text-gray-dark">Email</th>
-                <th className="text-sm text-gray-dark">Date/Time</th>
-                <th className="text-sm text-gray-dark">Booking</th>
+                <th className="text-sm text-gray-dark">Start Date</th>
+                <th className="text-sm text-gray-dark">End Date</th>
                 <th className="text-sm text-gray-dark">Price</th>
+                <th className="text-sm text-gray-dark">Update Status</th>
                 <th className="text-sm text-gray-dark"></th>
               </tr>
             </thead>
@@ -113,24 +118,120 @@ const Reservations = () => {
                 <td className="text-primary-dark text-sm">
                   panjangmail@gmail.com
                 </td>
-                <td>
-                  <h1 className="text-primary-dark text-sm">22/10/11</h1>
-                  <h1 className="text-primary-dark text-sm">13:10:11</h1>
+                <td className="text-primary-dark text-sm">
+                  22/10/11
                 </td>
-                <td className="text-primary-dark text-sm">22/10/11</td>
-                <td className="text-primary-dark text-sm">Rp 11.350.000</td>
+                <td className="text-primary-dark text-sm">
+                  22/10/11
+                </td>
+                <td className="text-primary-dark text-sm">
+                  Rp 11.350.000
+                </td>
                 <td>
-                  <Link
-                    to="/"
-                    className="btn bg-success text-sm me-4 text-white px-4 py-2"
-                  >
-                    Update
-                  </Link>
+                  <div className="dropdown">
+                    <div 
+                      className="dropdown-btn dropdown-toggle" 
+                      onClick={(e) => setIsActive(!isActive)}>
+                      {selected}
+                    </div>
+                    {isActive && (
+                      <div className="dropdown-content" 
+                        onClick={e => setSelected(e.target.textContent)}>
+                          <div className="dropdown-item">
+                            <div className="text-warning d-flex align-items-center">
+                              <Icon
+                                path={mdiClockTimeFourOutline}
+                                size={0.8}
+                                style={{ marginRight: '.7rem' }}
+                                className="text-warning text-sm"
+                              />pending
+                            </div>
+                          </div>
+                          <div className="dropdown-item">
+                            <div className="text-success d-flex align-items-center">
+                              <Icon
+                                path={mdiProgressCheck}
+                                size={0.8}
+                                style={{ marginRight: '.7rem' }}
+                              />accept
+                            </div>
+                          </div>
+                          <div className="dropdown-item">
+                            <div className="text-error d-flex align-items-center">
+                              <Icon
+                                path={mdiCloseCircleOutline}
+                                size={0.8}
+                                style={{ marginRight: '.7rem' }}
+                              />reject
+                            </div>
+                          </div>
+                          <div className="dropdown-item">
+                            <div className="text-primary d-flex align-items-center">
+                              <Icon
+                                path={mdiAccountCreditCardOutline}
+                                size={0.8}
+                                style={{ marginRight: '.7rem' }}
+                              />waiting payment
+                            </div>
+                          </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* <select id="disabledSelect" className="form-select">
+                    <option>
+                      <div className="text-warning d-flex align-items-center">
+                        <Icon
+                          path={mdiClockTimeFourOutline}
+                          size={1}
+                          style={{ marginRight: '.7rem' }}
+                        />
+                        <span className="text-gray-dark text-sm">pending</span>
+                      </div>
+                    </option>
+                    <option>
+                      <div className="text-success d-flex align-items-center">
+                        <Icon
+                          path={mdiProgressCheck}
+                          size={1}
+                          style={{ marginRight: '.7rem' }}
+                        />
+                        <span className="text-gray-dark text-sm">accepted</span>
+                      </div>
+                    </option>
+                    <option>
+                      <div className="text-error d-flex align-items-center">
+                        <Icon
+                          path={mdiCloseCircleOutline}
+                          size={1}
+                          style={{ marginRight: '.7rem' }}
+                        />
+                        <span className="text-gray-dark text-sm">reject</span>
+                      </div>
+                    </option>
+                    <option>
+                      <div className="text-primary d-flex align-items-center">
+                        <Icon
+                          path={mdiAccountCreditCardOutline}
+                          size={1}
+                          style={{ marginRight: '.7rem' }}
+                        />
+                        <span className="text-gray-dark text-sm">
+                          waiting payment
+                        </span>
+                      </div>
+                    </option>
+                  </select> */}
+                </td>
+                <td>
                   <button
                     to="/"
-                    className="btn bg-error text-sm me-4 text-white px-4 py-2"
-                  >
-                    Delete
+                    className="btn bg-error text-sm me-4 text-white">
+                      <Icon
+                          path={mdiDeleteOutline}
+                          size={1}
+                          style={{ marginRight: '.2rem' }}
+                        />
                   </button>
                 </td>
               </tr>

@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import buildings from './../../../assets/img/building-dashboard.png';
 import { useNavigate } from 'react-router-dom';
+import Icon from '@mdi/react';
+import { mdiDeleteOutline } from '@mdi/js';
 
 const Buildings = () => {
   const navigate = useNavigate();
@@ -100,7 +102,7 @@ const Buildings = () => {
               <tr>
                 <td
                   onClick={() => {
-                    navigate('/admin/detail-building/:id');
+                    navigate('/admin/buildings/detail-building/1');
                   }}
                 >
                   <h1 className="text-primary-dark text-sm">
@@ -132,83 +134,12 @@ const Buildings = () => {
                   </Link>
                   <button
                     to="/"
-                    className="btn bg-error text-sm me-4 text-white px-4 py-2"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <h1 className="text-primary-dark text-sm">
-                    <img
-                      src="https://tse3.mm.bing.net/th?id=OIP.cDqgnRzfbofSK9VVDpRSeQHaHa&pid=Api&P=0"
-                      alt="name"
-                      className="img-building 4 h-4 m-2"
-                    />
-                    Melati meeting room
-                  </h1>
-                </td>
-                <td className="text-primary-dark text-sm">Jakarta Selatan</td>
-                <td className="text-primary-dark text-sm">300m2</td>
-                <td className="text-primary-dark text-sm">45 people</td>
-                <td>
-                  <h1 className="text-primary-dark text-sm">
-                    Rp 350.000 /month
-                  </h1>
-                  <h1 className="text-primary-dark text-sm">
-                    Rp 11.350.000 /year
-                  </h1>
-                </td>
-                <td>
-                  <Link
-                    to="/"
-                    className="btn bg-success text-sm me-4 text-white px-4 py-2"
-                  >
-                    Update
-                  </Link>
-                  <button
-                    to="/"
-                    className="btn bg-error text-sm me-4 text-white px-4 py-2"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <h1 className="text-primary-dark text-sm">
-                    <img
-                      src="https://tse3.mm.bing.net/th?id=OIP.cDqgnRzfbofSK9VVDpRSeQHaHa&pid=Api&P=0"
-                      alt="name"
-                      className="img-building 4 h-4 m-2"
-                    />
-                    Melati meeting room
-                  </h1>
-                </td>
-                <td className="text-primary-dark text-sm">Jakarta Selatan</td>
-                <td className="text-primary-dark text-sm">300m2</td>
-                <td className="text-primary-dark text-sm">45 people</td>
-                <td>
-                  <h1 className="text-primary-dark text-sm">
-                    Rp 350.000 /month
-                  </h1>
-                  <h1 className="text-primary-dark text-sm">
-                    Rp 11.350.000 /year
-                  </h1>
-                </td>
-                <td>
-                  <Link
-                    to="/"
-                    className="btn bg-success text-sm me-4 text-white px-4 py-2"
-                  >
-                    Update
-                  </Link>
-                  <button
-                    to="/"
-                    className="btn bg-error text-sm me-4 text-white px-4 py-2"
-                  >
-                    Delete
+                    className="btn bg-error text-sm me-4 text-white">
+                    <Icon
+                        path={mdiDeleteOutline}
+                        size={1}
+                        style={{ marginRight: '.2rem' }}
+                      />
                   </button>
                 </td>
               </tr>

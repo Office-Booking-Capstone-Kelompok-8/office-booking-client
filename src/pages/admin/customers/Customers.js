@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import customers from './../../../assets/img/customers.png';
+import Icon from '@mdi/react';
+import { mdiDeleteOutline } from '@mdi/js';
 
 const Customers = () => {
   return (
@@ -88,65 +90,12 @@ const Customers = () => {
                   </Link>
                   <button
                     to="/"
-                    className="btn bg-error text-sm me-4 text-white px-4 py-2"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <h1 className="text-primary-dark text-sm">
-                    <img
-                      src="https://tse3.mm.bing.net/th?id=OIP.cDqgnRzfbofSK9VVDpRSeQHaHa&pid=Api&P=0"
-                      alt="name"
-                      className="img-building 4 h-4 m-2"
-                    />
-                    Ningsih Widiyati
-                  </h1>
-                </td>
-                <td className="text-primary-dark text-sm">mail@gmail.com</td>
-                <td className="text-primary-dark text-sm">0858462598657</td>
-                <td>
-                  <Link
-                    to="/"
-                    className="btn bg-success text-sm me-4 text-white px-4 py-2"
-                  >
-                    Update
-                  </Link>
-                  <button
-                    to="/"
-                    className="btn bg-error text-sm me-4 text-white px-4 py-2"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <h1 className="text-primary-dark text-sm">
-                    <img
-                      src="https://tse3.mm.bing.net/th?id=OIP.cDqgnRzfbofSK9VVDpRSeQHaHa&pid=Api&P=0"
-                      alt="name"
-                      className="img-building 4 h-4 m-2"
-                    />
-                    Ningsih Widiyati
-                  </h1>
-                </td>
-                <td className="text-primary-dark text-sm">mail@gmail.com</td>
-                <td className="text-primary-dark text-sm">0858462598657</td>
-                <td>
-                  <Link
-                    to="/"
-                    className="btn bg-success text-sm me-4 text-white px-4 py-2"
-                  >
-                    Update
-                  </Link>
-                  <button
-                    to="/"
-                    className="btn bg-error text-sm me-4 text-white px-4 py-2"
-                  >
-                    Delete
+                    className="btn bg-error text-sm me-4 text-white">
+                    <Icon
+                        path={mdiDeleteOutline}
+                        size={1}
+                        style={{ marginRight: '.2rem' }}
+                      />
                   </button>
                 </td>
               </tr>

@@ -29,7 +29,7 @@ export default function SetupRoute() {
           <Route index element={<Buildings />} />
           <Route path="add-building" element={<AddBuilding />} />
           <Route path="edit-building/:id" element={<UpdateBuilding />} />
-          <Route path=":id" element={<DetailBuilding />} />
+          <Route path="detail-building/:id" element={<DetailBuilding />} />
         </Route>
         {/* Reservation */}
         <Route path="reservations" element={<Reservations />} />
