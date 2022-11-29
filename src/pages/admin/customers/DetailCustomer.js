@@ -6,6 +6,7 @@ import {
   mdiPhoneOutline,
   mdiEmoticonOutline
 } from '@mdi/js';
+import emptybox from './../../../assets/img/emptybox.png';
 
 const DetailCustomer = () => {
   return (
@@ -85,46 +86,57 @@ const DetailCustomer = () => {
                 <div className="card-body">
                     <table className="table">
                         <thead>
-                        <tr>
-                            <th className="text-sm text-gray-dark">Building Name</th>
-                            <th className="text-sm text-gray-dark">Email</th>
-                            <th className="text-sm text-gray-dark">Start Date</th>
-                            <th className="text-sm text-gray-dark">End Date</th>
-                            <th className="text-sm text-gray-dark">Price</th>
-                            <th className="text-sm text-gray-dark">Update Status</th>
-                        </tr>
+                            <tr>
+                                <th className="text-sm text-gray-dark">Building Name</th>
+                                <th className="text-sm text-gray-dark">Email</th>
+                                <th className="text-sm text-gray-dark">Start Date</th>
+                                <th className="text-sm text-gray-dark">End Date</th>
+                                <th className="text-sm text-gray-dark">Price</th>
+                                <th className="text-sm text-gray-dark">Update Status</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>
-                            <h1 className="text-primary-dark text-sm">
-                                <img
-                                src="https://rupacita.com/wp-content/uploads/2020/11/connecticut-innovations-offices-new-haven-2-1536x919-1.jpg"
-                                alt="name"
-                                className="img-building 4 h-4 m-2"
-                                />
-                                Melati meeting room
-                            </h1>
-                            </td>
-                            <td className="text-primary-dark text-sm">
-                                panjangmail@gmail.com
-                            </td>
-                            <td className="text-primary-dark text-sm">
-                                22/10/11
-                            </td>
-                            <td className="text-primary-dark text-sm">
-                                22/10/11
-                            </td>
-                            <td className="text-primary-dark text-sm">
-                                Rp 11.350.000
-                            </td>
-                            <td>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>
+                                <h1 className="text-primary-dark text-sm">
+                                    <img
+                                    src="https://rupacita.com/wp-content/uploads/2020/11/connecticut-innovations-offices-new-haven-2-1536x919-1.jpg"
+                                    alt="name"
+                                    className="img-building 4 h-4 m-2"
+                                    />
+                                    Melati meeting room
+                                </h1>
+                                </td>
+                                <td className="text-primary-dark text-sm">
+                                    panjangmail@gmail.com
+                                </td>
+                                <td className="text-primary-dark text-sm">
+                                    22/10/11
+                                </td>
+                                <td className="text-primary-dark text-sm">
+                                    22/10/11
+                                </td>
+                                <td className="text-primary-dark text-sm">
+                                    Rp 11.350.000
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
+            {
+                <>  
+                    <div className='justify-content-center pt-2'>
+                        <img src={emptybox}  
+                        className="mx-auto d-block pt-5 w-10" 
+                        alt="notfound"
+                        />
+                        <p className='text-gray-dark text-md text-center pt-2'>Nothing to see here</p>
+                    </div>  
+                </>
+            }
         </div>
     </div>
   )
