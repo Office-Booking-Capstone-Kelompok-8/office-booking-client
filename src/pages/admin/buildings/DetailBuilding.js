@@ -15,7 +15,7 @@ const DetailBuilding = () => {
       <div className="row mb-4">
         <div className="col-md-12 d-flex justify-content-end">
           <Link
-            to="/admin/buildings/edit-building"
+            to="/admin/buildings/edit-building/1"
             className="btn bg-success text-white text-sm me-4 px-5 py-2"
           >
             Update

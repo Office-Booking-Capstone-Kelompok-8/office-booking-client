@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import customers from './../../../assets/img/customers.png';
 import Icon from '@mdi/react';
 import { mdiDeleteOutline } from '@mdi/js';
+import { useNavigate } from 'react-router-dom';
 
 const Customers = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <div className="mb-2">
@@ -69,7 +71,9 @@ const Customers = () => {
             </thead>
             <tbody>
               <tr>
-                <td>
+                <td  onClick={() => {
+                    navigate('/admin/customers/detail-customer/1');
+                  }}>
                   <h1 className="text-primary-dark text-sm">
                     <img
                       src="https://tse3.mm.bing.net/th?id=OIP.cDqgnRzfbofSK9VVDpRSeQHaHa&pid=Api&P=0"

@@ -7,6 +7,7 @@ import DetailBuilding from '../pages/admin/buildings/DetailBuilding';
 import AddCustomer from '../pages/admin/customers/AddCustomer';
 import Customers from '../pages/admin/customers/Customers';
 import UpdateCustomer from '../pages/admin/customers/UpdateCustomer';
+import DetailCustomer from '../pages/admin/customers/DetailCustomer';
 import Dashboard from '../pages/admin/dashboard/Dashboard';
 import LayoutAdmin from '../pages/admin/LayoutAdmin';
 import Reservations from '../pages/admin/reservations/Reservations';
@@ -38,6 +39,7 @@ export default function SetupRoute() {
           <Route index element={<Customers />} />
           <Route path="add-customer" element={<AddCustomer />} />
           <Route path="edit-customer" element={<UpdateCustomer />} />
+          <Route path="detail-customer/:id" element={<DetailCustomer />} />
         </Route>
       </Route>
 
