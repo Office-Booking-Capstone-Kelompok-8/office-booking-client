@@ -113,6 +113,7 @@ label.img-upload {
 .dropdown .dropdown-content .dropdown-item{
   cursor: pointer;
   transition: all 0.2s;
+  padding: 2px;
 }
 .dropdown .dropdown-content .dropdown-item:hover{
   cursor: pointer;

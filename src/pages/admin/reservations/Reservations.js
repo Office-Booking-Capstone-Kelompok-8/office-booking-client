@@ -9,8 +9,10 @@ import {
   mdiAccountCreditCardOutline,
   mdiDeleteOutline
 } from '@mdi/js';
+import { useNavigate } from 'react-router-dom';
 
 const Reservations = () => {
+  const navigate = useNavigate();
   const [isActive, setIsActive] = useState(false);
   const [selected, setSelected] = useState("");
 
@@ -105,7 +107,9 @@ const Reservations = () => {
             </thead>
             <tbody>
               <tr>
-                <td>
+                <td onClick={() => {
+                    navigate('/admin/reservations/detail-reservation/:id');
+                  }}>
                   <h1 className="text-primary-dark text-sm">
                     <img
                       src="https://tse3.mm.bing.net/th?id=OIP.cDqgnRzfbofSK9VVDpRSeQHaHa&pid=Api&P=0"
@@ -136,7 +140,9 @@ const Reservations = () => {
                     </div>
                     {isActive && (
                       <div className="dropdown-content" 
-                        onClick={e => setSelected(e.target.textContent)}>
+                        onClick={e => {
+                        setSelected(e.target.textContent)
+                        setIsActive(false)}}>
                           <div className="dropdown-item">
                             <div className="text-warning d-flex align-items-center">
                               <Icon
