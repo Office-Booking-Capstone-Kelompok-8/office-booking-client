@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import customers from './../../../assets/img/customers.png';
 import Icon from '@mdi/react';
 import { mdiDeleteOutline } from '@mdi/js';
 import { useNavigate } from 'react-router-dom';
@@ -18,37 +17,6 @@ const Admins = () => {
             >
               Add admin
             </Link>
-          </div>
-        </div>
-      </div>
-      <div className="row px-2">
-        <div className="col-12 col-md-7 col-lg-8">
-          <div className="row mb-3">
-            <div className="col-6 p-3">
-              <div className="shadow-sm row rounded p-2 align-items-center">
-                <div className="col-4">
-                  <img src={customers} className="w-100" alt="customers" />
-                </div>
-                <div className="col-8">
-                  <h3 className="fw-bold">12.000</h3>
-                  <span className="text-sm ">Total Admins</span>
-                  <div className="justify-content-between rounded d-flex flex-column flex-lg-row">
-                    <h3
-                      className="text-primary text-sm px-2 py-2"
-                      style={{
-                        background: 'rgba(202, 222, 251, 0.6)',
-                        borderRadius: 9,
-                      }}
-                    >
-                      + 100
-                    </h3>
-                    <span className="text-sm text-gray-dark me-4 pt-2">
-                      new admins this month
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
