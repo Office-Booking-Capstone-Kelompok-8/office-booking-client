@@ -99,11 +99,25 @@ const Sidebar = () => {
               <div className="dropdown-menu" >
                 <div className='nav-link__admin dropdown-item'>
                   <NavLink className="sidenav_link d-block d-block d-flex justify-content-center justify-content-md-start align-items-center" to="/admin/customers">
+                    <div>
+                      <Icon
+                        path={mdiAccountMultipleOutline}
+                        title="User Profile"
+                        className="m-3 w-2"
+                      />
+                    </div>
                     <span className="d-none d-md-inline">Customers</span>
                   </NavLink>
                 </div>
                 <div className='nav-link__admin dropdown-item'>
                   <NavLink className="sidenav_link d-block d-block d-flex justify-content-center justify-content-md-start align-items-center" to="/admin/admins">
+                    <div>
+                      <Icon
+                        path={mdiAccountMultipleOutline}
+                        title="User Profile"
+                        className="m-3 w-2"
+                      />
+                    </div>
                     <span className="d-none d-md-inline">Admins</span>
                   </NavLink>
                 </div>
