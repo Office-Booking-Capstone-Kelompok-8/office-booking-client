@@ -4,7 +4,8 @@ import Icon from '@mdi/react';
 import {
   mdiAt,
   mdiPhoneOutline,
-  mdiEmoticonOutline
+  mdiEmoticonOutline,
+  mdiClockTimeFourOutline
 } from '@mdi/js';
 import emptybox from './../../../assets/img/emptybox.png';
 
@@ -120,6 +121,14 @@ const DetailCustomer = () => {
                                     Rp 11.350.000
                                 </td>
                                 <td>
+                                    <div className="text-warning d-flex align-items-center">
+                                        <Icon
+                                            path={mdiClockTimeFourOutline}
+                                            size={0.8}
+                                            style={{ marginRight: '.7rem' }}
+                                            className="text-warning text-sm"
+                                        />pending
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>

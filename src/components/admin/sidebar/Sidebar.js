@@ -70,7 +70,7 @@ const Sidebar = () => {
             </div>
             <span className="d-none d-md-inline">Reservations</span>
           </NavLink>
-          <NavLink
+          {/* <NavLink
             to="/admin/customers"
             className="nav-link__admin d-block d-block d-flex justify-content-center justify-content-md-start align-items-center"
           >
@@ -82,7 +82,50 @@ const Sidebar = () => {
               />
             </div>
             <span className="d-none d-md-inline">Customers</span>
-          </NavLink>
+          </NavLink> */}
+
+          <div className='nav-item dropdown' >
+            <div className='sidenav-item'>
+              <NavLink className="nav-link__admin dropdown-toggle d-block d-block d-flex justify-content-center justify-content-md-start align-items-center" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+                <div>
+                  <Icon
+                    path={mdiAccountMultipleOutline}
+                    title="User Profile"
+                    className="m-3 w-2"
+                  />
+                  <span className="d-none d-md-inline">Users</span>
+                </div>
+              </NavLink>
+              <div className="dropdown-menu" >
+                <div className='nav-link__admin dropdown-item'>
+                  <NavLink className="sidenav_link d-block d-block d-flex justify-content-center justify-content-md-start align-items-center" to="/admin/customers">
+                    <div>
+                      <Icon
+                        path={mdiAccountMultipleOutline}
+                        title="User Profile"
+                        className="m-3 w-2"
+                      />
+                    </div>
+                    <span className="d-none d-md-inline">Customers</span>
+                  </NavLink>
+                </div>
+                <div className='nav-link__admin dropdown-item'>
+                  <NavLink className="sidenav_link d-block d-block d-flex justify-content-center justify-content-md-start align-items-center" to="/admin/admins">
+                    <div>
+                      <Icon
+                        path={mdiAccountMultipleOutline}
+                        title="User Profile"
+                        className="m-3 w-2"
+                      />
+                    </div>
+                    <span className="d-none d-md-inline">Admins</span>
+                  </NavLink>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
           {/* <li className="nav-item d-block">
             <NavLink to="/" className="nav-link__admin">
               <Icon

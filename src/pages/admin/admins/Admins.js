@@ -5,7 +5,7 @@ import Icon from '@mdi/react';
 import { mdiDeleteOutline } from '@mdi/js';
 import { useNavigate } from 'react-router-dom';
 
-const Customers = () => {
+const Admins = () => {
   const navigate = useNavigate();
   return (
     <div>
@@ -13,10 +13,10 @@ const Customers = () => {
         <div className="row mb-3">
           <div className="col-md-12 d-flex justify-content-end">
             <Link
-              to="/admin/customers/add-customer"
+              to="/admin/admins/add-admin"
               className="btn bg-primary text-white text-sm me-5 px-5 py-2"
             >
-              Add customers
+              Add admin
             </Link>
           </div>
         </div>
@@ -31,7 +31,7 @@ const Customers = () => {
                 </div>
                 <div className="col-8">
                   <h3 className="fw-bold">12.000</h3>
-                  <span className="text-sm ">Total Customers</span>
+                  <span className="text-sm ">Total Admins</span>
                   <div className="justify-content-between rounded d-flex flex-column flex-lg-row">
                     <h3
                       className="text-primary text-sm px-2 py-2"
@@ -43,7 +43,7 @@ const Customers = () => {
                       + 100
                     </h3>
                     <span className="text-sm text-gray-dark me-4 pt-2">
-                      new customers this month
+                      new admins this month
                     </span>
                   </div>
                 </div>
@@ -72,7 +72,7 @@ const Customers = () => {
             <tbody>
               <tr>
                 <td  onClick={() => {
-                    navigate('/admin/customers/detail-customer/1');
+                    navigate('/admin/admins/detail-admin/1');
                   }}>
                   <h1 className="text-primary-dark text-sm">
                     <img
@@ -87,7 +87,7 @@ const Customers = () => {
                 <td className="text-primary-dark text-sm">0858462598657</td>
                 <td>
                   <Link
-                    to="/admin/customers/edit-customer/1"
+                    to="/admin/admins/edit-admin/1"
                     className="btn bg-success text-sm me-4 text-white px-4 py-2"
                   >
                     Update
@@ -140,4 +140,4 @@ const Customers = () => {
   );
 };
 
-export default Customers;
+export default Admins;

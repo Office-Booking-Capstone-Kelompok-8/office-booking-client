@@ -17,6 +17,10 @@ import LoginAdmin from '../pages/auth/LoginAdmin';
 import LandingPage from '../pages/enduser/LandingPage';
 import NotFound from '../pages/error/NotFound';
 import ServerUnavailable from '../pages/error/ServerUnavailable';
+import Admins from '../pages/admin/admins/Admins';
+import AddAdmin from '../pages/admin/admins/AddAdmin';
+import UpdateAdmin from '../pages/admin/admins/UpdateAdmin';
+import DetailAdmin from '../pages/admin/admins/DetailAdmin';
 
 export default function SetupRoute() {
   return (
@@ -38,13 +42,19 @@ export default function SetupRoute() {
           <Route index element={<Reservations />} />
           <Route path="detail-reservation/:id" element={<DetailReservation />} />
         </Route>
-        
         {/* Customer */}
         <Route path="customers">
           <Route index element={<Customers />} />
           <Route path="add-customer" element={<AddCustomer />} />
-          <Route path="edit-customer" element={<UpdateCustomer />} />
+          <Route path="edit-customer/:id" element={<UpdateCustomer />} />
           <Route path="detail-customer/:id" element={<DetailCustomer />} />
+        </Route>
+        {/* Admins */}
+        <Route path="admins">
+          <Route index element={<Admins />} />
+          <Route path="add-admin" element={<AddAdmin />} />
+          <Route path="edit-admin/:id" element={<UpdateAdmin />} />
+          <Route path="detail-admin/:id" element={<DetailAdmin />} />
         </Route>
       </Route>
 
