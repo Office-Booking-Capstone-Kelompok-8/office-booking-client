@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import customers from './../../../assets/img/customers.png';
-import Icon from '@mdi/react';
-import { mdiDeleteOutline } from '@mdi/js';
 import { useNavigate } from 'react-router-dom';
 
 const Customers = () => {
@@ -94,12 +92,8 @@ const Customers = () => {
                   </Link>
                   <button
                     to="/"
-                    className="btn bg-error text-sm me-4 text-white">
-                    <Icon
-                        path={mdiDeleteOutline}
-                        size={1}
-                        style={{ marginRight: '.2rem' }}
-                      />
+                    className="btn bg-error text-sm me-4 text-white px-4 py-2">
+                    Delete
                   </button>
                 </td>
               </tr>

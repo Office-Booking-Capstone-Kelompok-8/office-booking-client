@@ -6,8 +6,7 @@ import {
   mdiClockTimeFourOutline,
   mdiProgressCheck,
   mdiCloseCircleOutline,
-  mdiAccountCreditCardOutline,
-  mdiDeleteOutline
+  mdiAccountCreditCardOutline
 } from '@mdi/js';
 import { useNavigate } from 'react-router-dom';
 
@@ -232,12 +231,8 @@ const Reservations = () => {
                 <td>
                   <button
                     to="/"
-                    className="btn bg-error text-sm me-4 text-white">
-                      <Icon
-                          path={mdiDeleteOutline}
-                          size={1}
-                          style={{ marginRight: '.2rem' }}
-                        />
+                    className="btn bg-error text-sm me-4 text-white px-4 py-2">
+                    Delete
                   </button>
                 </td>
               </tr>
