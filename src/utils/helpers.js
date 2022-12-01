@@ -30,3 +30,16 @@ export const notifyError = (message) => {
     theme: 'colored',
   });
 };
+
+export const notifySuccess = (message) => {
+  toast.success(message, {
+    position: 'top-center',
+    autoClose: 3000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: false,
+    progress: undefined,
+    theme: 'colored',
+  });
+};

@@ -1,12 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import { useGetUsersQuery } from '../../../store/users/usersApiSlice';
 import customers from './../../../assets/img/customers.png';
+import CustomerItem from './CustomerItem';
 
 const Customers = () => {
-  const { data: users, isLoading } = useGetUsersQuery({ role: 2 });
+  const { data: users, isLoading } = useGetUsersQuery({ role: 1 });
   return (
     <div>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={false}
+        theme="colored"
+      />
       <div className="row px-2">
         <div className="row d-flex mb-3 justify-content-between">
           <div className="col-5 p-3">
@@ -75,34 +89,7 @@ const Customers = () => {
               </thead>
               <tbody>
                 {users?.data.map((user) => (
-                  <tr key={user?.id}>
-                    <td>
-                      <h1 className="text-primary-dark text-sm">
-                        <img
-                          src={user.picture}
-                          alt="name"
-                          className="img-building 4 h-4 m-2 rounded"
-                        />
-                        {user.name}
-                      </h1>
-                    </td>
-                    <td className="text-primary-dark text-sm">{user.email}</td>
-                    <td className="text-primary-dark text-sm">{user.phone}</td>
-                    <td>
-                      <Link
-                        to="/admin/customers/edit-customer"
-                        className="btn bg-success text-sm me-4 text-white px-4 py-2"
-                      >
-                        Update
-                      </Link>
-                      <button
-                        to="/"
-                        className="btn bg-error text-sm me-4 text-white px-4 py-2"
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
+                  <CustomerItem user={user} key={user?.id} />
                 ))}
               </tbody>
             </table>

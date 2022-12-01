@@ -1,11 +1,29 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { mdiCloseCircle, mdiFileImagePlus } from '@mdi/js';
 import Icon from '@mdi/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as yup from 'yup';
+import { useAddUsersMutation } from '../../../store/users/usersApiSlice';
+import { notifyError } from '../../../utils/helpers';
+import { ToastContainer } from 'react-toastify';
 
 const AddCustomer = () => {
   const [selectedPhotoProfile, setSelectedPhotoProfile] = useState('');
+  const [idCustomer, setIdCustomer] = useState('');
+  const [addCustomer, { isLoading, data: customer, isSuccess, error }] =
+    useAddUsersMutation();
+
+  useEffect(() => {
+    if (!isLoading) {
+      setIdCustomer(customer?.data?.uid);
+    }
+    if (error?.status === 409) {
+      notifyError('Email already used');
+    }
+  }, [isLoading]);
+
+  console.log(error);
 
   // CONFIG FORM
   const initialValues = {
@@ -27,173 +45,198 @@ const AddCustomer = () => {
       .required('confirm password is a required field'),
   });
 
-  const onSubmit = (values, props) => {
+  const onSubmit = async (values, props) => {
     console.log(values);
+
+    await addCustomer({
+      role: 'user',
+      name: values.name,
+      email: values.email,
+      phone: values.phone,
+      password: values.password,
+    });
+    if (isSuccess) {
+      props.resetForm();
+    }
   };
 
   return (
     <div>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={false}
+        theme="colored"
+      />
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
-        {(props) => (
-          <Form>
-            <div className="row mb-4">
-              <label className="col-3" htmlFor="nameBuilding">
-                Photo Profile <span className="text-error">*</span>
-              </label>
-              <div className="col-9">
-                <div className="d-flex justify-content-center">
-                  {selectedPhotoProfile && (
-                    <div className="img-wrap">
-                      <img
-                        src={selectedPhotoProfile}
-                        alt="images-preview"
-                        className="img-preview"
-                      />
-                      <div
-                        className="delete-img"
-                        onClick={() => setSelectedPhotoProfile('')}
-                      >
-                        <Icon path={mdiCloseCircle} />
+        {(props) => {
+          return (
+            <Form>
+              <div className="row mb-4">
+                <label className="col-3" htmlFor="nameBuilding">
+                  Photo Profile <span className="text-error">*</span>
+                </label>
+                <div className="col-9">
+                  <div className="d-flex justify-content-center">
+                    {selectedPhotoProfile && (
+                      <div className="img-wrap">
+                        <img
+                          src={selectedPhotoProfile}
+                          alt="images-preview"
+                          className="img-preview"
+                        />
+                        <div
+                          className="delete-img"
+                          onClick={() => setSelectedPhotoProfile('')}
+                        >
+                          <Icon path={mdiCloseCircle} />
+                        </div>
                       </div>
-                    </div>
-                  )}
-                  {Boolean(!selectedPhotoProfile) && (
-                    <label
-                      htmlFor="image"
-                      className="img-upload d-flex flex-column align-items-center text-gray-dark text-sm"
-                    >
-                      <Icon path={mdiFileImagePlus} size={1} />
-                      <span>Photo Profile</span>
-                      <input
-                        type="file"
-                        id="image"
-                        accept="image/*"
-                        onChange={(e) => {
-                          // get file
-                          const selectedImg = e.target.files[0];
-                          // add values images
-                          // props.setFieldValue('images', [{ index: 0 }]);
-                          const urlImg = URL.createObjectURL(selectedImg);
-                          setSelectedPhotoProfile(urlImg);
-                        }}
-                      />
-                    </label>
-                  )}
+                    )}
+                    {Boolean(!selectedPhotoProfile) && (
+                      <label
+                        htmlFor="image"
+                        className="img-upload d-flex flex-column align-items-center text-gray-dark text-sm"
+                      >
+                        <Icon path={mdiFileImagePlus} size={1} />
+                        <span>Photo Profile</span>
+                        <input
+                          type="file"
+                          id="image"
+                          accept="image/*"
+                          onChange={(e) => {
+                            // get file
+                            const selectedImg = e.target.files[0];
+                            // add values images
+                            // props.setFieldValue('images', [{ index: 0 }]);
+                            const urlImg = URL.createObjectURL(selectedImg);
+                            setSelectedPhotoProfile(urlImg);
+                          }}
+                        />
+                      </label>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-            {/* Email */}
-            <div className="row mb-4">
-              <label className="col-3" htmlFor="email">
-                Email <span className="text-error">*</span>
-              </label>
-              <div className="col-9">
-                <Field
-                  name="email"
-                  type="text"
-                  className="input-field"
-                  id="email"
-                  placeholder="Email"
-                />
-                <ErrorMessage name="email">
-                  {(err) => <span className="text-sm text-error">{err}</span>}
-                </ErrorMessage>
+              {/* Email */}
+              <div className="row mb-4">
+                <label className="col-3" htmlFor="email">
+                  Email <span className="text-error">*</span>
+                </label>
+                <div className="col-9">
+                  <Field
+                    name="email"
+                    type="text"
+                    className="input-field"
+                    id="email"
+                    placeholder="Email"
+                  />
+                  <ErrorMessage name="email">
+                    {(err) => <span className="text-sm text-error">{err}</span>}
+                  </ErrorMessage>
+                </div>
               </div>
-            </div>
 
-            {/* No Tlp */}
-            <div className="row mb-4">
-              <label className="col-3" htmlFor="noTlp">
-                Nomor Tlp <span className="text-error">*</span>
-              </label>
-              <div className="col-9">
-                <Field
-                  name="phone"
-                  type="text"
-                  className="input-field"
-                  id="noTlp"
-                  placeholder="No Tlp"
-                />
-                <ErrorMessage name="phone">
-                  {(err) => <span className="text-sm text-error">{err}</span>}
-                </ErrorMessage>
+              {/* No Tlp */}
+              <div className="row mb-4">
+                <label className="col-3" htmlFor="noTlp">
+                  Nomor Tlp <span className="text-error">*</span>
+                </label>
+                <div className="col-9">
+                  <Field
+                    name="phone"
+                    type="text"
+                    className="input-field"
+                    id="noTlp"
+                    placeholder="No Tlp"
+                  />
+                  <ErrorMessage name="phone">
+                    {(err) => <span className="text-sm text-error">{err}</span>}
+                  </ErrorMessage>
+                </div>
               </div>
-            </div>
-            {/* Name */}
-            <div className="row mb-4">
-              <label className="col-3" htmlFor="name">
-                Name <span className="text-error">*</span>
-              </label>
-              <div className="col-9">
-                <Field
-                  name="name"
-                  type="text"
-                  className="input-field"
-                  id="name"
-                  placeholder="Name"
-                />
-                <ErrorMessage name="name">
-                  {(err) => <span className="text-sm text-error">{err}</span>}
-                </ErrorMessage>
+              {/* Name */}
+              <div className="row mb-4">
+                <label className="col-3" htmlFor="name">
+                  Name <span className="text-error">*</span>
+                </label>
+                <div className="col-9">
+                  <Field
+                    name="name"
+                    type="text"
+                    className="input-field"
+                    id="name"
+                    placeholder="Name"
+                  />
+                  <ErrorMessage name="name">
+                    {(err) => <span className="text-sm text-error">{err}</span>}
+                  </ErrorMessage>
+                </div>
               </div>
-            </div>
-            {/* Password */}
-            <div className="row mb-4">
-              <label className="col-3" htmlFor="password">
-                Password <span className="text-error">*</span>
-              </label>
-              <div className="col-9">
-                <Field
-                  name="password"
-                  type="password"
-                  className="input-field"
-                  id="password"
-                  placeholder="Password"
-                />
-                <ErrorMessage name="password">
-                  {(err) => <span className="text-sm text-error">{err}</span>}
-                </ErrorMessage>
+              {/* Password */}
+              <div className="row mb-4">
+                <label className="col-3" htmlFor="password">
+                  Password <span className="text-error">*</span>
+                </label>
+                <div className="col-9">
+                  <Field
+                    name="password"
+                    type="password"
+                    className="input-field"
+                    id="password"
+                    placeholder="Password"
+                  />
+                  <ErrorMessage name="password">
+                    {(err) => <span className="text-sm text-error">{err}</span>}
+                  </ErrorMessage>
+                </div>
               </div>
-            </div>
-            {/* Confirm Password */}
-            <div className="row mb-4">
-              <label className="col-3" htmlFor="ConfPassword">
-                Confirm Password <span className="text-error">*</span>
-              </label>
-              <div className="col-9">
-                <Field
-                  name="confirmPassword"
-                  type="password"
-                  className="input-field"
-                  id="ConfPassword"
-                  placeholder="Confirm Password"
-                />
-                <ErrorMessage name="confirmPassword">
-                  {(err) => <span className="text-sm text-error">{err}</span>}
-                </ErrorMessage>
+              {/* Confirm Password */}
+              <div className="row mb-4">
+                <label className="col-3" htmlFor="ConfPassword">
+                  Confirm Password <span className="text-error">*</span>
+                </label>
+                <div className="col-9">
+                  <Field
+                    name="confirmPassword"
+                    type="password"
+                    className="input-field"
+                    id="ConfPassword"
+                    placeholder="Confirm Password"
+                  />
+                  <ErrorMessage name="confirmPassword">
+                    {(err) => <span className="text-sm text-error">{err}</span>}
+                  </ErrorMessage>
+                </div>
               </div>
-            </div>
-            {/* Button */}
-            <div className="row justify-content-end">
-              <button
-                type="button"
-                className="col-3 button button-outline me-4"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className="col-3 button button-container me-3"
-              >
-                Add Customer
-              </button>
-            </div>
-          </Form>
-        )}
+              {/* Button */}
+              <div className="row justify-content-end">
+                <button
+                  type="button"
+                  className="col-3 button button-outline me-4"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="col-3 button button-container me-3"
+                >
+                  Add Customer
+                </button>
+              </div>
+            </Form>
+          );
+        }}
       </Formik>
     </div>
   );
