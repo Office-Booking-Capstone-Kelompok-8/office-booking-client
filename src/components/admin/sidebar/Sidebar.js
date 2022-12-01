@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import './Styles.css';
 import logo from '../../../assets/img/logo.png';
 import Icon from '@mdi/react';
@@ -10,8 +10,10 @@ import {
   mdiLogin,
   mdiHomeRoof,
 } from '@mdi/js';
+import Auth from '../../../utils/auth';
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   return (
     <div
       className="d-flex flex-column justify-content-between shadow sidebar"
@@ -83,35 +85,15 @@ const Sidebar = () => {
             </div>
             <span className="d-none d-md-inline">Customers</span>
           </NavLink>
-          {/* <li className="nav-item d-block">
-            <NavLink to="/" className="nav-link__admin">
-              <Icon
-                path={mdiMessageTextOutline}
-                title="User Profile"
-                size={1}
-                className="m-3"
-              />
-              Reviews
-            </NavLink>
-          </li> */}
-          {/* <li className="logout d-block">
-              <NavLink to="/" className="text-decoration-none">
-                <Icon
-                  path={mdiLogin}
-                  title="User Profile"
-                  size={1}
-                  className="text-primary m-3"
-                />
-                Logout
-              </NavLink>
-            </li> */}
         </div>
       </div>
-      <div>
-        <NavLink className="nav-link__admin d-block d-block d-flex justify-content-center justify-content-md-start align-items-center">
-          <Icon path={mdiLogin} title="User Profile" size={1} className="m-3" />
-          <span className="d-none d-md-inline">Log Out</span>
-        </NavLink>
+      <div
+        className="nav-link__admin d-block d-block d-flex justify-content-center justify-content-md-start align-items-center"
+        style={{ cursor: 'pointer' }}
+        onClick={() => Auth.logOut(navigate)}
+      >
+        <Icon path={mdiLogin} title="User Profile" size={1} className="m-3" />
+        <span className="d-none d-md-inline">Log Out</span>
       </div>
     </div>
   );

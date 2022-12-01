@@ -10,7 +10,6 @@ const Customers = () => {
     isError,
     error,
   } = useGetUsersQuery({ role: 2 });
-  console.log(users);
   return (
     <div>
       <div className="row px-2">
@@ -85,9 +84,9 @@ const Customers = () => {
                     <td>
                       <h1 className="text-primary-dark text-sm">
                         <img
-                          src="https://tse3.mm.bing.net/th?id=OIP.cDqgnRzfbofSK9VVDpRSeQHaHa&pid=Api&P=0"
+                          src={user.picture}
                           alt="name"
-                          className="img-building 4 h-4 m-2"
+                          className="img-building 4 h-4 m-2 rounded"
                         />
                         {user.name}
                       </h1>

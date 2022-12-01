@@ -16,13 +16,16 @@ import LandingPage from '../pages/enduser/LandingPage';
 import NotFound from '../pages/error/NotFound';
 import ServerUnavailable from '../pages/error/ServerUnavailable';
 import PrivateRoute from './PrivateRoute';
+import ProtectedRoute from './ProtectedRoute';
 
 export default function SetupRoute() {
   return (
     <Routes>
       {/* ADMIN */}
-      <Route path="auth" element={<LoginAdmin />} />
-      <Route element={<PrivateRoute allowedRole={2} />}>
+      <Route element={<ProtectedRoute />}>
+        <Route path="auth" element={<LoginAdmin />} />
+      </Route>
+      <Route element={<PrivateRoute />}>
         <Route path="/admin" element={<LayoutAdmin />}>
           <Route path="search" element={<SearchResults />} />
           <Route index element={<Dashboard />} />

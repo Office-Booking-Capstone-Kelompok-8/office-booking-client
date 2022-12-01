@@ -6,12 +6,8 @@ import BarChart from '../../../components/admin/BarChart';
 import CalendarComponent from '../../../components/admin/Calendar';
 import Icon from '@mdi/react';
 import { mdiClockTimeFourOutline } from '@mdi/js';
-import { useSelector } from 'react-redux';
 
 const Dashboard = () => {
-  const auth = useSelector((state) => state.auth);
-  console.log(auth);
-
   return (
     <div>
       <div className="row px-2">
@@ -23,17 +19,9 @@ const Dashboard = () => {
                   <img src={earnings} className="w-100" alt="earning" />
                 </div>
                 <div className="col-8">
-                  <h3 className="fw-bold">
-                    {auth?.token && `${auth?.token.slice(0, 9)}`}
-                  </h3>
-                  <span className="text-sm ">
-                    {auth?.email && `${auth?.email}`}
-                  </span>
-                </div>
-                {/* <div className="col-8">
                   <h3 className="fw-bold">Rp. 12.000.000</h3>
                   <span className="text-sm ">Total Earnings</span>
-                </div> */}
+                </div>
               </div>
             </div>
             <div className="col-6 p-3">
