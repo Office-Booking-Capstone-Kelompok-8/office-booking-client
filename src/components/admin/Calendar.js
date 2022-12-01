@@ -5,7 +5,7 @@ import './styles.css';
 const CalendarComponent = () => {
   const [date, setDate] = useState(new Date());
   const onChange = (date) => setDate(date);
-  console.log(date);
+  // console.log(date);
   return (
     <Calendar
       value={date}

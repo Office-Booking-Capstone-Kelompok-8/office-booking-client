@@ -1,5 +1,11 @@
-import React from 'react';
+import { useSelector } from 'react-redux';
+import { Navigate, Outlet } from 'react-router-dom';
+import Auth from '../utils/auth';
 
-export default function PrivateRoute() {
-  return <div>PrivateRoute</div>;
+export default function PrivateRoute({ allowedRole }) {
+  const auth = useSelector((state) => state.auth);
+  if (Auth.isAuthorization() && auth.role === allowedRole) {
+    return <Outlet />;
+  }
+  return <Navigate to="auth" replace />;
 }

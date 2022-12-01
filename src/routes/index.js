@@ -15,29 +15,32 @@ import LoginAdmin from '../pages/auth/LoginAdmin';
 import LandingPage from '../pages/enduser/LandingPage';
 import NotFound from '../pages/error/NotFound';
 import ServerUnavailable from '../pages/error/ServerUnavailable';
+import PrivateRoute from './PrivateRoute';
 
 export default function SetupRoute() {
   return (
     <Routes>
       {/* ADMIN */}
-      <Route path="/admin" element={<LayoutAdmin />}>
-        <Route path="search" element={<SearchResults />} />
-        <Route index element={<Dashboard />} />
-        <Route path="login" element={<LoginAdmin />} />
-        {/* Buildings */}
-        <Route path="buildings">
-          <Route index element={<Buildings />} />
-          <Route path="add-building" element={<AddBuilding />} />
-          <Route path="edit-building/:id" element={<UpdateBuilding />} />
-          <Route path=":id" element={<DetailBuilding />} />
-        </Route>
-        {/* Reservation */}
-        <Route path="reservations" element={<Reservations />} />
-        {/* Customer */}
-        <Route path="customers">
-          <Route index element={<Customers />} />
-          <Route path="add-customer" element={<AddCustomer />} />
-          <Route path="edit-customer" element={<UpdateCustomer />} />
+      <Route path="auth" element={<LoginAdmin />} />
+      <Route element={<PrivateRoute allowedRole={2} />}>
+        <Route path="/admin" element={<LayoutAdmin />}>
+          <Route path="search" element={<SearchResults />} />
+          <Route index element={<Dashboard />} />
+          {/* Buildings */}
+          <Route path="buildings">
+            <Route index element={<Buildings />} />
+            <Route path="add-building" element={<AddBuilding />} />
+            <Route path="edit-building/:id" element={<UpdateBuilding />} />
+            <Route path=":id" element={<DetailBuilding />} />
+          </Route>
+          {/* Reservation */}
+          <Route path="reservations" element={<Reservations />} />
+          {/* Customer */}
+          <Route path="customers">
+            <Route index element={<Customers />} />
+            <Route path="add-customer" element={<AddCustomer />} />
+            <Route path="edit-customer" element={<UpdateCustomer />} />
+          </Route>
         </Route>
       </Route>
 

@@ -18,11 +18,11 @@ const LayoutAdmin = () => {
       <Sidebar />
       <div
         className="flex-grow-1 h-full"
-        style={{ overflow: 'auto', position: 'relative' }}
+        style={{ overflowX: 'hidden', position: 'relative' }}
       >
         <Header />
         <div className="p-3">
-          <div className="mb-4">
+          <div className="mb-1">
             <h2 style={{ textTransform: 'capitalize' }}>
               {splitBreadcumbs(breadcumbs)}
             </h2>
