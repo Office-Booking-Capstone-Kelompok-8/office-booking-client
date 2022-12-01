@@ -47,7 +47,7 @@ const EditProfile = () => {
                 />
             </div>
             <div className="col-md-6">
-                <label className='text-primary-dark' htmlFor="email">
+                <label className='text-primary-dark' htmlFor="notlp">
                     Phone Number <span className="text-error">*</span>
                 </label>
                 <input
@@ -61,7 +61,7 @@ const EditProfile = () => {
         {/* Username */}
         <div className="row mb-4">
             <div className="col-md-12 col-lg-12">
-                <label className='text-primary-dark' htmlFor="email">
+                <label className='text-primary-dark' htmlFor="username">
                     Username <span className="text-error">*</span>
                 </label>
                 <input
@@ -78,7 +78,7 @@ const EditProfile = () => {
         {/* Bank * */}
         <div className="row mb-4">
             <div className="col-md-6">
-                <label className="form-label text-primary-dark">
+                <label className="form-label text-primary-dark" htmlFor="bank">
                     Bank <span className="text-error">*</span>
                 </label>
                 <select className="form-select text-dark input-field" id="bank">
@@ -89,7 +89,7 @@ const EditProfile = () => {
                 </select>
             </div>
             <div className="col-md-6">
-                <label className='text-primary-dark' htmlFor="email">
+                <label className='text-primary-dark' htmlFor="nobank">
                     Bank No <span className="text-error">*</span>
                 </label>
                 <input
@@ -102,7 +102,7 @@ const EditProfile = () => {
         {/* Account Name */}
         <div className="row mb-4">
             <div className="col-md-12 col-lg-12">
-                <label className='text-primary-dark' htmlFor="email">
+                <label className='text-primary-dark' htmlFor="accountname">
                     Account Name <span className="text-error">*</span>
                 </label>
                 <input

@@ -61,7 +61,7 @@ const Settings = () => {
                 />
             </div>
             <div className="col-md-6">
-                <label className='text-primary-dark' htmlFor="email">
+                <label className='text-primary-dark' htmlFor="notlp">
                     Phone Number <span className="text-error">*</span>
                 </label>
                 <input
@@ -76,7 +76,7 @@ const Settings = () => {
         {/* Username */}
         <div className="row mb-4">
             <div className="col-md-12 col-lg-12">
-                <label className='text-primary-dark' htmlFor="email">
+                <label className='text-primary-dark' htmlFor="username">
                     Username <span className="text-error">*</span>
                 </label>
                 <input
@@ -94,7 +94,7 @@ const Settings = () => {
         {/* Bank * */}
         <div className="row mb-4">
             <div className="col-md-6">
-                <label className='text-primary-dark' htmlFor="email">
+                <label className='text-primary-dark' htmlFor="bank">
                     Bank <span className="text-error">*</span>
                 </label>
                 <input
@@ -106,7 +106,7 @@ const Settings = () => {
                 />
             </div>
             <div className="col-md-6">
-                <label className='text-primary-dark' htmlFor="email">
+                <label className='text-primary-dark' htmlFor="nobank">
                     Bank No <span className="text-error">*</span>
                 </label>
                 <input
@@ -121,7 +121,7 @@ const Settings = () => {
         {/* Account Name */}
         <div className="row mb-4">
             <div className="col-md-12 col-lg-12">
-                <label className='text-primary-dark' htmlFor="email">
+                <label className='text-primary-dark' htmlFor="accountname">
                     Account Name <span className="text-error">*</span>
                 </label>
                 <input
