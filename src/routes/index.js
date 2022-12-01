@@ -21,6 +21,8 @@ import Admins from '../pages/admin/admins/Admins';
 import AddAdmin from '../pages/admin/admins/AddAdmin';
 import UpdateAdmin from '../pages/admin/admins/UpdateAdmin';
 import DetailAdmin from '../pages/admin/admins/DetailAdmin';
+import Settings from '../pages/admin/settings/Settings';
+import EditProfile from '../pages/admin/settings/EditProfile';
 
 export default function SetupRoute() {
   return (
@@ -55,6 +57,11 @@ export default function SetupRoute() {
           <Route path="add-admin" element={<AddAdmin />} />
           <Route path="edit-admin/:id" element={<UpdateAdmin />} />
           <Route path="detail-admin/:id" element={<DetailAdmin />} />
+        </Route>
+         {/* Settings */}
+        <Route path="settings">
+          <Route index element={<Settings />} />
+          <Route path="edit-profile/:id" element={<EditProfile />} />
         </Route>
       </Route>
 

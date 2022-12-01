@@ -9,6 +9,7 @@ import {
   mdiAccountMultipleOutline,
   mdiLogin,
   mdiHomeRoof,
+  mdiCog
 } from '@mdi/js';
 
 const Sidebar = () => {
@@ -110,6 +111,20 @@ const Sidebar = () => {
               </div>
             </div>
           </div>
+
+          <NavLink
+            to="/admin/settings"
+            className="nav-link__admin d-block d-block d-flex justify-content-center justify-content-md-start align-items-center"
+          >
+            <div>
+              <Icon
+                path={mdiCog}
+                title="User Profile"
+                className="m-3 w-2"
+              />
+            </div>
+            <span className="d-none d-md-inline">Settings</span>
+          </NavLink>
 
 
           {/* <li className="nav-item d-block">
