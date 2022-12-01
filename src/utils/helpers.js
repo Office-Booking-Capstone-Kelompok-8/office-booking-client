@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+
 export const splitBreadcumbs = (breadcumbs) => {
   breadcumbs.shift();
   breadcumbs.shift();
@@ -14,4 +16,17 @@ export const splitBreadcumbs = (breadcumbs) => {
     return bread;
   }
   return 'dashboard';
+};
+
+export const notifyError = (message) => {
+  toast.error(message, {
+    position: 'top-center',
+    autoClose: 3000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: false,
+    progress: undefined,
+    theme: 'colored',
+  });
 };

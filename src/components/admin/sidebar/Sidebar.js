@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import './Styles.css';
 import logo from '../../../assets/img/logo.png';
 import Icon from '@mdi/react';
@@ -9,10 +9,12 @@ import {
   mdiAccountMultipleOutline,
   mdiLogin,
   mdiHomeRoof,
-  mdiCog
+  mdiCog,
 } from '@mdi/js';
+import Auth from '../../../utils/auth';
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   return (
     <div
       className="d-flex flex-column justify-content-between shadow sidebar"
@@ -71,23 +73,14 @@ const Sidebar = () => {
             </div>
             <span className="d-none d-md-inline">Reservations</span>
           </NavLink>
-          {/* <NavLink
-            to="/admin/customers"
-            className="nav-link__admin d-block d-block d-flex justify-content-center justify-content-md-start align-items-center"
-          >
-            <div>
-              <Icon
-                path={mdiAccountMultipleOutline}
-                title="User Profile"
-                className="m-3 w-2"
-              />
-            </div>
-            <span className="d-none d-md-inline">Customers</span>
-          </NavLink> */}
-
-          <div className='nav-item dropdown' >
-            <div className='sidenav-item'>
-              <NavLink className="nav-link__admin dropdown-toggle d-block d-block d-flex justify-content-center justify-content-md-start align-items-center" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+          <div className="nav-item dropdown">
+            <div className="sidenav-item">
+              <NavLink
+                className="nav-link__admin dropdown-toggle d-block d-block d-flex justify-content-center justify-content-md-start align-items-center"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+              >
                 <div>
                   <Icon
                     path={mdiAccountMultipleOutline}
@@ -97,14 +90,20 @@ const Sidebar = () => {
                   <span className="d-none d-md-inline">Users</span>
                 </div>
               </NavLink>
-              <div className="dropdown-menu" >
-                <div className='nav-link__admin dropdown-item'>
-                  <NavLink className="sidenav_link d-block d-block d-flex justify-content-center justify-content-md-start align-items-center" to="/admin/customers">
+              <div className="dropdown-menu">
+                <div className="nav-link__admin dropdown-item">
+                  <NavLink
+                    className="sidenav_link d-block d-block d-flex justify-content-center justify-content-md-start align-items-center"
+                    to="/admin/customers"
+                  >
                     <span className="d-none d-md-inline">Customers</span>
                   </NavLink>
                 </div>
-                <div className='nav-link__admin dropdown-item'>
-                  <NavLink className="sidenav_link d-block d-block d-flex justify-content-center justify-content-md-start align-items-center" to="/admin/admins">
+                <div className="nav-link__admin dropdown-item">
+                  <NavLink
+                    className="sidenav_link d-block d-block d-flex justify-content-center justify-content-md-start align-items-center"
+                    to="/admin/admins"
+                  >
                     <span className="d-none d-md-inline">Admins</span>
                   </NavLink>
                 </div>
@@ -117,45 +116,19 @@ const Sidebar = () => {
             className="nav-link__admin d-block d-block d-flex justify-content-center justify-content-md-start align-items-center"
           >
             <div>
-              <Icon
-                path={mdiCog}
-                title="User Profile"
-                className="m-3 w-2"
-              />
+              <Icon path={mdiCog} title="User Profile" className="m-3 w-2" />
             </div>
             <span className="d-none d-md-inline">Settings</span>
           </NavLink>
-
-
-          {/* <li className="nav-item d-block">
-            <NavLink to="/" className="nav-link__admin">
-              <Icon
-                path={mdiMessageTextOutline}
-                title="User Profile"
-                size={1}
-                className="m-3"
-              />
-              Reviews
-            </NavLink>
-          </li> */}
-          {/* <li className="logout d-block">
-              <NavLink to="/" className="text-decoration-none">
-                <Icon
-                  path={mdiLogin}
-                  title="User Profile"
-                  size={1}
-                  className="text-primary m-3"
-                />
-                Logout
-              </NavLink>
-            </li> */}
         </div>
       </div>
-      <div>
-        <NavLink className="nav-link__admin d-block d-block d-flex justify-content-center justify-content-md-start align-items-center">
-          <Icon path={mdiLogin} title="User Profile" size={1} className="m-3" />
-          <span className="d-none d-md-inline">Log Out</span>
-        </NavLink>
+      <div
+        className="nav-link__admin d-block d-block d-flex justify-content-center justify-content-md-start align-items-center"
+        style={{ cursor: 'pointer' }}
+        onClick={() => Auth.logOut(navigate)}
+      >
+        <Icon path={mdiLogin} title="User Profile" size={1} className="m-3" />
+        <span className="d-none d-md-inline">Log Out</span>
       </div>
     </div>
   );

@@ -23,45 +23,54 @@ import UpdateAdmin from '../pages/admin/admins/UpdateAdmin';
 import DetailAdmin from '../pages/admin/admins/DetailAdmin';
 import Settings from '../pages/admin/settings/Settings';
 import EditProfile from '../pages/admin/settings/EditProfile';
+import ProtectedRoute from './ProtectedRoute';
+import PrivateRoute from './PrivateRoute';
 
 export default function SetupRoute() {
   return (
     <Routes>
+      <Route element={<ProtectedRoute />}>
+        <Route path="auth" element={<LoginAdmin />} />
+      </Route>
       {/* ADMIN */}
-      <Route path="/admin" element={<LayoutAdmin />}>
-        <Route path="search" element={<SearchResults />} />
-        <Route index element={<Dashboard />} />
-        <Route path="login" element={<LoginAdmin />} />
-        {/* Buildings */}
-        <Route path="buildings">
-          <Route index element={<Buildings />} />
-          <Route path="add-building" element={<AddBuilding />} />
-          <Route path="edit-building/:id" element={<UpdateBuilding />} />
-          <Route path="detail-building/:id" element={<DetailBuilding />} />
-        </Route>
-        {/* Reservation */}
-        <Route path="reservations" >
-          <Route index element={<Reservations />} />
-          <Route path="detail-reservation/:id" element={<DetailReservation />} />
-        </Route>
-        {/* Customer */}
-        <Route path="customers">
-          <Route index element={<Customers />} />
-          <Route path="add-customer" element={<AddCustomer />} />
-          <Route path="edit-customer/:id" element={<UpdateCustomer />} />
-          <Route path="detail-customer/:id" element={<DetailCustomer />} />
-        </Route>
-        {/* Admins */}
-        <Route path="admins">
-          <Route index element={<Admins />} />
-          <Route path="add-admin" element={<AddAdmin />} />
-          <Route path="edit-admin/:id" element={<UpdateAdmin />} />
-          <Route path="detail-admin/:id" element={<DetailAdmin />} />
-        </Route>
-         {/* Settings */}
-        <Route path="settings">
-          <Route index element={<Settings />} />
-          <Route path="edit-profile/:id" element={<EditProfile />} />
+      <Route element={<PrivateRoute />}>
+        <Route path="/admin" element={<LayoutAdmin />}>
+          <Route path="search" element={<SearchResults />} />
+          <Route index element={<Dashboard />} />
+          {/* Buildings */}
+          <Route path="buildings">
+            <Route index element={<Buildings />} />
+            <Route path="add-building" element={<AddBuilding />} />
+            <Route path="edit-building/:id" element={<UpdateBuilding />} />
+            <Route path="detail-building/:id" element={<DetailBuilding />} />
+          </Route>
+          {/* Reservation */}
+          <Route path="reservations">
+            <Route index element={<Reservations />} />
+            <Route
+              path="detail-reservation/:id"
+              element={<DetailReservation />}
+            />
+          </Route>
+          {/* Customer */}
+          <Route path="customers">
+            <Route index element={<Customers />} />
+            <Route path="add-customer" element={<AddCustomer />} />
+            <Route path="edit-customer/:id" element={<UpdateCustomer />} />
+            <Route path="detail-customer/:id" element={<DetailCustomer />} />
+          </Route>
+          {/* Admins */}
+          <Route path="admins">
+            <Route index element={<Admins />} />
+            <Route path="add-admin" element={<AddAdmin />} />
+            <Route path="edit-admin/:id" element={<UpdateAdmin />} />
+            <Route path="detail-admin/:id" element={<DetailAdmin />} />
+          </Route>
+          {/* Settings */}
+          <Route path="settings">
+            <Route index element={<Settings />} />
+            <Route path="edit-profile/:id" element={<EditProfile />} />
+          </Route>
         </Route>
       </Route>
 
