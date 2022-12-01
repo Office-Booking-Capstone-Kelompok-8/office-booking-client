@@ -1,28 +1,33 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import Icon from '@mdi/react';
 import {
-  mdiMapMarkerOutline,
+  mdiAccountCircleOutline,
   mdiCurrencyUsd,
-  mdiArrowExpandAll,
-  mdiAccountMultipleOutline,
-  mdiElevatorPassengerOutline,
+  mdiMapMarkerOutline,
+  mdiCalendarRange,
+  mdiClockTimeFourOutline,
+  mdiProgressCheck,
+  mdiCloseCircleOutline,
+  mdiAccountCreditCardOutline
 } from '@mdi/js';
 
-const DetailBuilding = () => {
+const DetailReservation = () => {
+    const [isActive, setIsActive] = useState(false);
+    const [selected, setSelected] = useState("");
   return (
     <div>
       <div className="row mb-4">
         <div className="col-md-12 d-flex justify-content-end">
-          <Link
-            to="/admin/buildings/edit-building/1"
-            className="btn bg-success text-white text-sm me-4 px-5 py-2"
-          >
-            Update
-          </Link>
-          <button className="btn bg-error text-white text-sm me-5 px-5 py-2">
+          <button className="btn bg-error text-white text-sm me-4 px-5 py-2">
             Delete
           </button>
+          <Link
+            to="/admin/reservations"
+            className="btn bg-primary text-white text-sm me-4 px-5 py-2"
+          >
+            Save
+          </Link>
         </div>
       </div>
       <div className="row mb-4">
@@ -109,6 +114,75 @@ const DetailBuilding = () => {
               <h3 className="text-primary-dark pt-3">
                 Melati Jaya Meeting Room
               </h3>
+              <div className="d-flex align-items-center ">
+                <Icon
+                  path={mdiAccountCircleOutline}
+                  size={1.2}
+                  style={{ marginRight: '.7rem' }}
+                  className="text-primary"
+                />
+                <div>
+                  <h3 className="text-md">Mr. Robert</h3>
+                  <span className="text-md text-gray-dark">
+                    robert@mail.com
+                  </span>
+                </div>
+              </div>
+              <div className="align-items-center pt-4">
+                <h3 className="text-md">Status</h3>
+                <div className="dropdown">
+                    <div 
+                      className="dropdown-btn dropdown-toggle" 
+                      onClick={(e) => setIsActive(!isActive)}>
+                      {selected}
+                    </div>
+                    {isActive && (
+                      <div className="dropdown-content" 
+                        onClick={e => {
+                            setSelected(e.target.textContent)
+                            setIsActive(false)}}>
+                          <div className="dropdown-item">
+                            <div className="text-warning d-flex align-items-center">
+                              <Icon
+                                path={mdiClockTimeFourOutline}
+                                size={0.8}
+                                style={{ marginRight: '.7rem' }}
+                                className="text-warning text-sm"
+                              />pending
+                            </div>
+                          </div>
+                          <div className="dropdown-item">
+                            <div className="text-success d-flex align-items-center">
+                              <Icon
+                                path={mdiProgressCheck}
+                                size={0.8}
+                                style={{ marginRight: '.7rem' }}
+                              />accept
+                            </div>
+                          </div>
+                          <div className="dropdown-item">
+                            <div className="text-error d-flex align-items-center">
+                              <Icon
+                                path={mdiCloseCircleOutline}
+                                size={0.8}
+                                style={{ marginRight: '.7rem' }}
+                              />reject
+                            </div>
+                          </div>
+                          <div className="dropdown-item">
+                            <div className="text-primary d-flex align-items-center">
+                              <Icon
+                                path={mdiAccountCreditCardOutline}
+                                size={0.8}
+                                style={{ marginRight: '.7rem' }}
+                              />waiting payment
+                            </div>
+                          </div>
+                      </div>
+                    )}
+                  </div>
+                
+              </div>
               <div className="d-flex align-items-center pt-4">
                 <Icon
                   path={mdiMapMarkerOutline}
@@ -125,144 +199,37 @@ const DetailBuilding = () => {
               </div>
               <div className="d-flex align-items-center pt-4">
                 <Icon
+                  path={mdiCalendarRange}
+                  size={1.2}
+                  style={{ marginRight: '.7rem' }}
+                  className="text-primary"
+                />
+                <h3 className="text-md">
+                    13 October<span> - </span> <span>13 December</span>
+                </h3>
+              </div>
+              <div className="d-flex align-items-center pt-4">
+                <Icon
                   path={mdiCurrencyUsd}
                   size={1.2}
                   style={{ marginRight: '.7rem' }}
                   className="text-primary"
                 />
                 <div>
-                  <h3 className="text-md">
-                    <span>Rp </span>350.000<span> /month</span>
-                  </h3>
-                  <h3 className="text-md">
-                    <span>Rp </span>350.000<span> /year</span>
-                  </h3>
+                    <h3 className="text-md">
+                        <span>Rp </span>2.700.000
+                    </h3>
+                    <h3 className="text-md">
+                        <span>Rp </span>1. 350.000<span> /month</span>
+                    </h3>
                 </div>
-              </div>
-              <div className="d-flex align-items-center pt-4">
-                <Icon
-                  path={mdiArrowExpandAll}
-                  size={1.2}
-                  style={{ marginRight: '.7rem' }}
-                  className="text-primary"
-                />
-                <h3 className="text-md">
-                  350<span> m2</span>
-                </h3>
-              </div>
-              <div className="d-flex align-items-center pt-4">
-                <Icon
-                  path={mdiAccountMultipleOutline}
-                  size={1.2}
-                  style={{ marginRight: '.7rem' }}
-                  className="text-primary"
-                />
-                <h3 className="text-md">
-                  50<span> people</span>
-                </h3>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="descriptions pt-3 mb-3">
-        <h3 className="text-primary-dark">Descriptions</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur. Sed massa velit faucibus
-          vitae. Sed adipiscing egestas amet scelerisque. At aenean at sed
-          commodo consectetur volutpat. Venenatis tristique facilisi accumsan
-          vitae amet morbi justo eu aliquam. Sed tellus id placerat ipsum felis
-          mauris eu convallis. Ac scelerisque urna id at lectus sed amet nunc.
-          Duis velit sit consectetur lacus aenean accumsan amet aliquam. Hac eu
-          neque sodales vitae commodo. Natoque morbi tortor aliquam nisi felis.
-          Consectetur viverra sagittis nulla dictum scelerisque.
-        </p>
-      </div>
-      <div className="facilities pt-5 mb-3">
-        <h3 className="text-primary-dark">Facilities</h3>
-        <div className="d-flex align-items-center pt-4">
-          <Icon
-            path={mdiElevatorPassengerOutline}
-            size={1.1}
-            style={{ marginRight: '.7rem' }}
-            className="text-primary"
-          />
-          <h3 className="text-md me-5">Elevator</h3>
-          <Icon
-            path={mdiElevatorPassengerOutline}
-            size={1.1}
-            style={{ marginRight: '.7rem' }}
-            className="text-primary"
-          />
-          <h3 className="text-md">Elevator</h3>
-        </div>
-        <div className="d-flex align-items-center pt-4">
-          <Icon
-            path={mdiElevatorPassengerOutline}
-            size={1.1}
-            style={{ marginRight: '.7rem' }}
-            className="text-primary"
-          />
-          <h3 className="text-md me-5">Elevator</h3>
-          <Icon
-            path={mdiElevatorPassengerOutline}
-            size={1.1}
-            style={{ marginRight: '.7rem' }}
-            className="text-primary"
-          />
-          <h3 className="text-md">Elevator</h3>
-        </div>
-        <div className="d-flex align-items-center pt-4">
-          <Icon
-            path={mdiElevatorPassengerOutline}
-            size={1.1}
-            style={{ marginRight: '.7rem' }}
-            className="text-primary"
-          />
-          <h3 className="text-md me-5">Elevator</h3>
-          <Icon
-            path={mdiElevatorPassengerOutline}
-            size={1.1}
-            style={{ marginRight: '.7rem' }}
-            className="text-primary"
-          />
-          <h3 className="text-md">Elevator</h3>
-        </div>
-        <div className="d-flex align-items-center pt-4">
-          <Icon
-            path={mdiElevatorPassengerOutline}
-            size={1.1}
-            style={{ marginRight: '.7rem' }}
-            className="text-primary"
-          />
-          <h3 className="text-md me-5">Elevator</h3>
-          <Icon
-            path={mdiElevatorPassengerOutline}
-            size={1.1}
-            style={{ marginRight: '.7rem' }}
-            className="text-primary"
-          />
-          <h3 className="text-md">Elevator</h3>
-        </div>
-        <div className="d-flex align-items-center pt-4">
-          <Icon
-            path={mdiElevatorPassengerOutline}
-            size={1.1}
-            style={{ marginRight: '.7rem' }}
-            className="text-primary"
-          />
-          <h3 className="text-md me-5">Elevator</h3>
-          <Icon
-            path={mdiElevatorPassengerOutline}
-            size={1.1}
-            style={{ marginRight: '.7rem' }}
-            className="text-primary"
-          />
-          <h3 className="text-md">Elevator</h3>
-        </div>
-      </div>
     </div>
-  );
-};
+  )
+}
 
-export default DetailBuilding;
+export default DetailReservation

@@ -2,7 +2,7 @@ import { mdiCloseCircle, mdiFileImagePlus } from '@mdi/js';
 import Icon from '@mdi/react';
 import React, { useState } from 'react';
 
-const AddCustomer = () => {
+const AddAdmin = () => {
   const [selectedPhotoProfile, setSelectedPhotoProfile] = useState('');
 
   return (
@@ -167,4 +167,4 @@ const AddCustomer = () => {
   );
 };
 
-export default AddCustomer;
+export default AddAdmin;

@@ -89,3 +89,33 @@ label.img-upload {
   background-color: #3583EF;
   color: white;
 }
+
+/* Update Status Reservation */
+.dropdown {
+  position: relative;
+  user-select: none;
+}
+.dropdown .dropdown-btn {
+  padding: 5px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.dropdown .dropdown-content {
+  position: absolute;
+  top: 110%;
+  padding: 6px;
+  background-color: #fff;
+  box-shadow: 3px 3px 10px 6px rgba(0, 0, 0, 0.06);
+}
+.dropdown .dropdown-content .dropdown-item{
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 2px;
+}
+.dropdown .dropdown-content .dropdown-item:hover{
+  cursor: pointer;
+  background-color: #f4f4f4;
+}
