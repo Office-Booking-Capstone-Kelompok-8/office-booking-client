@@ -28,12 +28,14 @@ const AdminItem = ({ user }) => {
         onClick={() => {
           navigate('/admin/admins/detail-admin/1');
         }}
+        style={{ cursor: 'pointer' }}
       >
         <h1 className="text-primary-dark text-sm">
           <img
             src={user.picture}
             alt="name"
-            className="img-building 4 h-4 m-2 rounded"
+            className="img-building 4 h-4 w-4 m-2 rounded"
+            style={{ objectFit: 'cover', objectPosition: 'center' }}
           />
           {user.name}
         </h1>

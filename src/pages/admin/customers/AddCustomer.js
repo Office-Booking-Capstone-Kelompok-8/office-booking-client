@@ -123,7 +123,6 @@ const AddCustomer = () => {
                           accept="image/*"
                           onChange={(e) => {
                             // get file
-                            console.log(e.target.files);
                             const selectedImg = e.target.files[0];
                             // add values images
                             const formData = new FormData();

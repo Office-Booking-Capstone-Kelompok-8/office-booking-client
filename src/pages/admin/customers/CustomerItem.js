@@ -30,6 +30,7 @@ const CustomerItem = ({ user }) => {
             src={user.picture}
             alt="name"
             className="img-building 4 h-4 m-2 rounded"
+            style={{ objectFit: 'cover', objectPosition: 'center' }}
           />
           {user.name}
         </h1>

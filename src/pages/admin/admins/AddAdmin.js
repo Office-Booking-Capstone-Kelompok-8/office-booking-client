@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { mdiCloseCircle, mdiFileImagePlus } from '@mdi/js';
 import Icon from '@mdi/react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
@@ -5,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import * as yup from 'yup';
+import useUploadPictureUser from '../../../hooks/uploadPictureUser';
 import { useAddUsersMutation } from '../../../store/users/usersApiSlice';
 import { notifyError, notifySuccess } from '../../../utils/helpers';
 
@@ -12,6 +14,8 @@ const AddAdmin = () => {
   const navigate = useNavigate();
   const [selectedPhotoProfile, setSelectedPhotoProfile] = useState('');
   const [addAdmin, { data: admin, isSuccess, error }] = useAddUsersMutation();
+  const [formDataState, setFormDataState] = useState(null);
+  const { uploadPicture } = useUploadPictureUser();
 
   useEffect(() => {
     if (error?.status === 409) {
@@ -19,7 +23,7 @@ const AddAdmin = () => {
     }
     if (isSuccess) {
       notifySuccess('Success Added');
-      // uploadPicture(customer?.data?.uid, formDataState);
+      uploadPicture(admin?.data?.uid, formDataState);
     }
   }, [isSuccess, error]);
 
@@ -55,6 +59,7 @@ const AddAdmin = () => {
       password: values.password,
     });
     props.resetForm();
+    setSelectedPhotoProfile('');
   };
 
   return (
@@ -112,10 +117,14 @@ const AddAdmin = () => {
                           id="image"
                           accept="image/*"
                           onChange={(e) => {
-                            // get file
+                            console.log(e.target.files);
                             const selectedImg = e.target.files[0];
                             // add values images
-                            // props.setFieldValue('images', [{ index: 0 }]);
+                            const formData = new FormData();
+                            formData.append('picture', selectedImg);
+                            setFormDataState(formData);
+
+                            // generate url
                             const urlImg = URL.createObjectURL(selectedImg);
                             setSelectedPhotoProfile(urlImg);
                           }}
