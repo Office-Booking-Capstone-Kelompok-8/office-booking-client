@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { mdiCloseCircle, mdiFileImagePlus } from '@mdi/js';
 import Icon from '@mdi/react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
 import Spinner from '../../../components/admin/Spinner';
@@ -9,7 +10,6 @@ import { useDetailCustomerQuery } from '../../../store/users/usersApiSlice';
 import NotFound from '../../error/NotFound';
 
 const UpdateCustomer = () => {
-  const [selectedPhotoProfile, setSelectedPhotoProfile] = useState('');
   const navigate = useNavigate();
   const { id } = useParams();
   const {
@@ -17,15 +17,25 @@ const UpdateCustomer = () => {
     data: customer,
     error,
     isError,
+    isSuccess,
   } = useDetailCustomerQuery({ id: id });
+  // const [updateCustomer, { error: errorUpload }] = useUpdateUserMutation();
+  const [selectedPhotoProfile, setSelectedPhotoProfile] = useState('');
+  // const [formDataState, setFormDataState] = useState(null);
+  // const { uploadPicture, isUpload } = useUploadPictureUser();
+  console.log(customer);
+
+  useEffect(() => {
+    if (isSuccess) {
+      setSelectedPhotoProfile(customer?.data?.picture);
+    }
+  }, [isSuccess]);
 
   // CONFIG FORM
   const initialValues = {
     name: customer?.data?.name,
     email: customer?.data?.email,
     phone: customer?.data?.phone,
-    password: '',
-    confirmPassword: '',
   };
 
   const validationSchema = yup.object({
@@ -35,17 +45,12 @@ const UpdateCustomer = () => {
       .string()
       .matches(/^[0-9]+$/, 'number is invalid')
       .required(),
-    password: yup.string().required().trim().min(8),
-    confirmPassword: yup
-      .string()
-      .oneOf([yup.ref('password'), null], 'password must match')
-      .required('confirm password is a required field'),
   });
 
-  const onSubmit = (values, props) => {
+  const onSubmit = async (values, props) => {
     console.log(values);
+    await UpdateCustomer({ userID: id, name: values.name });
   };
-  console.log(customer);
 
   if (isError) {
     if (error.status === 404) {
@@ -164,42 +169,6 @@ const UpdateCustomer = () => {
                   placeholder="Name"
                 />
                 <ErrorMessage name="name">
-                  {(err) => <span className="text-sm text-error">{err}</span>}
-                </ErrorMessage>
-              </div>
-            </div>
-            {/* Password */}
-            <div className="row mb-4">
-              <label className="col-3" htmlFor="password">
-                Password <span className="text-error">*</span>
-              </label>
-              <div className="col-9">
-                <Field
-                  name="password"
-                  type="password"
-                  className="input-field"
-                  id="password"
-                  placeholder="Password"
-                />
-                <ErrorMessage name="password">
-                  {(err) => <span className="text-sm text-error">{err}</span>}
-                </ErrorMessage>
-              </div>
-            </div>
-            {/* Confirm Password */}
-            <div className="row mb-4">
-              <label className="col-3" htmlFor="ConfPassword">
-                Confirm Password <span className="text-error">*</span>
-              </label>
-              <div className="col-9">
-                <Field
-                  name="confirmPassword"
-                  type="password"
-                  className="input-field"
-                  id="ConfPassword"
-                  placeholder="Confirm Password"
-                />
-                <ErrorMessage name="confirmPassword">
                   {(err) => <span className="text-sm text-error">{err}</span>}
                 </ErrorMessage>
               </div>

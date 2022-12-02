@@ -52,7 +52,6 @@ const AddCustomer = () => {
   });
 
   const onSubmit = async (values, props) => {
-    console.log(values);
     try {
       await addCustomer({
         role: 'user',

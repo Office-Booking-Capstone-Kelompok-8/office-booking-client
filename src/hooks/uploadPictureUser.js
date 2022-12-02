@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Auth from '../utils/auth';
 
 const useUploadPictureUser = () => {
-  const [isUpload, setIsUpload] = useState('');
+  const [isUpload, setIsUpload] = useState(false);
 
   const uploadPicture = async (uid, data) => {
     try {

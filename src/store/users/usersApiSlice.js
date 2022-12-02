@@ -34,16 +34,12 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         url: `/admin/users/${id}`,
       }),
     }),
-    uploadPhoto: builder.mutation({
-      query: ({ userID, ...picture }) => {
-        console.log({ userID, picture });
+    updateUser: builder.mutation({
+      query: ({ userID, ...body }) => {
         return {
-          url: `/admin/users/${userID}/picture`,
+          url: `/admin/users/${userID}`,
           method: 'PUT',
-          // headers: {
-          //   'Content-Type': 'multipart/form-data',
-          // },
-          body: picture,
+          body: body,
         };
       },
     }),
@@ -55,5 +51,5 @@ export const {
   useAddUsersMutation,
   useDeleteUserMutation,
   useDetailCustomerQuery,
-  useUploadPhotoMutation,
+  useUpdateUserMutation,
 } = usersApiSlice;
