@@ -8,7 +8,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
           url: `/admin/users?role=${role}`,
         };
       },
-      // providesTags: ['Users'],
+      providesTags: ['Users'],
     }),
     addUsers: builder.mutation({
       query: ({ role, ...body }) => {
@@ -18,7 +18,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
           body: body,
         };
       },
-      // invalidatesTags: ['Users'],
+      invalidatesTags: ['Users'],
     }),
     deleteUser: builder.mutation({
       query: ({ id }) => {
@@ -27,10 +27,33 @@ export const usersApiSlice = apiSlice.injectEndpoints({
           method: 'DELETE',
         };
       },
-      // invalidatesTags: ['Users'],
+      invalidatesTags: ['Users'],
+    }),
+    detailCustomer: builder.query({
+      query: ({ id }) => ({
+        url: `/admin/users/${id}`,
+      }),
+    }),
+    uploadPhoto: builder.mutation({
+      query: ({ userID, ...picture }) => {
+        console.log({ userID, picture });
+        return {
+          url: `/admin/users/${userID}/picture`,
+          method: 'PUT',
+          // headers: {
+          //   'Content-Type': 'multipart/form-data',
+          // },
+          body: picture,
+        };
+      },
     }),
   }),
 });
 
-export const { useGetUsersQuery, useAddUsersMutation, useDeleteUserMutation } =
-  usersApiSlice;
+export const {
+  useGetUsersQuery,
+  useAddUsersMutation,
+  useDeleteUserMutation,
+  useDetailCustomerQuery,
+  useUploadPhotoMutation,
+} = usersApiSlice;

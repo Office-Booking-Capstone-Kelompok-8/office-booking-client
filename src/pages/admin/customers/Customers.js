@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import Spinner from '../../../components/admin/Spinner';
 import { useGetUsersQuery } from '../../../store/users/usersApiSlice';
 import customers from './../../../assets/img/customers.png';
 import CustomerItem from './CustomerItem';
@@ -64,11 +65,7 @@ const Customers = () => {
         </div>
       </div>
       {isLoading ? (
-        <div className="d-flex justify-content-center">
-          <div className="spinner-border text-primary" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-        </div>
+        <Spinner />
       ) : (
         <div
           className="card"

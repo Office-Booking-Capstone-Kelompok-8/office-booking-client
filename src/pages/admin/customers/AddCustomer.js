@@ -5,25 +5,28 @@ import React, { useEffect, useState } from 'react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as yup from 'yup';
 import { useAddUsersMutation } from '../../../store/users/usersApiSlice';
-import { notifyError } from '../../../utils/helpers';
+import { notifyError, notifySuccess } from '../../../utils/helpers';
 import { ToastContainer } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import useUploadPictureUser from '../../../hooks/uploadPictureUser';
 
 const AddCustomer = () => {
   const [selectedPhotoProfile, setSelectedPhotoProfile] = useState('');
-  const [idCustomer, setIdCustomer] = useState('');
-  const [addCustomer, { isLoading, data: customer, isSuccess, error }] =
+  const [formDataState, setFormDataState] = useState(null);
+  const [addCustomer, { data: customer, isSuccess, error }] =
     useAddUsersMutation();
+  const navigate = useNavigate();
+  const { uploadPicture, isUpload } = useUploadPictureUser();
 
   useEffect(() => {
-    if (!isLoading) {
-      setIdCustomer(customer?.data?.uid);
-    }
     if (error?.status === 409) {
       notifyError('Email already used');
     }
-  }, [isLoading]);
-
-  console.log(error);
+    if (isSuccess) {
+      notifySuccess('Success Added');
+      uploadPicture(customer?.data?.uid, formDataState);
+    }
+  }, [isSuccess, error]);
 
   // CONFIG FORM
   const initialValues = {
@@ -37,7 +40,10 @@ const AddCustomer = () => {
   const validationSchema = yup.object({
     name: yup.string().required().trim(),
     email: yup.string().required().trim().email(),
-    phone: yup.string().matches(/^[0-9]+$/, 'Number is invalid'),
+    phone: yup
+      .string()
+      .matches(/^[0-9]+$/, 'number is invalid')
+      .required(),
     password: yup.string().required().trim().min(8),
     confirmPassword: yup
       .string()
@@ -47,16 +53,18 @@ const AddCustomer = () => {
 
   const onSubmit = async (values, props) => {
     console.log(values);
-
-    await addCustomer({
-      role: 'user',
-      name: values.name,
-      email: values.email,
-      phone: values.phone,
-      password: values.password,
-    });
-    if (isSuccess) {
+    try {
+      await addCustomer({
+        role: 'user',
+        name: values.name,
+        email: values.email,
+        phone: values.phone,
+        password: values.password,
+      });
       props.resetForm();
+      setSelectedPhotoProfile('');
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -116,9 +124,14 @@ const AddCustomer = () => {
                           accept="image/*"
                           onChange={(e) => {
                             // get file
+                            console.log(e.target.files);
                             const selectedImg = e.target.files[0];
                             // add values images
-                            // props.setFieldValue('images', [{ index: 0 }]);
+                            const formData = new FormData();
+                            formData.append('picture', selectedImg);
+                            setFormDataState(formData);
+
+                            // generate url
                             const urlImg = URL.createObjectURL(selectedImg);
                             setSelectedPhotoProfile(urlImg);
                           }}
@@ -224,14 +237,22 @@ const AddCustomer = () => {
                 <button
                   type="button"
                   className="col-3 button button-outline me-4"
+                  onClick={() => navigate(-1)}
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="col-3 button button-container me-3"
+                  className={`col-3 button text-white me-3 ${
+                    !props.isValid || props.isSubmitting
+                      ? 'bg-primary-light'
+                      : 'bg-primary'
+                  }`}
+                  disabled={!props.isValid || props.isSubmitting || isUpload}
                 >
-                  Add Customer
+                  {props.isSubmitting || isUpload
+                    ? 'Please Wait'
+                    : 'Add Customer'}
                 </button>
               </div>
             </Form>

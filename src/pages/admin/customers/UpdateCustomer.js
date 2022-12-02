@@ -2,15 +2,28 @@ import { mdiCloseCircle, mdiFileImagePlus } from '@mdi/js';
 import Icon from '@mdi/react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import React, { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
+import Spinner from '../../../components/admin/Spinner';
+import { useDetailCustomerQuery } from '../../../store/users/usersApiSlice';
+import NotFound from '../../error/NotFound';
 
 const UpdateCustomer = () => {
   const [selectedPhotoProfile, setSelectedPhotoProfile] = useState('');
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const {
+    isLoading,
+    data: customer,
+    error,
+    isError,
+  } = useDetailCustomerQuery({ id: id });
+
   // CONFIG FORM
   const initialValues = {
-    name: '',
-    email: '',
-    phone: '',
+    name: customer?.data?.name,
+    email: customer?.data?.email,
+    phone: customer?.data?.phone,
     password: '',
     confirmPassword: '',
   };
@@ -18,7 +31,10 @@ const UpdateCustomer = () => {
   const validationSchema = yup.object({
     name: yup.string().required().trim(),
     email: yup.string().required().trim().email(),
-    phone: yup.string().matches(/^[0-9]+$/, 'Number is invalid'),
+    phone: yup
+      .string()
+      .matches(/^[0-9]+$/, 'number is invalid')
+      .required(),
     password: yup.string().required().trim().min(8),
     confirmPassword: yup
       .string()
@@ -29,6 +45,18 @@ const UpdateCustomer = () => {
   const onSubmit = (values, props) => {
     console.log(values);
   };
+  console.log(customer);
+
+  if (isError) {
+    if (error.status === 404) {
+      console.log(error);
+      return <NotFound />;
+    }
+  }
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <div>
@@ -181,14 +209,20 @@ const UpdateCustomer = () => {
               <button
                 type="button"
                 className="col-3 button button-outline me-4"
+                onClick={() => navigate(-1)}
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="col-3 button button-container me-3"
+                className={`col-3 button text-white me-3 ${
+                  !props.isValid || props.isSubmitting
+                    ? 'bg-primary-light'
+                    : 'bg-primary'
+                }`}
+                disabled={!props.isValid || props.isSubmitting}
               >
-                Add Customer
+                {props.isSubmitting ? 'Please Wait' : 'Update Customer'}
               </button>
             </div>
           </Form>
