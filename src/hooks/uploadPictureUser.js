@@ -5,8 +5,8 @@ const useUploadPictureUser = () => {
   const [isUpload, setIsUpload] = useState(false);
 
   const uploadPicture = async (uid, data) => {
+    setIsUpload(true);
     try {
-      setIsUpload(true);
       await fetch(
         `https://dev.fortyfourvisual.com/v1/admin/users/${uid}/picture`,
         {
@@ -16,7 +16,7 @@ const useUploadPictureUser = () => {
             Authorization: `Bearer ${Auth.getAccessToken()}`,
           },
         }
-      );
+      ).then((res) => res.json());
       setIsUpload(false);
     } catch (error) {
       console.log(error);

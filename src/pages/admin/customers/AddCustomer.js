@@ -13,8 +13,7 @@ import useUploadPictureUser from '../../../hooks/uploadPictureUser';
 const AddCustomer = () => {
   const [selectedPhotoProfile, setSelectedPhotoProfile] = useState('');
   const [formDataState, setFormDataState] = useState(null);
-  const [addCustomer, { data: customer, isSuccess, error }] =
-    useAddUsersMutation();
+  const [addCustomer, { error }] = useAddUsersMutation();
   const navigate = useNavigate();
   const { uploadPicture, isUpload } = useUploadPictureUser();
 
@@ -22,11 +21,7 @@ const AddCustomer = () => {
     if (error?.status === 409) {
       notifyError('Email already used');
     }
-    if (isSuccess) {
-      notifySuccess('Success Added');
-      uploadPicture(customer?.data?.uid, formDataState);
-    }
-  }, [isSuccess, error]);
+  }, [error]);
 
   // CONFIG FORM
   const initialValues = {
@@ -52,19 +47,18 @@ const AddCustomer = () => {
   });
 
   const onSubmit = async (values, props) => {
-    try {
-      await addCustomer({
-        role: 'user',
-        name: values.name,
-        email: values.email,
-        phone: values.phone,
-        password: values.password,
-      });
+    await addCustomer({
+      role: 'user',
+      name: values.name,
+      email: values.email,
+      phone: values.phone,
+      password: values.password,
+    }).then(async (res) => {
+      await uploadPicture(res.data?.data.uid, formDataState);
+      notifySuccess('Success Added');
       props.resetForm();
       setSelectedPhotoProfile('');
-    } catch (error) {
-      console.log(error);
-    }
+    });
   };
 
   return (

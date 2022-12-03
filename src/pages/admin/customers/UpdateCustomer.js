@@ -6,8 +6,13 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
 import Spinner from '../../../components/admin/Spinner';
-import { useDetailCustomerQuery } from '../../../store/users/usersApiSlice';
+import useUploadPictureUser from '../../../hooks/uploadPictureUser';
+import {
+  useDetailCustomerQuery,
+  useUpdateUserMutation,
+} from '../../../store/users/usersApiSlice';
 import NotFound from '../../error/NotFound';
+import { notifySuccess } from './../../../utils/helpers';
 
 const UpdateCustomer = () => {
   const navigate = useNavigate();
@@ -19,17 +24,20 @@ const UpdateCustomer = () => {
     isError,
     isSuccess,
   } = useDetailCustomerQuery({ id: id });
-  // const [updateCustomer, { error: errorUpload }] = useUpdateUserMutation();
+  const [updateCustomer, { isSuccess: successUpdate }] =
+    useUpdateUserMutation();
   const [selectedPhotoProfile, setSelectedPhotoProfile] = useState('');
-  // const [formDataState, setFormDataState] = useState(null);
-  // const { uploadPicture, isUpload } = useUploadPictureUser();
-  console.log(customer);
+  const { uploadPicture, isUpload } = useUploadPictureUser();
 
   useEffect(() => {
     if (isSuccess) {
       setSelectedPhotoProfile(customer?.data?.picture);
     }
-  }, [isSuccess]);
+    if (successUpdate) {
+      notifySuccess('Customer Updated');
+      navigate(-1);
+    }
+  }, [successUpdate, isSuccess, customer]);
 
   // CONFIG FORM
   const initialValues = {
@@ -48,8 +56,12 @@ const UpdateCustomer = () => {
   });
 
   const onSubmit = async (values, props) => {
-    console.log(values);
-    await UpdateCustomer({ userID: id, name: values.name });
+    await updateCustomer({
+      userID: id,
+      name: values.name,
+      email: values.email,
+      phone: values.phone,
+    });
   };
 
   if (isError) {
@@ -78,12 +90,14 @@ const UpdateCustomer = () => {
               </label>
               <div className="col-9">
                 <div className="d-flex justify-content-center">
-                  {selectedPhotoProfile && (
+                  {isUpload && <Spinner />}
+                  {selectedPhotoProfile && !isUpload && (
                     <div className="img-wrap">
                       <img
                         src={selectedPhotoProfile}
                         alt="images-preview"
                         className="img-preview"
+                        style={{ objectFit: 'cover', objectPosition: 'center' }}
                       />
                       <div
                         className="delete-img"
@@ -93,7 +107,7 @@ const UpdateCustomer = () => {
                       </div>
                     </div>
                   )}
-                  {Boolean(!selectedPhotoProfile) && (
+                  {Boolean(!selectedPhotoProfile) && !isUpload && (
                     <label
                       htmlFor="image"
                       className="img-upload d-flex flex-column align-items-center text-gray-dark text-sm"
@@ -104,13 +118,21 @@ const UpdateCustomer = () => {
                         type="file"
                         id="image"
                         accept="image/*"
-                        onChange={(e) => {
+                        onChange={async (e) => {
                           // get file
                           const selectedImg = e.target.files[0];
                           // add values images
-                          // props.setFieldValue('images', [{ index: 0 }]);
+                          const formData = new FormData();
+                          formData.append('picture', selectedImg);
+
+                          // Upload picture
+                          await uploadPicture(id, formData);
+
+                          // generate url
                           const urlImg = URL.createObjectURL(selectedImg);
-                          setSelectedPhotoProfile(urlImg);
+                          if (!isUpload) {
+                            setSelectedPhotoProfile(urlImg);
+                          }
                         }}
                       />
                     </label>
@@ -185,13 +207,15 @@ const UpdateCustomer = () => {
               <button
                 type="submit"
                 className={`col-3 button text-white me-3 ${
-                  !props.isValid || props.isSubmitting
+                  !props.isValid || props.isSubmitting || isUpload
                     ? 'bg-primary-light'
                     : 'bg-primary'
                 }`}
-                disabled={!props.isValid || props.isSubmitting}
+                disabled={!props.isValid || props.isSubmitting || isUpload}
               >
-                {props.isSubmitting ? 'Please Wait' : 'Update Customer'}
+                {props.isSubmitting || isUpload
+                  ? 'Please Wait'
+                  : 'Update Customer'}
               </button>
             </div>
           </Form>

@@ -44,7 +44,7 @@ const AdminItem = ({ user }) => {
       <td className="text-primary-dark text-sm">{user.phone}</td>
       <td>
         <Link
-          to="/admin/admins/edit-admin/1"
+          to={`/admin/admins/edit-admin/${user.id}`}
           className="btn bg-success text-sm me-4 text-white px-4 py-2"
         >
           Update

@@ -13,7 +13,7 @@ import { notifyError, notifySuccess } from '../../../utils/helpers';
 const AddAdmin = () => {
   const navigate = useNavigate();
   const [selectedPhotoProfile, setSelectedPhotoProfile] = useState('');
-  const [addAdmin, { data: admin, isSuccess, error }] = useAddUsersMutation();
+  const [addAdmin, { error }] = useAddUsersMutation();
   const [formDataState, setFormDataState] = useState(null);
   const { uploadPicture } = useUploadPictureUser();
 
@@ -21,11 +21,7 @@ const AddAdmin = () => {
     if (error?.status === 409) {
       notifyError('Email already used');
     }
-    if (isSuccess) {
-      notifySuccess('Success Added');
-      uploadPicture(admin?.data?.uid, formDataState);
-    }
-  }, [isSuccess, error]);
+  }, [error]);
 
   // CONFIG FORM
   const initialValues = {
@@ -57,6 +53,11 @@ const AddAdmin = () => {
       email: values.email,
       phone: values.phone,
       password: values.password,
+    }).then(async (res) => {
+      await uploadPicture(res.data?.data.uid, formDataState);
+      notifySuccess('Success Added');
+      props.resetForm();
+      setSelectedPhotoProfile('');
     });
     props.resetForm();
     setSelectedPhotoProfile('');
@@ -117,7 +118,6 @@ const AddAdmin = () => {
                           id="image"
                           accept="image/*"
                           onChange={(e) => {
-                            console.log(e.target.files);
                             const selectedImg = e.target.files[0];
                             // add values images
                             const formData = new FormData();

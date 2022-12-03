@@ -33,6 +33,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       query: ({ id }) => ({
         url: `/admin/users/${id}`,
       }),
+      providesTags: ['Users'],
     }),
     updateUser: builder.mutation({
       query: ({ userID, ...body }) => {
@@ -42,6 +43,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
           body: body,
         };
       },
+      invalidatesTags: ['Users'],
     }),
   }),
 });
