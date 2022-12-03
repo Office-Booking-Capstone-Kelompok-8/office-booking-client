@@ -1,13 +1,55 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import Pagination from '../../../components/admin/Pagination';
 import Spinner from '../../../components/admin/Spinner';
 import { useGetUsersQuery } from '../../../store/users/usersApiSlice';
 import customers from './../../../assets/img/customers.png';
 import CustomerItem from './CustomerItem';
 
 const Customers = () => {
-  const { data: users, isLoading } = useGetUsersQuery({ role: 1 });
+  const {
+    data: users,
+    isLoading,
+    isSuccess,
+  } = useGetUsersQuery({
+    role: 1,
+  });
+
+  const [customer, setCustomer] = useState(null);
+
+  useEffect(() => {
+    if (isSuccess) {
+      setCustomer(users.data);
+    }
+  }, [isSuccess]);
+
+  // Pagination
+  const totalUsers = customer?.length;
+  const userPerPage = 3;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Mengatur data per page
+  const lastPage = currentPage * userPerPage;
+  const firstPage = lastPage - userPerPage;
+  const currentCustomer = customer?.slice(firstPage, lastPage);
+
+  const nextPage = () =>
+    setCurrentPage((prev) => {
+      if (prev === Math.ceil(totalUsers / userPerPage)) {
+        return prev;
+      }
+      return prev + 1;
+    });
+  const prevPage = () =>
+    setCurrentPage((prev) => {
+      if (prev === 1) {
+        return prev;
+      }
+      return prev - 1;
+    });
+  const paginate = (numPage) => setCurrentPage(numPage);
   return (
     <div>
       <ToastContainer
@@ -85,40 +127,21 @@ const Customers = () => {
                 </tr>
               </thead>
               <tbody>
-                {users?.data.map((user) => (
+                {currentCustomer?.map((user) => (
                   <CustomerItem user={user} key={user?.id} />
                 ))}
               </tbody>
             </table>
           </div>
           <div className="d-flex justify-content-center">
-            <nav aria-label="...">
-              <ul className="pagination">
-                <li className="page-item disabled">
-                  <Link className="page-link">Previous</Link>
-                </li>
-                <li className="page-item">
-                  <Link className="page-link" to="#">
-                    1
-                  </Link>
-                </li>
-                <li className="page-item active" aria-current="page">
-                  <Link className="page-link" to="#">
-                    2
-                  </Link>
-                </li>
-                <li className="page-item">
-                  <Link className="page-link" to="#">
-                    3
-                  </Link>
-                </li>
-                <li className="page-item">
-                  <Link className="page-link" to="#">
-                    Next
-                  </Link>
-                </li>
-              </ul>
-            </nav>
+            <Pagination
+              currentPage={currentPage}
+              totalUsers={totalUsers}
+              userPerPage={userPerPage}
+              nextPage={nextPage}
+              paginate={paginate}
+              prevPage={prevPage}
+            />
           </div>
         </div>
       )}
