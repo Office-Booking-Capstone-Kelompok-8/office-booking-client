@@ -15,7 +15,7 @@ const Admins = () => {
     if (isSuccess) {
       setAdmin(users.data);
     }
-  }, [isSuccess]);
+  }, [isSuccess, users]);
 
   // Pagination
   const totalUsers = admin?.length;

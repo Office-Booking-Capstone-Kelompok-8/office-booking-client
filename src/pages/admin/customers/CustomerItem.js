@@ -10,17 +10,16 @@ const CustomerItem = ({ user }) => {
     if (error?.status === 500) {
       notifyError('Server Error');
     }
-  }, [error]);
+    if (isSuccess) {
+      notifySuccess('Berhasil Dihapus');
+    }
+  }, [error, isSuccess]);
 
   const deleteHandler = () => {
     if (window.confirm('Delete this account?')) {
       deleteCustomer({ id: user.id });
     }
   };
-
-  if (isSuccess) {
-    notifySuccess('Berhasil Dihapus');
-  }
 
   return (
     <tr>

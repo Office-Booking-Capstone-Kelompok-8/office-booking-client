@@ -8,7 +8,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
           url: `/admin/users?role=${role}`,
         };
       },
-      providesTags: ['Users'],
+      providesTags: ['Users', 'UserDelete'],
     }),
     addUsers: builder.mutation({
       query: ({ role, ...body }) => {
@@ -27,7 +27,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
           method: 'DELETE',
         };
       },
-      invalidatesTags: ['Users'],
+      invalidatesTags: ['Users', 'UserDelete'],
     }),
     detailCustomer: builder.query({
       query: ({ id }) => ({

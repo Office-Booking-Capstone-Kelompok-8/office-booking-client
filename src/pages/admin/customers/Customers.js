@@ -23,7 +23,7 @@ const Customers = () => {
     if (isSuccess) {
       setCustomer(users.data);
     }
-  }, [isSuccess]);
+  }, [isSuccess, users]);
 
   // Pagination
   const totalUsers = customer?.length;
