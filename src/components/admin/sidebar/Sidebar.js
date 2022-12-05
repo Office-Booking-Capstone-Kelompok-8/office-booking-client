@@ -12,9 +12,12 @@ import {
   mdiCog,
 } from '@mdi/js';
 import Auth from '../../../utils/auth';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../../store/auth/authSlice';
 
 const Sidebar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   return (
     <div
       className="d-flex flex-column justify-content-between shadow sidebar"
@@ -125,7 +128,10 @@ const Sidebar = () => {
       <div
         className="nav-link__admin d-block d-block d-flex justify-content-center justify-content-md-start align-items-center"
         style={{ cursor: 'pointer' }}
-        onClick={() => Auth.logOut(navigate)}
+        onClick={() => {
+          Auth.logOut(navigate);
+          dispatch(logout());
+        }}
       >
         <Icon path={mdiLogin} title="User Profile" size={1} className="m-3" />
         <span className="d-none d-md-inline">Log Out</span>

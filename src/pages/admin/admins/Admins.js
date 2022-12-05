@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import Pagination from '../../../components/admin/Pagination';
@@ -10,6 +11,8 @@ import AdminItem from './AdminItem';
 const Admins = () => {
   const { data: users, isLoading, isSuccess } = useGetUsersQuery({ role: 2 });
   const [admin, setAdmin] = useState(null);
+  const adminAuth = useSelector((state) => state.auth.email);
+  console.log(adminAuth);
 
   useEffect(() => {
     if (isSuccess) {
@@ -90,9 +93,12 @@ const Admins = () => {
                 </tr>
               </thead>
               <tbody>
-                {currentAdmin?.map((user) => (
-                  <AdminItem user={user} key={user?.id} />
-                ))}
+                {currentAdmin?.map((user) => {
+                  if (user.email === adminAuth) {
+                    return null;
+                  }
+                  return <AdminItem user={user} key={user?.id} />;
+                })}
               </tbody>
             </table>
           </div>
