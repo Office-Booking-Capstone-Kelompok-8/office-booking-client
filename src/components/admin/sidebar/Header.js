@@ -2,8 +2,10 @@ import React from 'react';
 import './Styles.css';
 import Icon from '@mdi/react';
 import { mdiEmailOutline, mdiBellOutline, mdiMagnify } from '@mdi/js';
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
+  const navigate = useNavigate();
   return (
     <nav
       className="d-flex shadow-sm p-3 justify-content-between"
@@ -42,7 +44,8 @@ const Header = () => {
           size={1}
           className="icons m-3"
         />
-        <div className="d-flex justify-content-center align-items-center">
+        <div onClick={() => {navigate('/admin/profile');
+          }} style={{ cursor: 'pointer' }} className="d-flex justify-content-center align-items-center">
           <img
             src="https://tse3.mm.bing.net/th?id=OIP.cDqgnRzfbofSK9VVDpRSeQHaHa&pid=Api&P=0"
             alt="user"

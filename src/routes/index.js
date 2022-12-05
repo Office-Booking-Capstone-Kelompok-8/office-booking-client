@@ -25,6 +25,7 @@ import Settings from '../pages/admin/settings/Settings';
 import EditProfile from '../pages/admin/settings/EditProfile';
 import ProtectedRoute from './ProtectedRoute';
 import PrivateRoute from './PrivateRoute';
+import ProfileAdmin from '../pages/admin/admins/ProfileAdmin';
 
 export default function SetupRoute() {
   return (
@@ -37,6 +38,7 @@ export default function SetupRoute() {
         <Route path="/admin" element={<LayoutAdmin />}>
           <Route path="search" element={<SearchResults />} />
           <Route index element={<Dashboard />} />
+          <Route path="profile" element={<ProfileAdmin />}/>
           {/* Buildings */}
           <Route path="buildings">
             <Route index element={<Buildings />} />

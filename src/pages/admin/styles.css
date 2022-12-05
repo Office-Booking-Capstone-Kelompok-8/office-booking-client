@@ -119,3 +119,12 @@ label.img-upload {
   cursor: pointer;
   background-color: #f4f4f4;
 }
+
+/* ProfileAdmin */
+.profileadmin{
+  border-radius: 32px 32px 0px 0px;
+  background: linear-gradient(180deg, #E9EDF9 0%, #E9EDF9 30%, white 30%, white 100%);
+}
+.profile-text{
+  padding-top: 85px;
+}
