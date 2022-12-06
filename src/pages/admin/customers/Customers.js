@@ -19,12 +19,6 @@ const Customers = () => {
 
   const [customer, setCustomer] = useState(null);
 
-  useEffect(() => {
-    if (isSuccess) {
-      setCustomer(users.data);
-    }
-  }, [isSuccess, users]);
-
   // Pagination
   const totalUsers = customer?.length;
   const userPerPage = 3;
@@ -34,6 +28,12 @@ const Customers = () => {
   const lastPage = currentPage * userPerPage;
   const firstPage = lastPage - userPerPage;
   const currentCustomer = customer?.slice(firstPage, lastPage);
+
+  useEffect(() => {
+    if (isSuccess) {
+      setCustomer(users.data);
+    }
+  }, [isSuccess, users]);
 
   const nextPage = () =>
     setCurrentPage((prev) => {

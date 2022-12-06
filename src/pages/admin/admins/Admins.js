@@ -12,7 +12,6 @@ const Admins = () => {
   const { data: users, isLoading, isSuccess } = useGetUsersQuery({ role: 2 });
   const [admin, setAdmin] = useState(null);
   const adminAuth = useSelector((state) => state.auth.email);
-  console.log(adminAuth);
 
   useEffect(() => {
     if (isSuccess) {
