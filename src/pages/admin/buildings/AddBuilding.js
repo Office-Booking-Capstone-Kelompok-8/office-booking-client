@@ -1,13 +1,16 @@
-import { mdiCloseCircle, mdiFileImagePlus } from '@mdi/js';
+import { mdiCloseCircle, mdiFileImagePlus, mdiMenuDown } from '@mdi/js';
 import Icon from '@mdi/react';
 import React, { useState } from 'react';
 import Select from 'react-select';
-import { Form, Formik } from 'formik';
+import { Field, Form, Formik } from 'formik';
 import * as yup from 'yup';
+import Spinner from '../../../components/admin/Spinner';
 
 const AddBuilding = () => {
   const [selectedMainImg, setSelectedMainImg] = useState('');
   const [selectedMoreImg, setSelectedMoreImg] = useState([]);
+  const [showIconList, setShowIconList] = useState(false);
+
   const [errorImg, setErrorImg] = useState('');
 
   // CONFIG FORM
@@ -73,7 +76,6 @@ const AddBuilding = () => {
                             // get file
                             const selectedImg = e.target.files[0];
                             // add values images
-                            // props.setFieldValue('images', [{ index: 0 }]);
                             const urlImg = URL.createObjectURL(selectedImg);
                             setSelectedMainImg(urlImg);
                           }}
@@ -212,7 +214,7 @@ const AddBuilding = () => {
                   Full Address <span className="text-error">*</span>
                 </label>
                 <div className="col-9 d-flex">
-                  <input
+                  <Field
                     type="text"
                     className="input-field"
                     id="nameBuilding"
@@ -225,7 +227,7 @@ const AddBuilding = () => {
                   Size <span className="text-error">*</span>
                 </label>
                 <div className="col-9 d-flex">
-                  <input
+                  <Field
                     type="text"
                     className="input-field"
                     id="nameBuilding"
@@ -243,7 +245,7 @@ const AddBuilding = () => {
                   Capacity <span className="text-error">*</span>
                 </label>
                 <div className="col-9 d-flex">
-                  <input
+                  <Field
                     type="text"
                     className="input-field"
                     id="nameBuilding"
@@ -251,6 +253,43 @@ const AddBuilding = () => {
                   />
                   <div className="p-3 bg-gray-light fw-bold text-sm ms-2 rounded">
                     People
+                  </div>
+                </div>
+              </div>
+
+              {/* Facility */}
+              <div className="row mb-4">
+                <label className="col-3" htmlFor="fasilitas">
+                  Facilities <span className="text-error">*</span>
+                </label>
+                <div className="col-9">
+                  <div className="d-flex w-100 mb-3">
+                    <Field
+                      type="text"
+                      className="input-field"
+                      id="fasilitas"
+                      placeholder="Facility"
+                    />
+                    <div
+                      onClick={() => setShowIconList(!showIconList)}
+                      className="icon-select d-flex p-2 mx-2 text-sm"
+                    >
+                      {showIconList && (
+                        <div className="icon-list">
+                          <Spinner />
+                        </div>
+                      )}
+                      <span>Icon</span>
+                      <Icon path={mdiMenuDown} size={1} />
+                    </div>
+                  </div>
+                  <div>
+                    <Field
+                      type="text"
+                      className="input-field"
+                      id="fasilitas"
+                      placeholder="Deskripsi Facility"
+                    />
                   </div>
                 </div>
               </div>
@@ -264,7 +303,7 @@ const AddBuilding = () => {
                   <div className="p-3 bg-gray-light fw-bold text-sm me-2 rounded">
                     Rp
                   </div>
-                  <input
+                  <Field
                     type="text"
                     className="input-field"
                     id="nameBuilding"
@@ -280,7 +319,7 @@ const AddBuilding = () => {
                   <div className="p-3 bg-gray-light fw-bold text-sm me-2 rounded">
                     Rp
                   </div>
-                  <input
+                  <Field
                     type="text"
                     className="input-field"
                     id="nameBuilding"

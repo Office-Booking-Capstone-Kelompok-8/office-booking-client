@@ -4,6 +4,7 @@ import Icon from '@mdi/react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import * as yup from 'yup';
 import Spinner from '../../../components/admin/Spinner';
 import useUploadPictureUser from '../../../hooks/uploadPictureUser';
@@ -35,7 +36,7 @@ const UpdateCustomer = () => {
     }
     if (successUpdate) {
       notifySuccess('Customer Updated');
-      navigate(-1);
+      // navigate(-1);
     }
   }, [successUpdate, isSuccess, customer]);
 
@@ -77,6 +78,18 @@ const UpdateCustomer = () => {
 
   return (
     <div>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={false}
+        theme="colored"
+      />
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}

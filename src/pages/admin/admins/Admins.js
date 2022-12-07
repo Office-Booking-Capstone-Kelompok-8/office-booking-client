@@ -44,6 +44,7 @@ const Admins = () => {
       return prev - 1;
     });
   const paginate = (numPage) => setCurrentPage(numPage);
+
   return (
     <div>
       <ToastContainer

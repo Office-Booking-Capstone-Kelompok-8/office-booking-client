@@ -128,3 +128,25 @@ label.img-upload {
 .profile-text{
   padding-top: 85px;
 }
+
+.icon-select {
+  border-radius: 10px;
+  border: #3583EF 1px solid;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.icon-list {
+  padding: 1rem;
+  background-color: white;
+  border: #3583EF solid 1px;
+  border-radius: 10px;
+  position: absolute;
+  box-shadow: 10px 10px 23px 0px rgba(196,196,196,0.75);
+-webkit-box-shadow: 10px 10px 23px 0px rgba(196,196,196,0.75);
+-moz-box-shadow: 10px 10px 23px 0px rgba(196,196,196,0.75);
+  bottom: 3rem;
+  right: 5rem;
+}
