@@ -14,7 +14,6 @@ import Reservations from '../pages/admin/reservations/Reservations';
 import DetailReservation from '../pages/admin/reservations/DetailReservation';
 import SearchResults from '../pages/admin/SearchResults';
 import LoginAdmin from '../pages/auth/LoginAdmin';
-import LandingPage from '../pages/enduser/LandingPage';
 import NotFound from '../pages/error/NotFound';
 import ServerUnavailable from '../pages/error/ServerUnavailable';
 import Admins from '../pages/admin/admins/Admins';
@@ -26,6 +25,7 @@ import EditProfile from '../pages/admin/settings/EditProfile';
 import ProtectedRoute from './ProtectedRoute';
 import PrivateRoute from './PrivateRoute';
 import ProfileAdmin from '../pages/admin/admins/ProfileAdmin';
+import LayoutUser from '../pages/enduser/LayoutUser';
 
 export default function SetupRoute() {
   return (
@@ -77,7 +77,7 @@ export default function SetupRoute() {
       </Route>
 
       {/* END USER */}
-      <Route path="/" element={<LandingPage />} />
+      <Route path="/" element={<LayoutUser />} />
 
       {/* Not Found */}
       <Route path="*" element={<NotFound />} />

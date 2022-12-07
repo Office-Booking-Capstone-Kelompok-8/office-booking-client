@@ -1,0 +1,9 @@
+.banner{
+    height: 33rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background:url(../.././assets/img/backuser.png) ;
+    background-size: cover;
+    background-position: center;
+}
