@@ -26,6 +26,7 @@ import ProtectedRoute from './ProtectedRoute';
 import PrivateRoute from './PrivateRoute';
 import ProfileAdmin from '../pages/admin/admins/ProfileAdmin';
 import LayoutUser from '../pages/enduser/LayoutUser';
+import SearchBuilding from '../pages/enduser/SearchBuilding';
 
 export default function SetupRoute() {
   return (
@@ -78,6 +79,8 @@ export default function SetupRoute() {
 
       {/* END USER */}
       <Route path="/" element={<LayoutUser />} />
+      <Route path="searchbuilding" element={<SearchBuilding />} />
+      
 
       {/* Not Found */}
       <Route path="*" element={<NotFound />} />

@@ -7,9 +7,8 @@ const Navbar = () => {
   return (
     <div>
       <nav
-        className="shadow-sm px-5 py-2"
+        className="shadow-sm px-5 py-2 fixed-top"
         style={{
-          position: 'fixed',
           top: '0',
           left: '0',
           right: '0',
