@@ -7,13 +7,13 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import * as yup from 'yup';
 import useUploadPictureUser from '../../../hooks/uploadPictureUser';
-import { useAddUsersMutation } from '../../../store/users/usersApiSlice';
+import { useAddAdminMutation } from '../../../store/users/usersApiSlice';
 import { notifyError, notifySuccess } from '../../../utils/helpers';
 
 const AddAdmin = () => {
   const navigate = useNavigate();
   const [selectedPhotoProfile, setSelectedPhotoProfile] = useState('');
-  const [addAdmin, { error }] = useAddUsersMutation();
+  const [addAdmin, { error }] = useAddAdminMutation();
   const [formDataState, setFormDataState] = useState(null);
   const { uploadPicture } = useUploadPictureUser();
 
@@ -22,6 +22,7 @@ const AddAdmin = () => {
       notifyError('Email already used');
     }
   }, [error]);
+  
 
   // CONFIG FORM
   const initialValues = {

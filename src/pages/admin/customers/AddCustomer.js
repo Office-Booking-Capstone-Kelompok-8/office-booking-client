@@ -23,6 +23,8 @@ const AddCustomer = () => {
     }
   }, [error]);
 
+  console.log(error)
+
   // CONFIG FORM
   const initialValues = {
     name: '',
@@ -48,7 +50,6 @@ const AddCustomer = () => {
 
   const onSubmit = async (values, props) => {
     await addCustomer({
-      role: 'user',
       name: values.name,
       email: values.email,
       phone: values.phone,
@@ -235,12 +236,7 @@ const AddCustomer = () => {
                 </button>
                 <button
                   type="submit"
-                  className={`col-3 button text-white me-3 ${
-                    !props.isValid || props.isSubmitting
-                      ? 'bg-primary-light'
-                      : 'bg-primary'
-                  }`}
-                  disabled={!props.isValid || props.isSubmitting || isUpload}
+                  className='col-3 button text-white me-3 bg-primary'
                 >
                   {props.isSubmitting || isUpload
                     ? 'Please Wait'
