@@ -27,7 +27,7 @@ const LandingPage = () => {
             <div className="col-md-5">
               <h1 className='fw-bold'>Offices to suit your usiness and budget</h1>
               <p className='text-lg' style={{textAlign: 'justify', textJustify: 'inter-word'}}>
-              We provide a variety of business class office spaces to accommodate your 
+              We provide a variety of business className office spaces to accommodate your 
               budget and business needs. No extra fees or incidentals!
               </p>
             </div>
@@ -97,7 +97,7 @@ const LandingPage = () => {
           </div>
         </div>
       </div>
-    </div>  
+    </div> 
     </div>
   )
 }
