@@ -173,9 +173,9 @@ const LandingPage = () => {
                   </h3>
                   <span style={{fontSize: 20}}>Provide every answer of all your questions and needs.</span>
                 </div>
-                <div className="col-md-6 col-lg-6">
-                  <div className="accordion accordion-flush" id="accordionFlushExample" >
-                    <div className="accordion-item pt-3">
+                <div className="col-md-6 col-lg-6" >
+                  <div className="accordion accordion-flush bg-dark" id="accordionFlushExample" >
+                    <div className="accordion-item pt-3" >
                       <h2 className="accordion-header" id="flush-headingOne">
                         <button style={{fontSize: 20}} className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                           What additional services are offered?

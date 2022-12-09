@@ -27,6 +27,8 @@ import PrivateRoute from './PrivateRoute';
 import ProfileAdmin from '../pages/admin/admins/ProfileAdmin';
 import LayoutUser from '../pages/enduser/LayoutUser';
 import SearchBuilding from '../pages/enduser/SearchBuilding';
+import DetailBuildingUser from '../pages/enduser/detailbuilding/DetailBuildingUser';
+
 
 export default function SetupRoute() {
   return (
@@ -79,7 +81,8 @@ export default function SetupRoute() {
 
       {/* END USER */}
       <Route path="/" element={<LayoutUser />} />
-      <Route path="searchbuilding" element={<SearchBuilding />} />
+      <Route path="search-building" element={<SearchBuilding />} />
+      <Route path="detail-building-user" element={<DetailBuildingUser />} />
       
 
       {/* Not Found */}
