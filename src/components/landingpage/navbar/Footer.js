@@ -24,14 +24,14 @@ const Footer = () => {
                     Whatever and wherever you need. We provide a variety of business class office spaces to accommodate your budget and business needs. No extra fees or incidentals.</p>
                 </div>
                 <div className="col-md-3 col-lg-3 pe-5">
-                  <h6 className='fw-bold'>Informasi Kontak</h6>
+                  <h6>Informasi Kontak</h6>
                   <div className="d-flex align-items-center pt-3">
                     <Icon
                       path={mdiPhoneOutline}
                       size={1}
                       style={{ marginRight: '.7rem' }}
                     />
-                    <h3 className='text-md'>0351 2345 678</h3>
+                    <span className='text-md'>0351 2345 678</span>
                   </div>
                   <div className="d-flex align-items-center pt-2">
                     <Icon
@@ -39,7 +39,7 @@ const Footer = () => {
                       size={1}
                       style={{ marginRight: '.7rem' }}
                     />
-                    <h3 className='text-md'>officezone@mail.com</h3>
+                    <span className='text-md'>officezone@mail.com</span>
                   </div>
                   <div className="d-flex align-items-center pt-2">
                     <Icon
@@ -47,11 +47,11 @@ const Footer = () => {
                       size={1}
                       style={{ marginRight: '.7rem' }}
                     />
-                    <h3 className='text-md'>Jl. Kenangan No. 99 Planet Mars</h3>
+                    <span className='text-md'>Jl. Kenangan No. 99 Planet Mars</span>
                   </div>
                 </div>
                 <div className="col-md-3 col-lg-3">
-                  <h6 className='fw-bold d-flex justify-content-end'>Ikuti Sosial Media Kami</h6>
+                  <h6 className='d-flex justify-content-end'>Ikuti Sosial Media Kami</h6>
                   <div className="row d-flex justify-content-end pt-3">
                     <div className='col-md-3 col-lg-3 me-2' style={{background: "#FFFFFF",
                         boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.06)", width: 44, height: 44,

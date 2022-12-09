@@ -114,7 +114,7 @@ const DetailBuildingUser = () => {
             </div>
           
           <div className="row pt-4">
-              <h3 className="fw-bold">Acterna Corp.</h3>
+              <h2 className="fw-bold">Acterna Corp.</h2>
               <div className="col-md-8">
                 <div className="d-flex align-items-center">
                   <Icon
@@ -133,7 +133,7 @@ const DetailBuildingUser = () => {
                 className="btn bg-primary text-white text-md"
                 style={{width: 370,height: 45}}
               >
-                Add building
+                Booking now
               </Link>
             </div>
           </div>
@@ -141,7 +141,7 @@ const DetailBuildingUser = () => {
           
           <div className="row pt-4">
             <div className='col-md-8' style={{border: "0.5px solid #BFBFBF"}}></div>
-              <h5 className="fw-bold pt-5">Building specifications</h5>
+              <h4 className="fw-bold pt-5">Building specifications</h4>
               <div className="col-md-8">
                 <div className="d-flex align-items-center pt-4">
                   <Icon
@@ -168,7 +168,7 @@ const DetailBuildingUser = () => {
           
           <div className="row pt-4">
             <div className='col-md-8' style={{border: "0.5px solid #BFBFBF"}}></div>
-            <h5 className="fw-bold pt-5">Description</h5>
+            <h4 className="fw-bold pt-5">Description</h4>
             <div className="col-md-8 pt-4">
               <p>
                 Workspace is an area provided by the company for its employees to do their daily work. The current trend shows an open space workspace, which is a workspace without a partition (cubicle). This condition is expected to make it easier for employees to process onboarding, collaborating and interacting easily.
@@ -181,7 +181,7 @@ const DetailBuildingUser = () => {
 
           <div className="row pt-4">
             <div className='col-md-8' style={{border: "0.5px solid #BFBFBF"}}></div>
-            <h5 className="fw-bold pt-5">Facilities</h5>
+            <h4 className="fw-bold pt-5">Facilities</h4>
             <div className="row">
               <div className="col-md-3">
                 <h5 className='pt-4'>Food & Drink</h5>
@@ -205,7 +205,7 @@ const DetailBuildingUser = () => {
                 </div>
               </div>
               <div className="col-md-3">
-                <h5 className='pt-4'>Food & Drink</h5>
+                <h5 className='pt-4'>Safety & Security</h5>
                 <div className="d-flex align-items-center pt-3">
                   <Icon
                     path={mdiAccountMultipleOutline}
