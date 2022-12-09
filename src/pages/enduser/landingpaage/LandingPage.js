@@ -196,7 +196,7 @@ const LandingPage = () => {
                             </button>
                           </h2>
                           <div id="flush-collapseTwo" className="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                            <div className="accordion-body">Placeholder content for this accordion</div>
+                            <div className="accordion-body">We understand that small businesses often don't want to be bound by long-term contracts. With our flexible contracts, you can rent space for any length of time - from a few weeks to several months. We also offer memberships so you only pay for what you need.</div>
                           </div>
                         </div>
                         <div className="accordion-item pt-3">
@@ -206,7 +206,8 @@ const LandingPage = () => {
                             </button>
                           </h2>
                           <div id="flush-collapseThree" className="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-                            <div className="accordion-body">Placeholder content for this accordion</div>
+                            <div className="accordion-body">All of our workspaces are designed with simple décor and ergonomic furnishings, but we understand the importance of having a space that feels like your own. You can put a logo on the room, or if you want a more unique office, you can adjust the lavout and choose 
+                            furniture that suits your business and business culture with a dedicated office.</div>
                           </div>
                         </div>
                         <div className="accordion-item pt-3">
@@ -216,7 +217,7 @@ const LandingPage = () => {
                             </button>
                           </h2>
                           <div id="flush-collapseFour" className="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
-                            <div className="accordion-body ">Placeholder content for this accordion</div>
+                            <div className="accordion-body ">Our workspace is a gathering place for a variety of dynamic businesses with several lounges and community areas to do a lot of activities and connect and network with other users.</div>
                           </div>
                         </div>
                       </div>
