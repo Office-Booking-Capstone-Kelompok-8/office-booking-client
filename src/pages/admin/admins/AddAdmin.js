@@ -22,7 +22,6 @@ const AddAdmin = () => {
       notifyError('Email already used');
     }
   }, [error]);
-  
 
   // CONFIG FORM
   const initialValues = {
@@ -31,16 +30,22 @@ const AddAdmin = () => {
     phone: '',
     password: '',
     confirmPassword: '',
+    images: '',
   };
 
   const validationSchema = yup.object({
     name: yup.string().required().trim(),
+    images: yup.string().required(),
     email: yup.string().required().trim().email(),
     phone: yup
       .string()
       .matches(/^[0-9]+$/, 'number is invalid')
       .required(),
-    password: yup.string().required().trim().min(8),
+    password: yup
+      .string()
+      .required()
+      .trim()
+      .min(8, 'password must be at least 8 characters in length'),
     confirmPassword: yup
       .string()
       .oneOf([yup.ref('password'), null], 'password must match')
@@ -127,11 +132,19 @@ const AddAdmin = () => {
 
                             // generate url
                             const urlImg = URL.createObjectURL(selectedImg);
+                            props.setFieldValue('images', urlImg);
                             setSelectedPhotoProfile(urlImg);
                           }}
                         />
                       </label>
                     )}
+                  </div>
+                  <div className="text-center">
+                    <ErrorMessage name="images">
+                      {(err) => (
+                        <span className="text-sm text-error">{err}</span>
+                      )}
+                    </ErrorMessage>
                   </div>
                 </div>
               </div>
@@ -237,12 +250,7 @@ const AddAdmin = () => {
                 </button>
                 <button
                   type="submit"
-                  className={`col-3 button text-white me-3 ${
-                    !props.isValid || props.isSubmitting
-                      ? 'bg-primary-light'
-                      : 'bg-primary'
-                  }`}
-                  disabled={!props.isValid || props.isSubmitting}
+                  className={`col-3 button text-white me-3 bg-primary`}
                 >
                   {props.isSubmitting ? 'Please Wait' : 'Add Admin'}
                 </button>

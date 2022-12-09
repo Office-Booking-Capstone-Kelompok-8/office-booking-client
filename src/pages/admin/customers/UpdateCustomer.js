@@ -219,12 +219,7 @@ const UpdateCustomer = () => {
               </button>
               <button
                 type="submit"
-                className={`col-3 button text-white me-3 ${
-                  !props.isValid || props.isSubmitting || isUpload
-                    ? 'bg-primary-light'
-                    : 'bg-primary'
-                }`}
-                disabled={!props.isValid || props.isSubmitting || isUpload}
+                className={`col-3 button text-white me-3 bg-primary`}
               >
                 {props.isSubmitting || isUpload
                   ? 'Please Wait'

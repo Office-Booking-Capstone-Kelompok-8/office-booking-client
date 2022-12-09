@@ -21,7 +21,7 @@ const Customers = () => {
 
   // Pagination
   const totalUsers = customer?.length;
-  const userPerPage = 3;
+  const userPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
 
   // Mengatur data per page

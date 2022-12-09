@@ -38,7 +38,7 @@ export default function SetupRoute() {
         <Route path="/admin" element={<LayoutAdmin />}>
           <Route path="search" element={<SearchResults />} />
           <Route index element={<Dashboard />} />
-          <Route path="profile" element={<ProfileAdmin />}/>
+          <Route path="profile" element={<ProfileAdmin />} />
           {/* Buildings */}
           <Route path="buildings">
             <Route index element={<Buildings />} />
@@ -71,7 +71,7 @@ export default function SetupRoute() {
           {/* Settings */}
           <Route path="settings">
             <Route index element={<Settings />} />
-            <Route path="edit-profile/:id" element={<EditProfile />} />
+            <Route path="edit" element={<EditProfile />} />
           </Route>
         </Route>
       </Route>
