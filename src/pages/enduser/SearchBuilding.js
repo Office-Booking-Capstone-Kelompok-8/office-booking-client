@@ -6,7 +6,7 @@ const SearchBuilding = () => {
   return (
     <div style={{ position: 'relative' }}>
       <Navbar/>
-        <div className='mt-5'>
+        <div className='mt-5' >
             <div id="search" className="search">
                 <div className="container py-5">
                     <div className="row">

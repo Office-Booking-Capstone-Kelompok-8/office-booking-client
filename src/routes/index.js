@@ -25,9 +25,9 @@ import EditProfile from '../pages/admin/settings/EditProfile';
 import ProtectedRoute from './ProtectedRoute';
 import PrivateRoute from './PrivateRoute';
 import ProfileAdmin from '../pages/admin/admins/ProfileAdmin';
-import LayoutUser from '../pages/enduser/LayoutUser';
 import SearchBuilding from '../pages/enduser/SearchBuilding';
 import DetailBuildingUser from '../pages/enduser/detailbuilding/DetailBuildingUser';
+import LandingPage from '../pages/enduser/landingpaage/LandingPage';
 
 
 export default function SetupRoute() {
@@ -80,7 +80,7 @@ export default function SetupRoute() {
       </Route>
 
       {/* END USER */}
-      <Route path="/" element={<LayoutUser />} />
+      <Route path="/" element={<LandingPage />} />
       <Route path="search-building" element={<SearchBuilding />} />
       <Route path="detail-building-user" element={<DetailBuildingUser />} />
       

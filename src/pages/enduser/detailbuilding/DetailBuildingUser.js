@@ -13,9 +13,9 @@ import '../styles.css';
 
 const DetailBuildingUser = () => {
   return (
-    <div style={{ position: 'relative' }}>
+    <div style={{ position: 'relative'}}>
       <Navbar/>
-        <div className='mt-5'>
+        <div className='mt-5' style={{backgroundColor: "#FAFAFA"}}>
           <div className='container pt-5'>
             <div className='row'>
               <div className='col-md-8 col-lg-8'>
@@ -272,9 +272,7 @@ const DetailBuildingUser = () => {
               </div>
             </div>
           </div>
-
-
-          </div>
+          </div><br/><br/>
         </div>
       <Footer/>
     </div>
