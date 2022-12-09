@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const BuildingItem = ({ building }) => {
   const navigate = useNavigate();
-  console.log(building);
   return (
     <tr>
       <td
@@ -20,7 +19,9 @@ const BuildingItem = ({ building }) => {
           {building.name}
         </h1>
       </td>
-      <td className="text-primary-dark text-sm">{building.location.district}</td>
+      <td className="text-primary-dark text-sm">
+        {building.location.district}
+      </td>
       <td className="text-primary-dark text-sm">300m2</td>
       <td className="text-primary-dark text-sm">45 people</td>
       <td>

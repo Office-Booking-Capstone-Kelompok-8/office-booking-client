@@ -13,6 +13,7 @@ import {
 import { notifySuccess } from '../../../utils/helpers';
 import NotFound from '../../error/NotFound';
 import * as yup from 'yup';
+import { ToastContainer } from 'react-toastify';
 
 const UpdateAdmin = () => {
   const navigate = useNavigate();
@@ -27,7 +28,6 @@ const UpdateAdmin = () => {
   const [updateCustomer, { isSuccess: successUpdate }] =
     useUpdateUserMutation();
   const [selectedPhotoProfile, setSelectedPhotoProfile] = useState('');
-  const [formDataState, setFormDataState] = useState(null);
   const { uploadPicture, isUpload } = useUploadPictureUser();
 
   useEffect(() => {
@@ -36,10 +36,8 @@ const UpdateAdmin = () => {
     }
     if (successUpdate) {
       notifySuccess('Admin Updated');
-      navigate(-1);
     }
-  }, [successUpdate, isSuccess, admin]);
-  console.log(formDataState);
+  }, [admin]);
 
   // CONFIG FORM
   const initialValues = {
@@ -79,6 +77,18 @@ const UpdateAdmin = () => {
 
   return (
     <div>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={false}
+        theme="colored"
+      />
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -126,7 +136,6 @@ const UpdateAdmin = () => {
                           // add values images
                           const formData = new FormData();
                           formData.append('picture', selectedImg);
-                          setFormDataState(formData);
 
                           // Upload picture
                           await uploadPicture(id, formData);

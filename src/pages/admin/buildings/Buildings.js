@@ -4,6 +4,7 @@ import buildings from './../../../assets/img/building-dashboard.png';
 import { useGetBuildingQuery } from '../../../store/building/buildingApiSLice';
 import Pagination from '../../../components/admin/Pagination';
 import BuildingItem from './BuildingItem';
+import Spinner from '../../../components/admin/Spinner';
 
 const Buildings = () => {
   const { data, isSuccess } = useGetBuildingQuery({
@@ -123,34 +124,40 @@ const Buildings = () => {
         }}
       >
         <div className="card-body">
-          <table className="table">
-            <thead>
-              <tr>
-                <th className="text-sm text-gray-dark">Name</th>
-                <th className="text-sm text-gray-dark">District</th>
-                <th className="text-sm text-gray-dark">Size</th>
-                <th className="text-sm text-gray-dark">Capacity</th>
-                <th className="text-sm text-gray-dark">Price</th>
-                <th className="text-sm text-gray-dark"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentBuilding?.map((build) => (
-                <BuildingItem key={build.id} building={build} />
-              ))}
-            </tbody>
-          </table>
+          {currentBuilding ? (
+            <table className="table">
+              <thead>
+                <tr>
+                  <th className="text-sm text-gray-dark">Name</th>
+                  <th className="text-sm text-gray-dark">District</th>
+                  <th className="text-sm text-gray-dark">Size</th>
+                  <th className="text-sm text-gray-dark">Capacity</th>
+                  <th className="text-sm text-gray-dark">Price</th>
+                  <th className="text-sm text-gray-dark"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {currentBuilding?.map((build) => (
+                  <BuildingItem key={build.id} building={build} />
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <Spinner />
+          )}
         </div>
-        <div className="d-flex justify-content-center">
-          <Pagination
-            currentPage={currentPage}
-            totalUsers={totalBuilding}
-            userPerPage={buildingPerPage}
-            nextPage={nextPage}
-            paginate={paginate}
-            prevPage={prevPage}
-          />
-        </div>
+        {currentBuilding && (
+          <div className="d-flex justify-content-center">
+            <Pagination
+              currentPage={currentPage}
+              totalUsers={totalBuilding}
+              userPerPage={buildingPerPage}
+              nextPage={nextPage}
+              paginate={paginate}
+              prevPage={prevPage}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

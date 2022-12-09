@@ -18,8 +18,26 @@ export const buildingApiSlice = apiSlice.injectEndpoints({
         };
       },
     }),
+    getBuildingDetail: builder.query({
+      query: ({ id }) => {
+        return {
+          url: `/admin/buildings/${id}`,
+        };
+      },
+    }),
+    getIconFacilities: builder.query({
+      query: () => {
+        return {
+          url: `/buildings/facilities/category`,
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetBuildingQuery, useGetBuildingEmptyQuery } =
-  buildingApiSlice;
+export const {
+  useGetBuildingQuery,
+  useGetBuildingEmptyQuery,
+  useGetIconFacilitiesQuery,
+  useGetBuildingDetailQuery,
+} = buildingApiSlice;

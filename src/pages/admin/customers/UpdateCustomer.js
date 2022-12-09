@@ -36,9 +36,8 @@ const UpdateCustomer = () => {
     }
     if (successUpdate) {
       notifySuccess('Customer Updated');
-      // navigate(-1);
     }
-  }, [successUpdate, isSuccess, customer]);
+  }, [customer]);
 
   // CONFIG FORM
   const initialValues = {
@@ -139,6 +138,7 @@ const UpdateCustomer = () => {
                           formData.append('picture', selectedImg);
 
                           // Upload picture
+                          console.log(id, formData);
                           await uploadPicture(id, formData);
 
                           // generate url
