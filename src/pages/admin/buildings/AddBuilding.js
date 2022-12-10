@@ -65,11 +65,11 @@ const AddBuilding = () => {
     city: yup.number().required(),
     district: yup.number().required(),
     address: yup.string().required().trim(),
-    capacity: yup.number('not a number').required(),
+    capacity: yup.number('not a number').required().max(1000),
     // facilities: yup.array().min(1),
-    // annual: yup.number().required(),
-    // monthly: yup.number().required(),
-    // description: yup.string().required().trim(),
+    annual: yup.number().required(),
+    monthly: yup.number().required(),
+    description: yup.string().required().trim(),
   });
 
   const onSubmit = async (values, props) => {
@@ -81,7 +81,10 @@ const AddBuilding = () => {
       values.city,
       values.district,
       values.address,
-      values.capacity
+      values.capacity,
+      values.description,
+      values.annual,
+      values.monthly
     );
 
     // RESET

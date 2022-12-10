@@ -6,6 +6,7 @@ import { BASE_URL } from '../utils/constants';
 const useUploadImgBuilding = () => {
   const [isUpload, setIsUpload] = useState(false);
   const [updateBuilding, { isError, error }] = useUpdateBuildingMutation();
+  console.log(error);
 
   const uploadPicture = async (
     imgData,
@@ -13,7 +14,10 @@ const useUploadImgBuilding = () => {
     city,
     district,
     address,
-    capacity
+    capacity,
+    description,
+    annual,
+    monthly
   ) => {
     try {
       setIsUpload(true);
@@ -25,8 +29,16 @@ const useUploadImgBuilding = () => {
       })
         .then((res) => res.json())
         .then(async (res) => {
-          // Upload Gambar
-          await imgData.forEach(async (formData) => {
+          console.log(description);
+          await updateBuilding({
+            buildingID: res?.data?.id,
+            name: name,
+            description: description,
+            capacity: capacity,
+            location: { districtId: district, cityId: city, address: address },
+            price: { annual, monthly },
+          });
+          for (let formData of imgData) {
             await fetch(
               `${BASE_URL}/admin/buildings/${res?.data?.id}/pictures`,
               {
@@ -39,13 +51,7 @@ const useUploadImgBuilding = () => {
             )
               .then(async (res) => await res.json())
               .catch((err) => console.log(err));
-          });
-          await updateBuilding({
-            buildingID: res?.data?.id,
-            name: name,
-            location: { districtId: district, cityId: city, address: address },
-            capacity: capacity,
-          });
+          }
         })
         .catch((err) => console.log(err));
       setIsUpload(false);
