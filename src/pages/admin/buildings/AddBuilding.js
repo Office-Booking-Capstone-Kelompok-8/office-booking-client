@@ -7,13 +7,14 @@ import * as yup from 'yup';
 import Spinner from '../../../components/admin/Spinner';
 import useGetIcon from '../../../hooks/useGetIcon';
 import useRegion from '../../../hooks/useRegion';
-import { useGetBuildingDetailQuery } from '../../../store/building/buildingApiSLice';
-import { BASE_URL } from '../../../utils/constants';
-import Auth from '../../../utils/auth';
+import { useNavigate } from 'react-router-dom';
+import useUploadImgBuilding from '../../../hooks/useUploadImgBuilding';
 
 const AddBuilding = () => {
+  const navigate = useNavigate();
   const [selectedMainImg, setSelectedMainImg] = useState('');
   const [selectedMoreImg, setSelectedMoreImg] = useState([]);
+  const { isUpload, uploadPicture } = useUploadImgBuilding();
 
   // Get Building
   // const { data: buildingDetail } = useGetBuildingDetailQuery({
@@ -22,10 +23,10 @@ const AddBuilding = () => {
 
   // Region Features
   const { city, getDistrict, district } = useRegion();
-  const optionCity = city.map((c) => ({ value: c?.id, label: c?.nama }));
+  const optionCity = city.map((c) => ({ value: c?.id, label: c?.name }));
   const optionDistrict = district.map((d) => ({
     value: d?.id,
-    label: d?.nama,
+    label: d?.name,
   }));
 
   // Facility Features
@@ -43,7 +44,6 @@ const AddBuilding = () => {
   // Images
   const [errorImg, setErrorImg] = useState('');
   const [formDataImages, setFormDataImages] = useState([]);
-  console.log(formDataImages);
 
   // CONFIG FORM
   const initialValues = {
@@ -52,7 +52,6 @@ const AddBuilding = () => {
     city: '',
     district: '',
     address: '',
-    size: '',
     capacity: '',
     facilities: [],
     annual: '',
@@ -62,13 +61,12 @@ const AddBuilding = () => {
 
   const validationSchema = yup.object({
     images: yup.array().min(1).max(10).required(),
-    // buildingName: yup.string().required('name is a required field').trim(),
-    // city: yup.string().required(),
-    // district: yup.string().required(),
-    // address: yup.string().required().trim(),
-    // size: yup.string().required(),
-    // capacity: yup.number('not a number').required(),
-    facilities: yup.array().min(1),
+    buildingName: yup.string().required('name is a required field').trim(),
+    city: yup.number().required(),
+    district: yup.number().required(),
+    address: yup.string().required().trim(),
+    capacity: yup.number('not a number').required(),
+    // facilities: yup.array().min(1),
     // annual: yup.number().required(),
     // monthly: yup.number().required(),
     // description: yup.string().required().trim(),
@@ -76,31 +74,21 @@ const AddBuilding = () => {
 
   const onSubmit = async (values, props) => {
     console.log(values);
+    // Get Empty Building & Upload Picture
+    await uploadPicture(
+      formDataImages,
+      values.buildingName,
+      values.city,
+      values.district,
+      values.address,
+      values.capacity
+    );
 
-    // Get Empty Building
-    await fetch(`${BASE_URL}/admin/buildings/id`, {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${Auth.getAccessToken()}`,
-      },
-    })
-      .then((res) => res.json())
-      .then(async (res) => {
-        // Upload Gambar
-        console.log(res?.data?.id);
-        formDataImages.forEach(async (file) => {
-          await fetch(`${BASE_URL}/admin/buildings/${res?.data?.id}/pictures`, {
-            method: 'PUSH',
-            body: file,
-            headers: {
-              Authorization: `Bearer ${Auth.getAccessToken()}`,
-            },
-          })
-            .then((res) => res.json())
-            .catch((err) => console.log(err));
-        });
-      })
-      .catch((err) => console.log(err));
+    // RESET
+    props.resetForm();
+    setFormDataImages([]);
+    setSelectedMainImg('');
+    setSelectedMoreImg([]);
   };
 
   return (
@@ -130,7 +118,16 @@ const AddBuilding = () => {
                         />
                         <div
                           className="delete-img"
-                          onClick={() => setSelectedMainImg('')}
+                          onClick={() => {
+                            setSelectedMainImg('');
+                            const formDataNew = formDataImages.filter(
+                              (file) => {
+                                console.log(file?.get('index'));
+                                return file?.get('index') !== '0';
+                              }
+                            );
+                            setFormDataImages(formDataNew);
+                          }}
                         >
                           <Icon path={mdiCloseCircle} />
                         </div>
@@ -153,14 +150,11 @@ const AddBuilding = () => {
                           onChange={(e) => {
                             // get file
                             const selectedImg = e.target.files[0];
-                            setFormDataImages([
-                              ...formDataImages,
-                              {
-                                index: 0,
-                                picture: selectedImg,
-                                alt: selectedImg.name,
-                              },
-                            ]);
+                            const formData = new FormData();
+                            formData.append('picture', selectedImg);
+                            formData.append('index', 0);
+                            formData.append('alt', 'Main photo');
+                            setFormDataImages([...formDataImages, formData]);
                             // add values images
                             const urlImg = URL.createObjectURL(selectedImg);
                             props.setFieldValue('images', [urlImg]);
@@ -210,10 +204,11 @@ const AddBuilding = () => {
                             setErrorImg('');
                             for (let file of e.target.files) {
                               const urlFileBlob = URL.createObjectURL(file);
-                              setFormDataImages([
-                                ...formDataImages,
-                                { index: Date.now(), pictures: file },
-                              ]);
+                              const formData = new FormData();
+                              formData.append('picture', file);
+                              formData.append('index', 1);
+                              formData.append('alt', 'Alt photo');
+                              setFormDataImages([...formDataImages, formData]);
                               setSelectedMoreImg((prev) => [
                                 ...prev,
                                 urlFileBlob,
@@ -273,7 +268,7 @@ const AddBuilding = () => {
                     options={optionCity}
                     onChange={async (e) => {
                       getDistrict(e.value);
-                      props.setFieldValue('city', e.label);
+                      props.setFieldValue('city', e.value);
                     }}
                     theme={(theme) => ({
                       ...theme,
@@ -305,7 +300,7 @@ const AddBuilding = () => {
                       }),
                     }}
                     options={optionDistrict}
-                    onChange={(e) => props.setFieldValue('district', e.label)}
+                    onChange={(e) => props.setFieldValue('district', e.value)}
                     theme={(theme) => ({
                       ...theme,
                       borderRadius: '10px',
@@ -330,27 +325,6 @@ const AddBuilding = () => {
                     placeholder="Ex: Jl Melati Raya no 23 RT 12 RW 2, Tebet"
                   />
                   <ErrorMessage name="address">
-                    {(err) => <span className="text-sm text-error">{err}</span>}
-                  </ErrorMessage>
-                </div>
-              </div>
-              <div className="row mb-4">
-                <label className="col-3" htmlFor="nameBuilding">
-                  Size <span className="text-error">*</span>
-                </label>
-                <div className="col-9">
-                  <div className="d-flex">
-                    <Field
-                      name="size"
-                      type="text"
-                      className="input-field"
-                      placeholder="Size"
-                    />
-                    <div className="p-3 bg-gray-light fw-bold text-sm ms-2 rounded">
-                      M2
-                    </div>
-                  </div>
-                  <ErrorMessage name="size">
                     {(err) => <span className="text-sm text-error">{err}</span>}
                   </ErrorMessage>
                 </div>
@@ -591,14 +565,16 @@ const AddBuilding = () => {
                 <button
                   type="button"
                   className="col-3 button button-outline me-4"
+                  onClick={() => navigate(-1)}
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="col-3 button button-container me-3"
+                  className="col-3 button text-white me-3 bg-primary"
+                  disabled={props.isSubmitting && isUpload}
                 >
-                  Save
+                  {props.isSubmitting && isUpload ? 'Please Wait' : 'Save'}
                 </button>
               </div>
             </Form>

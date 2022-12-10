@@ -9,7 +9,7 @@ export const buildingApiSlice = apiSlice.injectEndpoints({
           params: body,
         };
       },
-      providesTags: ['Building'],
+      providesTags: ['Buildings', 'BuildingsDelete'],
     }),
     getBuildingEmpty: builder.query({
       query: () => {
@@ -32,6 +32,25 @@ export const buildingApiSlice = apiSlice.injectEndpoints({
         };
       },
     }),
+    deleteBuilding: builder.mutation({
+      query: ({ id }) => {
+        return {
+          url: `/admin/buildings/${id}`,
+          method: 'DELETE',
+        };
+      },
+      invalidatesTags: ['Buildings', 'BuildingsDelete'],
+    }),
+    updateBuilding: builder.mutation({
+      query: ({ buildingID, ...body }) => {
+        return {
+          url: `/admin/buildings/${buildingID}`,
+          method: 'PUT',
+          body: body,
+        };
+      },
+      invalidatesTags: ['Buildings'],
+    }),
   }),
 });
 
@@ -40,4 +59,6 @@ export const {
   useGetBuildingEmptyQuery,
   useGetIconFacilitiesQuery,
   useGetBuildingDetailQuery,
+  useDeleteBuildingMutation,
+  useUpdateBuildingMutation,
 } = buildingApiSlice;

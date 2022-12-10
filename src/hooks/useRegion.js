@@ -1,23 +1,22 @@
 import { useEffect, useState } from 'react';
+import { BASE_URL } from '../utils/constants';
 
 const useRegion = () => {
   const [city, setCity] = useState([]);
   const [district, setDistrict] = useState([]);
   const getCity = async () => {
-    await fetch(
-      'https://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=31'
-    )
+    await fetch(`${BASE_URL}/locations/cities`)
       .then((res) => res.json())
-      .then((response) => setCity(response?.kota_kabupaten))
+      .then((response) => {
+        setCity(response?.data);
+      })
       .catch((err) => console.log(err));
   };
 
   const getDistrict = async (id) => {
-    await fetch(
-      `https://dev.farizdotid.com/api/daerahindonesia/kecamatan?id_kota=${id}`
-    )
+    await fetch(`${BASE_URL}/locations/districts?cityId=${id}`)
       .then((res) => res.json())
-      .then((res) => setDistrict(res?.kecamatan))
+      .then((res) => setDistrict(res?.data))
       .catch((err) => console.log(err));
   };
 

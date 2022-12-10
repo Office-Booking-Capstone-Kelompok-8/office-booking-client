@@ -18,6 +18,7 @@ const Buildings = () => {
       setBuildingData(data.data);
     }
   }, [isSuccess, data]);
+  console.log(buildingData);
 
   // Pagination
   const totalBuilding = buildingData?.length;

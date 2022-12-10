@@ -1,11 +1,7 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import Icon from '@mdi/react';
-import { mdiPencil } from '@mdi/js';
 
 const Settings = () => {
-  const [picture, setPicture] = useState(null);
-  const img = useRef();
   return (
     <div>
       <div className="mb-2">

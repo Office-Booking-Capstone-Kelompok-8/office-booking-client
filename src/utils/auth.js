@@ -5,6 +5,7 @@ const Auth = {
   storeUserToCookie(data) {
     if (!data?.accessToken || !data?.refreshToken || !data.role) return null;
     const { accessToken, refreshToken, role } = data;
+
     Cookies.set('accessToken', accessToken);
     Cookies.set('refreshToken', refreshToken);
     Cookies.set('role', role);

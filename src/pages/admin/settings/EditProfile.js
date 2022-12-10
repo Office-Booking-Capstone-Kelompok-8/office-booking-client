@@ -1,10 +1,6 @@
-import React, { useState, useRef } from 'react';
-import Icon from '@mdi/react';
-import { mdiPencil } from '@mdi/js';
+import React from 'react';
 
 const EditProfile = () => {
-  const [picture, setPicture] = useState(null);
-  const img = useRef();
   return (
     <div>
       {/* Bank * */}

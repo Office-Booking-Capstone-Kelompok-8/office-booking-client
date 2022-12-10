@@ -15,6 +15,7 @@ const Header = () => {
         right: 0,
         left: 0,
         backgroundColor: 'white',
+        zIndex: 100,
       }}
     >
       <form className="d-sm-flex justify-content-start border align-items-center border-primary p-2 input-search">
@@ -44,8 +45,13 @@ const Header = () => {
           size={1}
           className="icons m-3"
         />
-        <div onClick={() => {navigate('/admin/profile');
-          }} style={{ cursor: 'pointer' }} className="d-flex justify-content-center align-items-center">
+        <div
+          onClick={() => {
+            navigate('/admin/profile');
+          }}
+          style={{ cursor: 'pointer' }}
+          className="d-flex justify-content-center align-items-center"
+        >
           <img
             src="https://tse3.mm.bing.net/th?id=OIP.cDqgnRzfbofSK9VVDpRSeQHaHa&pid=Api&P=0"
             alt="user"
