@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Styles.css';
+
 import Icon from '@mdi/react';
 import { mdiEmailOutline, mdiBellOutline, mdiMagnify } from '@mdi/js';
 import { useNavigate } from 'react-router-dom';

@@ -14,7 +14,6 @@ import Reservations from '../pages/admin/reservations/Reservations';
 import DetailReservation from '../pages/admin/reservations/DetailReservation';
 import SearchResults from '../pages/admin/SearchResults';
 import LoginAdmin from '../pages/auth/LoginAdmin';
-import LandingPage from '../pages/enduser/LandingPage';
 import NotFound from '../pages/error/NotFound';
 import ServerUnavailable from '../pages/error/ServerUnavailable';
 import Admins from '../pages/admin/admins/Admins';
@@ -26,6 +25,10 @@ import EditProfile from '../pages/admin/settings/EditProfile';
 import ProtectedRoute from './ProtectedRoute';
 import PrivateRoute from './PrivateRoute';
 import ProfileAdmin from '../pages/admin/admins/ProfileAdmin';
+import SearchBuilding from '../pages/enduser/SearchBuilding';
+import DetailBuildingUser from '../pages/enduser/detailbuilding/DetailBuildingUser';
+import LandingPage from '../pages/enduser/landingpaage/LandingPage';
+
 
 export default function SetupRoute() {
   return (
@@ -78,6 +81,9 @@ export default function SetupRoute() {
 
       {/* END USER */}
       <Route path="/" element={<LandingPage />} />
+      <Route path="search-building" element={<SearchBuilding />} />
+      <Route path="detail-building-user" element={<DetailBuildingUser />} />
+      
 
       {/* Not Found */}
       <Route path="*" element={<NotFound />} />

@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import './Styles.css';
+import './styles.css';
 import logo from '../../../assets/img/logo.png';
 import Icon from '@mdi/react';
 import {

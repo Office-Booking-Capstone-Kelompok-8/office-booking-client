@@ -12,6 +12,7 @@
   --color-gray: #FBFBFF;
   --color-gray-light: #F9F9F9;
   --color-gray-dark: #8C8C8C;
+  --color-neutral: #434343;
 }
 
 body {
@@ -102,6 +103,13 @@ body {
 }
 .text-gray-dark {
   color: var(--color-gray-dark) !important;
+}
+
+.bg-neutral {
+  background-color: var(--color-neutral) !important;
+}
+.text-neutral {
+  color: var(--color-neutral) !important;
 }
 
 .w-1 {
