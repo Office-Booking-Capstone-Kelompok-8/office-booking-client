@@ -21,14 +21,12 @@ import AddAdmin from '../pages/admin/admins/AddAdmin';
 import UpdateAdmin from '../pages/admin/admins/UpdateAdmin';
 import DetailAdmin from '../pages/admin/admins/DetailAdmin';
 import Settings from '../pages/admin/settings/Settings';
-import EditProfile from '../pages/admin/settings/EditProfile';
 import ProtectedRoute from './ProtectedRoute';
 import PrivateRoute from './PrivateRoute';
 import ProfileAdmin from '../pages/admin/admins/ProfileAdmin';
 import SearchBuilding from '../pages/enduser/SearchBuilding';
 import DetailBuildingUser from '../pages/enduser/detailbuilding/DetailBuildingUser';
 import LandingPage from '../pages/enduser/landingpaage/LandingPage';
-
 
 export default function SetupRoute() {
   return (
@@ -74,7 +72,6 @@ export default function SetupRoute() {
           {/* Settings */}
           <Route path="settings">
             <Route index element={<Settings />} />
-            <Route path="edit" element={<EditProfile />} />
           </Route>
         </Route>
       </Route>
@@ -83,7 +80,6 @@ export default function SetupRoute() {
       <Route path="/" element={<LandingPage />} />
       <Route path="search-building" element={<SearchBuilding />} />
       <Route path="detail-building-user" element={<DetailBuildingUser />} />
-      
 
       {/* Not Found */}
       <Route path="*" element={<NotFound />} />
