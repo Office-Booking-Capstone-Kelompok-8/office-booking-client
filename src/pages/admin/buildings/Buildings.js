@@ -1,10 +1,50 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import buildings from './../../../assets/img/building-dashboard.png';
-import { useNavigate } from 'react-router-dom';
+import { useGetBuildingQuery } from '../../../store/building/buildingApiSLice';
+import Pagination from '../../../components/admin/Pagination';
+import BuildingItem from './BuildingItem';
+import Spinner from '../../../components/admin/Spinner';
 
 const Buildings = () => {
-  const navigate = useNavigate();
+  const { data, isSuccess } = useGetBuildingQuery({
+    page: 1,
+    limit: 20,
+  });
+  const [buildingData, setBuildingData] = useState(null);
+
+  useEffect(() => {
+    if (isSuccess) {
+      setBuildingData(data.data);
+    }
+  }, [isSuccess, data]);
+  console.log(buildingData);
+
+  // Pagination
+  const totalBuilding = buildingData?.length;
+  const buildingPerPage = 3;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Mengatur data per page
+  const lastPage = currentPage * buildingPerPage;
+  const firstPage = lastPage - buildingPerPage;
+  const currentBuilding = buildingData?.slice(firstPage, lastPage);
+
+  const nextPage = () =>
+    setCurrentPage((prev) => {
+      if (prev === Math.ceil(totalBuilding / buildingPerPage)) {
+        return prev;
+      }
+      return prev + 1;
+    });
+  const prevPage = () =>
+    setCurrentPage((prev) => {
+      if (prev === 1) {
+        return prev;
+      }
+      return prev - 1;
+    });
+  const paginate = (numPage) => setCurrentPage(numPage);
 
   return (
     <div>
@@ -85,90 +125,40 @@ const Buildings = () => {
         }}
       >
         <div className="card-body">
-          <table className="table">
-            <thead>
-              <tr>
-                <th className="text-sm text-gray-dark">Name</th>
-                <th className="text-sm text-gray-dark">District</th>
-                <th className="text-sm text-gray-dark">Size</th>
-                <th className="text-sm text-gray-dark">Capacity</th>
-                <th className="text-sm text-gray-dark">Price</th>
-                <th className="text-sm text-gray-dark"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td
-                  onClick={() => {
-                    navigate('/admin/buildings/detail-building/1');
-                  }}
-                >
-                  <h1 className="text-primary-dark text-sm">
-                    <img
-                      src="https://tse3.mm.bing.net/th?id=OIP.cDqgnRzfbofSK9VVDpRSeQHaHa&pid=Api&P=0"
-                      alt="name"
-                      className="img-building 4 h-4 m-2"
-                    />
-                    Melati meeting room
-                  </h1>
-                </td>
-                <td className="text-primary-dark text-sm">Jakarta Selatan</td>
-                <td className="text-primary-dark text-sm">300m2</td>
-                <td className="text-primary-dark text-sm">45 people</td>
-                <td>
-                  <h1 className="text-primary-dark text-sm">
-                    Rp 350.000 /month
-                  </h1>
-                  <h1 className="text-primary-dark text-sm">
-                    Rp 11.350.000 /year
-                  </h1>
-                </td>
-                <td>
-                  <Link
-                    to="/admin/buildings/edit-building/1"
-                    className="btn bg-success text-sm me-4 text-white px-4 py-2"
-                  >
-                    Update
-                  </Link>
-                  <button
-                    to="/"
-                    className="btn bg-error text-sm me-4 text-white px-4 py-2">
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          {currentBuilding ? (
+            <table className="table">
+              <thead>
+                <tr>
+                  <th className="text-sm text-gray-dark">Name</th>
+                  <th className="text-sm text-gray-dark">District</th>
+                  <th className="text-sm text-gray-dark">Size</th>
+                  <th className="text-sm text-gray-dark">Capacity</th>
+                  <th className="text-sm text-gray-dark">Price</th>
+                  <th className="text-sm text-gray-dark"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {currentBuilding?.map((build) => (
+                  <BuildingItem key={build.id} building={build} />
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <Spinner />
+          )}
         </div>
-        <div className="d-flex justify-content-center">
-          <nav aria-label="...">
-            <ul className="pagination">
-              <li className="page-item disabled">
-                <Link className="page-link">Previous</Link>
-              </li>
-              <li className="page-item">
-                <Link className="page-link" to="#">
-                  1
-                </Link>
-              </li>
-              <li className="page-item active" aria-current="page">
-                <Link className="page-link" to="#">
-                  2
-                </Link>
-              </li>
-              <li className="page-item">
-                <Link className="page-link" to="#">
-                  3
-                </Link>
-              </li>
-              <li className="page-item">
-                <Link className="page-link" to="#">
-                  Next
-                </Link>
-              </li>
-            </ul>
-          </nav>
-        </div>
+        {currentBuilding && (
+          <div className="d-flex justify-content-center">
+            <Pagination
+              currentPage={currentPage}
+              totalUsers={totalBuilding}
+              userPerPage={buildingPerPage}
+              nextPage={nextPage}
+              paginate={paginate}
+              prevPage={prevPage}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

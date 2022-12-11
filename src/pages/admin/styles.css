@@ -128,3 +128,48 @@ label.img-upload {
 .profile-text{
   padding-top: 85px;
 }
+
+.icon-select {
+  border-radius: 10px;
+  border: #3583EF 1px solid;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+}
+
+.icon-list {
+  padding: 1rem;
+  background-color: white;
+  border: #3583EF solid 1px;
+  border-radius: 10px;
+  position: absolute;
+  box-shadow: 10px 10px 23px 0px rgba(196,196,196,0.75);
+-webkit-box-shadow: 10px 10px 23px 0px rgba(196,196,196,0.75);
+-moz-box-shadow: 10px 10px 23px 0px rgba(196,196,196,0.75);
+  bottom: 3rem;
+  right: 5rem;
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: center; */
+  min-width: 30rem;
+  max-width: 60rem;
+}
+
+.icon-list img {
+  width: 3rem;
+  height: 3rem;
+  padding: .5rem;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.icon-list img:hover {
+  background-color: #3583EF;
+  color: white;
+}
+
+.select-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}

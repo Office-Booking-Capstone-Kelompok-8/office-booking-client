@@ -15,9 +15,9 @@ const baseQuery = fetchBaseQuery({
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
-  
+
   // If token expired
-  if (result?.error?.status === 401) {
+  if (result?.error) {
     console.log('Sending refresh token');
     const dataRT = {
       refreshToken: Auth.getRefreshToken(),
@@ -54,5 +54,3 @@ export const apiSlice = createApi({
   baseQuery: baseQueryWithReauth,
   endpoints: (builder) => ({}),
 });
-
-// export const {} = baseQuery;

@@ -4,6 +4,7 @@ import Icon from '@mdi/react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import * as yup from 'yup';
 import Spinner from '../../../components/admin/Spinner';
 import useUploadPictureUser from '../../../hooks/uploadPictureUser';
@@ -35,9 +36,8 @@ const UpdateCustomer = () => {
     }
     if (successUpdate) {
       notifySuccess('Customer Updated');
-      navigate(-1);
     }
-  }, [successUpdate, isSuccess, customer]);
+  }, [customer]);
 
   // CONFIG FORM
   const initialValues = {
@@ -77,6 +77,18 @@ const UpdateCustomer = () => {
 
   return (
     <div>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={false}
+        theme="colored"
+      />
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -126,6 +138,7 @@ const UpdateCustomer = () => {
                           formData.append('picture', selectedImg);
 
                           // Upload picture
+                          console.log(id, formData);
                           await uploadPicture(id, formData);
 
                           // generate url
@@ -206,12 +219,7 @@ const UpdateCustomer = () => {
               </button>
               <button
                 type="submit"
-                className={`col-3 button text-white me-3 ${
-                  !props.isValid || props.isSubmitting || isUpload
-                    ? 'bg-primary-light'
-                    : 'bg-primary'
-                }`}
-                disabled={!props.isValid || props.isSubmitting || isUpload}
+                className={`col-3 button text-white me-3 bg-primary`}
               >
                 {props.isSubmitting || isUpload
                   ? 'Please Wait'

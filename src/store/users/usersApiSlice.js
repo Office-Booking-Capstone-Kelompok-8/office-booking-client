@@ -11,9 +11,19 @@ export const usersApiSlice = apiSlice.injectEndpoints({
       providesTags: ['Users', 'UserDelete'],
     }),
     addUsers: builder.mutation({
+      query: ({  ...body }) => {
+        return {
+          url: `/admin/users`,
+          method: 'POST',
+          body: body,
+        };
+      },
+      invalidatesTags: ['Users'],
+    }),
+    addAdmin: builder.mutation({
       query: ({ role, ...body }) => {
         return {
-          url: `/admin/users/new-${role}`,
+          url: `/admin/users/${role}`,
           method: 'POST',
           body: body,
         };
@@ -54,4 +64,5 @@ export const {
   useDeleteUserMutation,
   useDetailCustomerQuery,
   useUpdateUserMutation,
+  useAddAdminMutation
 } = usersApiSlice;

@@ -26,7 +26,7 @@ const CustomerItem = ({ user }) => {
       <td>
         <h1 className="text-primary-dark text-sm">
           <img
-            src={user.picture}
+            src={user?.picture}
             alt="name"
             className="img-building 4 h-4 m-2 rounded"
             style={{ objectFit: 'cover', objectPosition: 'center' }}

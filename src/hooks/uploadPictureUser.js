@@ -16,7 +16,9 @@ const useUploadPictureUser = () => {
             Authorization: `Bearer ${Auth.getAccessToken()}`,
           },
         }
-      ).then((res) => res.json());
+      )
+        .then((res) => res.json())
+        .catch((err) => console.log(err));
       setIsUpload(false);
     } catch (error) {
       console.log(error);
