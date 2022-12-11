@@ -2,7 +2,7 @@ import { apiSlice } from '../../api/apiSlice';
 
 export const paymentsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getBuilding: builder.query({
+    getPayments: builder.query({
       query: () => {
         return {
           url: `/payments`,
@@ -44,6 +44,6 @@ export const paymentsApiSlice = apiSlice.injectEndpoints({
 export const {
   useAddPaymentsMutation,
   useDeletePaymentsMutation,
-  useGetBuildingQuery,
   useUpdatePaymentsMutation,
+  useGetPaymentsQuery,
 } = paymentsApiSlice;

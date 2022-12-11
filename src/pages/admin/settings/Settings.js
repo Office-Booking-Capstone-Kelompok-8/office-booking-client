@@ -1,8 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import Spinner from '../../../components/admin/Spinner';
+import { useGetPaymentsQuery } from '../../../store/payments/paymentsApiSlice';
 
 const Settings = () => {
   const navigate = useNavigate();
+  const { data: payments, isLoading } = useGetPaymentsQuery();
+
+  console.log(payments);
+
   return (
     <div>
       {/* Bank * */}
@@ -70,31 +76,49 @@ const Settings = () => {
         }}
       >
         <div className="card-body">
-          <table className="table">
-            <thead>
-              <tr>
-                <th className="text-sm text-gray-dark">Bank</th>
-                <th className="text-sm text-gray-dark">Account Number</th>
-                <th className="text-sm text-gray-dark">Account Name</th>
-                <th className="text-sm text-gray-dark">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td className="text-primary-dark text-sm">22/10/11</td>
-                <td className="text-primary-dark text-sm">22/10/11</td>
-                <td>Test</td>
-                <td>
-                  <button
-                    to="/"
-                    className="btn bg-error text-sm me-4 text-white px-4 py-2"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <table className="table">
+              <thead>
+                <tr>
+                  <th className="text-sm text-gray-dark">Bank</th>
+                  <th className="text-sm text-gray-dark">Account Number</th>
+                  <th className="text-sm text-gray-dark">Account Name</th>
+                  <th className="text-sm text-gray-dark">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {payments?.data?.map((payment) => (
+                  <tr key={payment.id}>
+                    <td className="text-primary-dark text-sm">
+                      {payment.bankName}
+                    </td>
+                    <td className="text-primary-dark text-sm">
+                      {payment.accountNumber}
+                    </td>
+                    <td className="text-primary-dark text-sm">
+                      {payment.accountName}
+                    </td>
+                    <td>
+                      <button
+                        to="/"
+                        className="btn bg-success text-sm me-4 text-white px-4 py-2"
+                      >
+                        Update
+                      </button>
+                      <button
+                        to="/"
+                        className="btn bg-error text-sm text-white px-4 py-2"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
     </div>
