@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './styles.css';
+import './Styles.css';
 
 import Icon from '@mdi/react';
 import { mdiEmailOutline, mdiBellOutline, mdiMagnify } from '@mdi/js';
