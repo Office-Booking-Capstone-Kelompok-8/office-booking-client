@@ -36,7 +36,7 @@ export default function SetupRoute() {
       {/* ADMIN */}
       <Route element={<PrivateRoute />}>
         <Route path="/admin" element={<LayoutAdmin />}>
-          <Route path="search" element={<SearchResults />} />
+          <Route path="search/:input" element={<SearchResults />} />
           <Route index element={<Dashboard />} />
           <Route path="profile" element={<ProfileAdmin />} />
           {/* Buildings */}
