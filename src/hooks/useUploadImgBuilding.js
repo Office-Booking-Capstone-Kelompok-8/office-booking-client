@@ -1,12 +1,19 @@
 import { useState } from 'react';
-import { useUpdateBuildingMutation } from '../store/building/buildingApiSLice';
+import {
+  useAddFacilitiesMutation,
+  useUpdateBuildingMutation,
+} from '../store/building/buildingApiSLice';
 import Auth from '../utils/auth';
 import { BASE_URL } from '../utils/constants';
 
 const useUploadImgBuilding = () => {
   const [isUpload, setIsUpload] = useState(false);
-  const [updateBuilding, { isError, error }] = useUpdateBuildingMutation();
-  console.log(error);
+  const [updateBuilding, { error }] = useUpdateBuildingMutation();
+  const [addFacilities, { error: errorFacility }] = useAddFacilitiesMutation();
+
+  if (error || errorFacility) {
+    console.log(error, errorFacility);
+  }
 
   const uploadPicture = async (
     imgData,
@@ -17,7 +24,8 @@ const useUploadImgBuilding = () => {
     capacity,
     description,
     annual,
-    monthly
+    monthly,
+    facilities
   ) => {
     try {
       setIsUpload(true);
@@ -29,7 +37,7 @@ const useUploadImgBuilding = () => {
       })
         .then((res) => res.json())
         .then(async (res) => {
-          console.log(description);
+          // Update Building
           await updateBuilding({
             buildingID: res?.data?.id,
             name: name,
@@ -38,6 +46,13 @@ const useUploadImgBuilding = () => {
             location: { districtId: district, cityId: city, address: address },
             price: { annual, monthly },
           });
+
+          // Add facilities
+          await addFacilities({
+            id: res?.data?.id,
+            facility: facilities,
+          });
+
           for (let formData of imgData) {
             await fetch(
               `${BASE_URL}/admin/buildings/${res?.data?.id}/pictures`,
