@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDeleteUserMutation } from '../../../store/users/usersApiSlice';
 import { notifyError, notifySuccess } from '../../../utils/helpers';
 
@@ -21,9 +21,14 @@ const CustomerItem = ({ user }) => {
     }
   };
 
+  const navigate = useNavigate();
   return (
     <tr>
-      <td>
+      <td
+        onClick={() => {
+          navigate(`/admin/customers/detail-customer/${user.id}`);
+        }}
+        style={{ cursor: 'pointer' }}>
         <h1 className="text-primary-dark text-sm">
           <img
             src={user?.picture}
