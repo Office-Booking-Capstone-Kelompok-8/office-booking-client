@@ -87,6 +87,9 @@ const AddAdmin = () => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
+        validateOnBlur={false}
+        validateOnChange={false}
+
       >
         {(props) => {
           return (

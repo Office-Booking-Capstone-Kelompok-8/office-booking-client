@@ -116,6 +116,8 @@ const AddBuilding = () => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
+        validateOnBlur={false}
+        validateOnChange={false}
       >
         {(props) => {
           // console.log(props.errors);
