@@ -51,6 +51,15 @@ export const buildingApiSlice = apiSlice.injectEndpoints({
       },
       invalidatesTags: ['Buildings'],
     }),
+    addFacilities: builder.mutation({
+      query: ({ id, facility }) => {
+        return {
+          url: `/admin/buildings/${id}/facilities`,
+          method: 'POST',
+          body: facility,
+        };
+      },
+    }),
   }),
 });
 
@@ -61,4 +70,5 @@ export const {
   useGetBuildingDetailQuery,
   useDeleteBuildingMutation,
   useUpdateBuildingMutation,
+  useAddFacilitiesMutation,
 } = buildingApiSlice;

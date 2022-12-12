@@ -86,6 +86,8 @@ const AddCustomer = () => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
+        validateOnBlur={false}
+        validateOnChange={false}
       >
         {(props) => {
           return (

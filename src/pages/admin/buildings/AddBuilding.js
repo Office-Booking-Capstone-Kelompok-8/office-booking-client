@@ -9,6 +9,8 @@ import useGetIcon from '../../../hooks/useGetIcon';
 import useRegion from '../../../hooks/useRegion';
 import { useNavigate } from 'react-router-dom';
 import useUploadImgBuilding from '../../../hooks/useUploadImgBuilding';
+import { notifySuccess } from '../../../utils/helpers';
+import { ToastContainer } from 'react-toastify';
 
 const AddBuilding = () => {
   const navigate = useNavigate();
@@ -34,10 +36,10 @@ const AddBuilding = () => {
   const [showIconList, setShowIconList] = useState(false);
   const [listFacilities, setListFacilities] = useState([]);
   const [formStateFacilities, setFormStateFacilities] = useState({
-    name: '',
+    Name: '',
     icon: '',
-    desc: '',
-    idIcon: null,
+    description: '',
+    IconID: null,
   });
   const icons = useGetIcon();
 
@@ -66,14 +68,13 @@ const AddBuilding = () => {
     district: yup.number().required(),
     address: yup.string().required().trim(),
     capacity: yup.number('not a number').required().max(1000),
-    // facilities: yup.array().min(1),
+    facilities: yup.array().min(1),
     annual: yup.number().required(),
     monthly: yup.number().required(),
     description: yup.string().required().trim(),
   });
 
   const onSubmit = async (values, props) => {
-    console.log(values);
     // Get Empty Building & Upload Picture
     await uploadPicture(
       formDataImages,
@@ -84,7 +85,8 @@ const AddBuilding = () => {
       values.capacity,
       values.description,
       values.annual,
-      values.monthly
+      values.monthly,
+      listFacilities
     );
 
     // RESET
@@ -92,14 +94,30 @@ const AddBuilding = () => {
     setFormDataImages([]);
     setSelectedMainImg('');
     setSelectedMoreImg([]);
+    notifySuccess('Building added successfully');
+    setListFacilities([]);
   };
 
   return (
     <div>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={false}
+        theme="colored"
+      />
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
+        validateOnBlur={false}
+        validateOnChange={false}
       >
         {(props) => {
           // console.log(props.errors);
@@ -374,16 +392,47 @@ const AddBuilding = () => {
                         >
                           <div
                             className="title-facility fw-bold d-flex"
-                            style={{ gap: '.5rem' }}
+                            style={{
+                              gap: '.5rem',
+                              display: 'flex',
+                              justifyContent: 'space-between',
+                              alignItems: 'center',
+                            }}
                           >
-                            <img
-                              src={list?.icon}
-                              alt="icons"
-                              style={{ width: '1.5rem' }}
-                            />
-                            <span>{list?.name}</span>
+                            <div>
+                              <div
+                                style={{
+                                  gap: '.5rem',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                }}
+                              >
+                                <img
+                                  src={list?.icon}
+                                  alt="icons"
+                                  style={{
+                                    width: '1.5rem',
+                                  }}
+                                />
+                                <span>{list?.Name}</span>
+                              </div>
+                              <p className="text-sm mt-2 fw-light">
+                                {list?.description}
+                              </p>
+                            </div>
+                            <button
+                              className="btn bg-error text-sm text-white"
+                              onClick={() => {
+                                const deleteFac = listFacilities.filter(
+                                  (fac) => fac?.id !== list?.id
+                                );
+                                setListFacilities(deleteFac);
+                              }}
+                              type="button"
+                            >
+                              Delete
+                            </button>
                           </div>
-                          <p className="text-sm mt-2">{list?.desc}</p>
                         </div>
                       ))
                     : null}
@@ -392,10 +441,10 @@ const AddBuilding = () => {
                       onChange={(e) =>
                         setFormStateFacilities({
                           ...formStateFacilities,
-                          name: e.target.value,
+                          Name: e.target.value,
                         })
                       }
-                      value={formStateFacilities.name}
+                      value={formStateFacilities.Name}
                       type="text"
                       className="input-field"
                       id="fasilitas"
@@ -420,7 +469,7 @@ const AddBuilding = () => {
                                     setFormStateFacilities({
                                       ...formStateFacilities,
                                       icon: icon?.url,
-                                      idIcon: icon?.id,
+                                      IconID: icon?.id,
                                     });
                                   }}
                                 />
@@ -446,10 +495,10 @@ const AddBuilding = () => {
                       onChange={(e) =>
                         setFormStateFacilities({
                           ...formStateFacilities,
-                          desc: e.target.value,
+                          description: e.target.value,
                         })
                       }
-                      value={formStateFacilities.desc}
+                      value={formStateFacilities.description}
                       type="text"
                       className="input-field"
                       id="fasilitas"
@@ -459,27 +508,27 @@ const AddBuilding = () => {
                   <button
                     className="btn btn-primary mt-3 text-sm"
                     onClick={() => {
-                      console.log(formStateFacilities);
                       if (
-                        formStateFacilities.desc &&
-                        formStateFacilities.name &&
+                        formStateFacilities.description &&
+                        formStateFacilities.Name &&
                         formStateFacilities.icon
                       ) {
                         setListFacilities([
                           ...listFacilities,
-                          formStateFacilities,
+                          { ...formStateFacilities, id: Date.now() },
                         ]);
                         setFormStateFacilities({
-                          name: '',
+                          Name: '',
                           icon: '',
-                          desc: '',
+                          description: '',
+                          IconID: null,
                         });
                         props.setFieldValue('facilities', [
                           ...props.values.facilities,
                           {
-                            name: formStateFacilities.name,
-                            icon: formStateFacilities.idIcon,
-                            description: formStateFacilities.desc,
+                            name: formStateFacilities.Name,
+                            icon: formStateFacilities.IconID,
+                            description: formStateFacilities.description,
                           },
                         ]);
                         setSelectIcon('');

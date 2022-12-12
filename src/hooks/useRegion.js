@@ -1,7 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import { BASE_URL } from '../utils/constants';
 
 const useRegion = () => {
+  useEffect(() => {
+    getCity();
+  }, []);
+
   const [city, setCity] = useState([]);
   const [district, setDistrict] = useState([]);
   const getCity = async () => {
@@ -20,9 +25,7 @@ const useRegion = () => {
       .catch((err) => console.log(err));
   };
 
-  useEffect(() => {
-    getCity();
-  }, []);
+  // Set City By Name
 
   return { city, getDistrict, district };
 };
