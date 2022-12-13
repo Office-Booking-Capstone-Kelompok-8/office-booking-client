@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDeletePaymentsMutation } from "../../../store/payments/paymentsApiSlice";
-import { notifySuccess } from "../../../utils/helpers";
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDeletePaymentsMutation } from '../../../store/payments/paymentsApiSlice';
+import { notifySuccess } from '../../../utils/helpers';
 
 const BankItem = ({ payment }) => {
   const navigate = useNavigate();
@@ -9,11 +9,11 @@ const BankItem = ({ payment }) => {
     useDeletePaymentsMutation();
 
   useEffect(() => {
-    if (successDelete) notifySuccess("Delete Success");
+    if (successDelete) notifySuccess('Delete Success');
   });
 
   const deleteHandler = () => {
-    if (window.confirm("Delete this account?")) {
+    if (window.confirm('Delete this account?')) {
       deletePayment({ id: payment.id });
     }
   };

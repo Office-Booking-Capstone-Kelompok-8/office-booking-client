@@ -1,31 +1,41 @@
-import { ErrorMessage, Field, Form, Formik } from "formik";
-import React, { useEffect, useState } from "react";
-import Select from "react-select";
-import { ToastContainer } from "react-toastify";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import React, { useEffect, useState } from 'react';
+import Select from 'react-select';
+import { ToastContainer } from 'react-toastify';
 import {
   useGetBanksQuery,
   useGetPaymentDetailsQuery,
-} from "../../../store/payments/paymentsApiSlice";
-import * as yup from "yup";
-import { useParams } from "react-router-dom";
-import Spinner from "../../../components/admin/Spinner";
+  useUpdatePaymentsMutation,
+} from '../../../store/payments/paymentsApiSlice';
+import * as yup from 'yup';
+import { useParams } from 'react-router-dom';
+import Spinner from '../../../components/admin/Spinner';
+import { notifySuccess } from '../../../utils/helpers';
 
 const UpdateSetting = () => {
   const { id } = useParams();
   const { data: banks, isSuccess: successGetBank } = useGetBanksQuery();
   const { data: payments, isLoading } = useGetPaymentDetailsQuery({ id: id });
-  console.log(payments);
+  const [updatePayment, { isSuccess: successUpdate, error: errorUpdate }] =
+    useUpdatePaymentsMutation();
+
   useEffect(() => {
     if (successGetBank) {
       setBanksOptions(
         banks?.data?.map((bank) => ({ value: bank?.id, label: bank?.name }))
       );
     }
-  }, [successGetBank]);
+    if (successUpdate) notifySuccess('Payment Updated');
+  }, [successGetBank, successUpdate]);
+
+  if (errorUpdate) {
+    console.log(errorUpdate);
+  }
 
   // CONFIG FORM
   const initialValues = {
-    bank: "",
+    bank: '',
     accountName: payments?.data?.accountName,
     accountNumber: payments?.data?.accountNumber,
   };
@@ -36,11 +46,17 @@ const UpdateSetting = () => {
     accountNumber: yup
       .string()
       .required()
-      .matches(/^[0-9]+$/, "number is invalid"),
+      .matches(/^[0-9]+$/, 'number is invalid'),
   });
 
   const onSubmit = (values) => {
     console.log(values);
+    updatePayment({
+      buildingID: id,
+      bankId: values.bank,
+      accountName: values.accountName,
+      accountNumber: values.accountNumber,
+    });
   };
 
   const [banksOptions, setBanksOptions] = useState([]);
@@ -82,18 +98,17 @@ const UpdateSetting = () => {
                     className="react-select__control text-sm"
                     placeholder="Choose Bank"
                     options={banksOptions}
-                    defaultValue={{ label: "", value: 1 }}
-                    onChange={(e) => props.setFieldValue("bank", e.value)}
+                    onChange={(e) => props.setFieldValue('bank', e.value)}
                     styles={{
                       control: (provided, state) => ({
                         ...provided,
-                        border: "1px",
-                        borderColor: state.isFocused ? "#3583EF" : "#3583EF",
+                        border: '1px',
+                        borderColor: state.isFocused ? '#3583EF' : '#3583EF',
                       }),
                     }}
                     theme={(theme) => ({
                       ...theme,
-                      borderRadius: "10px",
+                      borderRadius: '10px',
                     })}
                   />
                   <ErrorMessage name="bank">

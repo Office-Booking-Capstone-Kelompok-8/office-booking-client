@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Spinner from "../../../components/admin/Spinner";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
+import Spinner from '../../../components/admin/Spinner';
 import {
   useAddPaymentsMutation,
   useGetBanksQuery,
   useGetPaymentsQuery,
-} from "../../../store/payments/paymentsApiSlice";
-import * as yup from "yup";
-import { Formik, Field, ErrorMessage, Form } from "formik";
-import Select from "react-select";
-import BankItem from "./BankItem";
-import { ToastContainer } from "react-toastify";
+} from '../../../store/payments/paymentsApiSlice';
+import * as yup from 'yup';
+import { Formik, Field, ErrorMessage, Form } from 'formik';
+import Select from 'react-select';
+import BankItem from './BankItem';
+import { ToastContainer } from 'react-toastify';
+import { notifySuccess } from '../../../utils/helpers';
 
 const Settings = () => {
   // const navigate = useNavigate();
@@ -21,22 +22,23 @@ const Settings = () => {
 
   const [banksOptions, setBanksOptions] = useState([]);
 
-  console.log(addError);
-
   useEffect(() => {
+    if (addSuccess) notifySuccess('Add Payment Successfully');
     if (successGetBank) {
       setBanksOptions(
         banks?.data?.map((bank) => ({ value: bank?.id, label: bank?.name }))
       );
     }
-  }, [successGetBank]);
+  }, [successGetBank, addSuccess]);
+
+  if (addError) console.log(addError);
 
   // CONFIG FORM
   const initialValues = {
-    bank: "",
-    accountName: "",
-    accountNumber: "",
-    description: "Test",
+    bank: '',
+    accountName: '',
+    accountNumber: '',
+    description: 'Test',
   };
 
   const validationSchema = yup.object({
@@ -45,16 +47,16 @@ const Settings = () => {
     accountNumber: yup
       .string()
       .required()
-      .matches(/^[0-9]+$/, "number is invalid"),
+      .matches(/^[0-9]+$/, 'number is invalid'),
   });
 
-  const onSubmit = (values) => {
-    console.log(values);
-    addPayment({
+  const onSubmit = async (values, props) => {
+    await addPayment({
       bankId: values.bank,
       accountName: values.accountName,
       accountNumber: values.accountNumber,
     });
+    props.resetForm();
   };
 
   return (
@@ -93,17 +95,17 @@ const Settings = () => {
                     className="react-select__control text-sm"
                     placeholder="Choose Bank"
                     options={banksOptions}
-                    onChange={(e) => props.setFieldValue("bank", e.value)}
+                    onChange={(e) => props.setFieldValue('bank', e.value)}
                     styles={{
                       control: (provided, state) => ({
                         ...provided,
-                        border: "1px",
-                        borderColor: state.isFocused ? "#3583EF" : "#3583EF",
+                        border: '1px',
+                        borderColor: state.isFocused ? '#3583EF' : '#3583EF',
                       }),
                     }}
                     theme={(theme) => ({
                       ...theme,
-                      borderRadius: "10px",
+                      borderRadius: '10px',
                     })}
                   />
                   <ErrorMessage name="bank">
@@ -148,10 +150,9 @@ const Settings = () => {
                 <div className="col-md-12">
                   <button
                     type="submit"
-                    to="/admin/settings/edit"
-                    className="btn bg-primary text-white text-sm me-5 px-5 py-2"
+                    className="col-3 button text-white me-3 bg-primary"
                   >
-                    Add Payment
+                    {props.isSubmitting ? 'Please Wait' : 'Add Payment'}
                   </button>
                 </div>
               </div>
@@ -164,9 +165,9 @@ const Settings = () => {
       <div
         className="card"
         style={{
-          boxShadow: "0px 8px 24px rgba(112, 144, 176, 0.25)",
+          boxShadow: '0px 8px 24px rgba(112, 144, 176, 0.25)',
           borderRadius: 9,
-          marginTop: "3rem",
+          marginTop: '3rem',
         }}
       >
         <div className="card-body">
