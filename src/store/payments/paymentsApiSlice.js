@@ -10,6 +10,14 @@ export const paymentsApiSlice = apiSlice.injectEndpoints({
       },
       providesTags: ["Payments", "PaymentsDelete"],
     }),
+    getPaymentDetails: builder.query({
+      query: ({ id }) => {
+        return {
+          url: `/payments/${id}`,
+        };
+      },
+      providesTags: ["Payments"],
+    }),
     getBanks: builder.query({
       query: () => {
         return {
@@ -55,4 +63,5 @@ export const {
   useUpdatePaymentsMutation,
   useGetPaymentsQuery,
   useGetBanksQuery,
+  useGetPaymentDetailsQuery,
 } = paymentsApiSlice;

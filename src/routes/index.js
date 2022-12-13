@@ -1,32 +1,33 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-import AddBuilding from '../pages/admin/buildings/AddBuilding';
-import Buildings from '../pages/admin/buildings/Buildings';
-import UpdateBuilding from '../pages/admin/buildings/UpdateBuilding';
-import DetailBuilding from '../pages/admin/buildings/DetailBuilding';
-import AddCustomer from '../pages/admin/customers/AddCustomer';
-import Customers from '../pages/admin/customers/Customers';
-import UpdateCustomer from '../pages/admin/customers/UpdateCustomer';
-import DetailCustomer from '../pages/admin/customers/DetailCustomer';
-import Dashboard from '../pages/admin/dashboard/Dashboard';
-import LayoutAdmin from '../pages/admin/LayoutAdmin';
-import Reservations from '../pages/admin/reservations/Reservations';
-import DetailReservation from '../pages/admin/reservations/DetailReservation';
-import SearchResults from '../pages/admin/SearchResults';
-import LoginAdmin from '../pages/auth/LoginAdmin';
-import NotFound from '../pages/error/NotFound';
-import ServerUnavailable from '../pages/error/ServerUnavailable';
-import Admins from '../pages/admin/admins/Admins';
-import AddAdmin from '../pages/admin/admins/AddAdmin';
-import UpdateAdmin from '../pages/admin/admins/UpdateAdmin';
-import DetailAdmin from '../pages/admin/admins/DetailAdmin';
-import Settings from '../pages/admin/settings/Settings';
-import ProtectedRoute from './ProtectedRoute';
-import PrivateRoute from './PrivateRoute';
-import ProfileAdmin from '../pages/admin/admins/ProfileAdmin';
-import SearchBuilding from '../pages/enduser/SearchBuilding';
-import DetailBuildingUser from '../pages/enduser/detailbuilding/DetailBuildingUser';
-import LandingPage from '../pages/enduser/landingpaage/LandingPage';
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import AddBuilding from "../pages/admin/buildings/AddBuilding";
+import Buildings from "../pages/admin/buildings/Buildings";
+import UpdateBuilding from "../pages/admin/buildings/UpdateBuilding";
+import DetailBuilding from "../pages/admin/buildings/DetailBuilding";
+import AddCustomer from "../pages/admin/customers/AddCustomer";
+import Customers from "../pages/admin/customers/Customers";
+import UpdateCustomer from "../pages/admin/customers/UpdateCustomer";
+import DetailCustomer from "../pages/admin/customers/DetailCustomer";
+import Dashboard from "../pages/admin/dashboard/Dashboard";
+import LayoutAdmin from "../pages/admin/LayoutAdmin";
+import Reservations from "../pages/admin/reservations/Reservations";
+import DetailReservation from "../pages/admin/reservations/DetailReservation";
+import SearchResults from "../pages/admin/SearchResults";
+import LoginAdmin from "../pages/auth/LoginAdmin";
+import NotFound from "../pages/error/NotFound";
+import ServerUnavailable from "../pages/error/ServerUnavailable";
+import Admins from "../pages/admin/admins/Admins";
+import AddAdmin from "../pages/admin/admins/AddAdmin";
+import UpdateAdmin from "../pages/admin/admins/UpdateAdmin";
+import DetailAdmin from "../pages/admin/admins/DetailAdmin";
+import Settings from "../pages/admin/settings/Settings";
+import ProtectedRoute from "./ProtectedRoute";
+import PrivateRoute from "./PrivateRoute";
+import ProfileAdmin from "../pages/admin/admins/ProfileAdmin";
+import SearchBuilding from "../pages/enduser/SearchBuilding";
+import DetailBuildingUser from "../pages/enduser/detailbuilding/DetailBuildingUser";
+import LandingPage from "../pages/enduser/landingpaage/LandingPage";
+import UpdateSetting from "../pages/admin/settings/UpdateSetting";
 
 export default function SetupRoute() {
   return (
@@ -72,6 +73,7 @@ export default function SetupRoute() {
           {/* Settings */}
           <Route path="settings">
             <Route index element={<Settings />} />
+            <Route path="update/:id" element={<UpdateSetting />} />
           </Route>
         </Route>
       </Route>

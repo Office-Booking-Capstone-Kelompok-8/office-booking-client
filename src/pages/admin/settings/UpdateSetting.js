@@ -1,28 +1,20 @@
+import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Spinner from "../../../components/admin/Spinner";
+import Select from "react-select";
+import { ToastContainer } from "react-toastify";
 import {
-  useAddPaymentsMutation,
   useGetBanksQuery,
-  useGetPaymentsQuery,
+  useGetPaymentDetailsQuery,
 } from "../../../store/payments/paymentsApiSlice";
 import * as yup from "yup";
-import { Formik, Field, ErrorMessage, Form } from "formik";
-import Select from "react-select";
-import BankItem from "./BankItem";
-import { ToastContainer } from "react-toastify";
+import { useParams } from "react-router-dom";
+import Spinner from "../../../components/admin/Spinner";
 
-const Settings = () => {
-  // const navigate = useNavigate();
-  const { data: payments, isLoading } = useGetPaymentsQuery();
-  const [addPayment, { error: addError, isSuccess: addSuccess }] =
-    useAddPaymentsMutation();
+const UpdateSetting = () => {
+  const { id } = useParams();
   const { data: banks, isSuccess: successGetBank } = useGetBanksQuery();
-
-  const [banksOptions, setBanksOptions] = useState([]);
-
-  console.log(addError);
-
+  const { data: payments, isLoading } = useGetPaymentDetailsQuery({ id: id });
+  console.log(payments);
   useEffect(() => {
     if (successGetBank) {
       setBanksOptions(
@@ -34,9 +26,8 @@ const Settings = () => {
   // CONFIG FORM
   const initialValues = {
     bank: "",
-    accountName: "",
-    accountNumber: "",
-    description: "Test",
+    accountName: payments?.data?.accountName,
+    accountNumber: payments?.data?.accountNumber,
   };
 
   const validationSchema = yup.object({
@@ -50,13 +41,11 @@ const Settings = () => {
 
   const onSubmit = (values) => {
     console.log(values);
-    addPayment({
-      bankId: values.bank,
-      accountName: values.accountName,
-      accountNumber: values.accountNumber,
-    });
   };
 
+  const [banksOptions, setBanksOptions] = useState([]);
+
+  if (isLoading) return <Spinner />;
   return (
     <div>
       <ToastContainer
@@ -93,6 +82,7 @@ const Settings = () => {
                     className="react-select__control text-sm"
                     placeholder="Choose Bank"
                     options={banksOptions}
+                    defaultValue={{ label: "", value: 1 }}
                     onChange={(e) => props.setFieldValue("bank", e.value)}
                     styles={{
                       control: (provided, state) => ({
@@ -151,7 +141,7 @@ const Settings = () => {
                     to="/admin/settings/edit"
                     className="btn bg-primary text-white text-sm me-5 px-5 py-2"
                   >
-                    Add Payment
+                    Update
                   </button>
                 </div>
               </div>
@@ -159,40 +149,8 @@ const Settings = () => {
           );
         }}
       </Formik>
-
-      {/* Table */}
-      <div
-        className="card"
-        style={{
-          boxShadow: "0px 8px 24px rgba(112, 144, 176, 0.25)",
-          borderRadius: 9,
-          marginTop: "3rem",
-        }}
-      >
-        <div className="card-body">
-          {isLoading ? (
-            <Spinner />
-          ) : (
-            <table className="table">
-              <thead>
-                <tr>
-                  <th className="text-sm text-gray-dark">Bank</th>
-                  <th className="text-sm text-gray-dark">Account Number</th>
-                  <th className="text-sm text-gray-dark">Account Name</th>
-                  <th className="text-sm text-gray-dark">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {payments?.data?.map((payment) => (
-                  <BankItem key={payment.id} payment={payment} />
-                ))}
-              </tbody>
-            </table>
-          )}
-        </div>
-      </div>
     </div>
   );
 };
 
-export default Settings;
+export default UpdateSetting;
