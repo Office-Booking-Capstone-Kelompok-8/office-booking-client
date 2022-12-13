@@ -1,28 +1,36 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { mdiCamera } from '@mdi/js';
 import Icon from '@mdi/react';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import React, { useEffect } from 'react';
-import {
-  useChangePasswordMutation,
-  useGetCurrentUserQuery,
-  useUpdateCurrentUserMutation,
-} from '../../../store/currentUser/currentUserApiSlice';
+import Cookies from 'js-cookie';
+import React, { useEffect, useState } from 'react';
+import { useChangePasswordMutation } from '../../../store/currentUser/currentUserApiSlice';
 import * as yup from 'yup';
 import Spinner from '../../../components/admin/Spinner';
 import { notifyError, notifySuccess } from '../../../utils/helpers';
 import { ToastContainer } from 'react-toastify';
+import {
+  useDetailCustomerQuery,
+  useUpdateUserMutation,
+} from '../../../store/users/usersApiSlice';
+import useUploadPictureUser from '../../../hooks/uploadPictureUser';
+import { useDispatch } from 'react-redux';
+import { setPhoto } from '../../../store/auth/authSlice';
 
 const ProfileAdmin = () => {
+  const dispatch = useDispatch();
   const {
     data: currentUser,
     error,
     isError,
     isLoading,
-  } = useGetCurrentUserQuery();
+  } = useDetailCustomerQuery({ id: Cookies.get('id') });
+
   const [
     updateCurrentUser,
     { isSuccess: successUpdate, isError: isErrorUpdate, error: errorUpdate },
-  ] = useUpdateCurrentUserMutation();
+  ] = useUpdateUserMutation();
+
   const [
     changePassword,
     {
@@ -32,28 +40,29 @@ const ProfileAdmin = () => {
     },
   ] = useChangePasswordMutation();
 
+  const { uploadPicture } = useUploadPictureUser();
+  // Store picture
+  const [profileBlob, setProfileBlob] = useState('');
+
   if (isError || isErrorUpdate || isErrorPassword) {
     console.log(error);
     console.log(errorUpdate);
     console.log(errorPassword);
   }
 
-  console.log(currentUser);
-
   useEffect(() => {
-    if (isErrorUpdate || isErrorPassword) {
-      notifyError('Update Failed');
+    dispatch(setPhoto({ picture: currentUser?.data?.picture }));
+    if (isErrorUpdate) {
+      if (errorUpdate.status === 409) {
+        notifyError('Email already in use');
+      } else {
+        notifyError('Update Failed');
+      }
     }
     if (successUpdate || successPassword) {
       notifySuccess('Update successfully');
     }
-  }, [
-    isErrorUpdate,
-    successUpdate,
-    successPassword,
-    isErrorPassword,
-    currentUser,
-  ]);
+  }, [isErrorUpdate, successUpdate, successPassword, errorUpdate]);
 
   // CONFIG FORM PASSWORD
   const initialValuesPassword = {
@@ -71,12 +80,12 @@ const ProfileAdmin = () => {
       .required('confirm password is a required field'),
   });
 
-  const onSubmitPassword = async (values) => {
-    console.log(values);
+  const onSubmitPassword = async (values, props) => {
     changePassword({
       oldPassword: values.oldPassword,
       newPassword: values.newPassword,
     });
+    props.resetForm();
   };
 
   // CONFIG FORM DETAIL
@@ -97,6 +106,7 @@ const ProfileAdmin = () => {
 
   const onSubmit = async (values) => {
     updateCurrentUser({
+      userID: Cookies.get('id'),
       name: values?.name,
       email: values?.email,
       phone: values?.phone,
@@ -125,7 +135,38 @@ const ProfileAdmin = () => {
             <div className="row mb-3">
               <div className="col-6 ">
                 <div className=" row rounded align-items-center">
-                  <div
+                  <input
+                    type="file"
+                    hidden
+                    id="profilePic"
+                    accept="image/*"
+                    onChange={async (e) => {
+                      // get file
+                      const selectedImg = e.target.files[0];
+                      // add values images
+                      const formData = new FormData();
+                      formData.append('picture', selectedImg);
+
+                      // Add blob file
+                      const urlImg = URL.createObjectURL(selectedImg);
+                      setProfileBlob(urlImg);
+
+                      // Upload picture
+                      await uploadPicture(currentUser?.data?.id, formData);
+
+                      // Update store picture
+                      dispatch(
+                        setPhoto({ picture: currentUser?.data?.picture })
+                      );
+                      localStorage.removeItem('picture');
+                      localStorage.setItem(
+                        'picture',
+                        currentUser?.data?.picture
+                      );
+                    }}
+                  />
+                  <label
+                    htmlFor="profilePic"
                     className="col-2"
                     style={{ position: 'relative', cursor: 'pointer' }}
                   >
@@ -139,13 +180,13 @@ const ProfileAdmin = () => {
                       }}
                     />
                     <img
-                      src="https://tse3.mm.bing.net/th?id=OIP.cDqgnRzfbofSK9VVDpRSeQHaHa&pid=Api&P=0"
+                      src={profileBlob || currentUser?.data?.picture}
                       alt="user"
                       className="w-10 h-10 avatar"
                     />
-                  </div>
+                  </label>
                   <div className="col-8">
-                    <h3>Profile</h3>
+                    <h3>{currentUser?.data?.name}</h3>
                     <span className="text-md text-gray-dark">
                       update your personal details
                     </span>

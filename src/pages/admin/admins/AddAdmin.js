@@ -89,7 +89,6 @@ const AddAdmin = () => {
         onSubmit={onSubmit}
         validateOnBlur={false}
         validateOnChange={false}
-
       >
         {(props) => {
           return (
@@ -254,6 +253,7 @@ const AddAdmin = () => {
                 <button
                   type="submit"
                   className={`col-3 button text-white me-3 bg-primary`}
+                  disabled={props.isSubmitting}
                 >
                   {props.isSubmitting ? 'Please Wait' : 'Add Admin'}
                 </button>

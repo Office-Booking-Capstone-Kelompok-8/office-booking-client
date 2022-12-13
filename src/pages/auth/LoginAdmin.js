@@ -12,23 +12,23 @@ import {
 import { Formik, Form, ErrorMessage, Field } from 'formik';
 import * as yup from 'yup';
 import { useLoginMutation } from '../../store/auth/authApiSlice';
-import { useDispatch } from 'react-redux';
-import { setCredential } from '../../store/auth/authSlice';
 import { ToastContainer } from 'react-toastify';
 import { notifyError } from '../../utils/helpers';
 import { useNavigate } from 'react-router-dom';
 import Auth from '../../utils/auth';
+import { BASE_URL } from '../../utils/constants';
+import { useDispatch } from 'react-redux';
+import { setCredential } from '../../store/auth/authSlice';
 
 const LoginAdmin = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   // Show Password
   const [showPassword, setShowPassword] = useState(false);
   const toggleShowPassword = () => setShowPassword(!showPassword);
 
   // Login Mutation
   const [login] = useLoginMutation();
-  // const [errorLogin, setErrorLogin] = useState('');
-  const dispatch = useDispatch();
   // Formik Setup
   const initialValues = {
     email: '',
@@ -46,15 +46,35 @@ const LoginAdmin = () => {
         password: values.password,
       }).unwrap();
       // Store User to Cookie
+      console.log(userData);
       Auth.storeUserToCookie(userData.data);
-      dispatch(
-        setCredential({
-          role: userData?.data?.role,
-          email: values.email,
-        })
-      );
+
+      // Get User Detail
+      await fetch(`${BASE_URL}/admin/users/${userData?.data?.userId}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${Auth.getAccessToken()}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          // Store user detail to local storage
+          Auth.storeUserToState(res?.data);
+
+          // Store to Redux
+          dispatch(
+            setCredential({
+              name: res?.data?.name,
+              email: res?.data?.email,
+              picture: res?.data?.picture,
+              phone: res?.data?.phone,
+            })
+          );
+        });
+
       navigate('/admin');
     } catch (error) {
+      console.log(error);
       if (error.status === 401 || error.status === 400) {
         notifyError('Email or Password Invalid');
       } else if (error.status === 500) {
@@ -177,8 +197,12 @@ const LoginAdmin = () => {
                       Remember Me
                     </label>
                   </div>
-                  <button type="submit" className="btn bg-primary text-white">
-                    Log In
+                  <button
+                    type="submit"
+                    className={`col-3 button text-white me-3 bg-primary`}
+                    disabled={props.isSubmitting}
+                  >
+                    {props.isSubmitting ? 'Loading' : 'Log In'}
                   </button>
                 </Form>
               );

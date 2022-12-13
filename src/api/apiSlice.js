@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { logout, setCredential } from '../store/auth/authSlice';
 import Auth from '../utils/auth';
 import { BASE_URL } from '../utils/constants';
 
@@ -22,28 +21,22 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
     const dataRT = {
       refreshToken: Auth.getRefreshToken(),
     };
-    const refreshResult = await fetch(
-      'https://dev.fortyfourvisual.com/v1/auth/refresh',
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        method: 'POST',
-        body: JSON.stringify(dataRT),
-      }
-    ).then((res) => res.json());
+    const refreshResult = await fetch(`${BASE_URL}/auth/refresh`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify(dataRT),
+    }).then((res) => res.json());
 
     if (refreshResult?.data) {
       // update store
-      const email = api.getState().auth.email;
-      const role = api.getState().auth.role;
-      api.dispatch(setCredential({ role, email }));
       Auth.storeUserToCookie(refreshResult.data);
 
       // retry original query
       result = await baseQuery(args, api, extraOptions);
     } else {
-      api.dispatch(logout());
+      Auth.logOut();
     }
   }
 

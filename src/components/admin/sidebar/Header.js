@@ -4,10 +4,16 @@ import './Styles.css';
 import Icon from '@mdi/react';
 import { mdiEmailOutline, mdiBellOutline, mdiMagnify } from '@mdi/js';
 import { useNavigate } from 'react-router-dom';
+import { useDetailCustomerQuery } from '../../../store/users/usersApiSlice';
+import Cookies from 'js-cookie';
 
 const Header = () => {
   const navigate = useNavigate();
   const [inputSearch, setInputSearch] = useState('');
+  const { data: currentUser } = useDetailCustomerQuery({
+    id: Cookies.get('id'),
+  });
+
   return (
     <nav
       className="d-flex shadow-sm p-3 justify-content-between"
@@ -69,13 +75,13 @@ const Header = () => {
           className="d-flex justify-content-center align-items-center"
         >
           <img
-            src="https://tse3.mm.bing.net/th?id=OIP.cDqgnRzfbofSK9VVDpRSeQHaHa&pid=Api&P=0"
+            src={currentUser?.data?.picture}
             alt="user"
             className="w-4 h-4 avatar"
             style={{ marginRight: '1rem' }}
           />
           <div className="d-lg-flex d-none flex-column justify-content-center">
-            <h4 className="text-md fw-bold">Abraham Putra Rizky</h4>
+            <h4 className="text-md fw-bold">{currentUser?.data?.name}</h4>
             <small style={{ fontSize: '0.85rem' }}>Super admin</small>
           </div>
         </div>
