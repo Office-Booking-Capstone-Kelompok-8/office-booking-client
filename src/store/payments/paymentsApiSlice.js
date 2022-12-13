@@ -1,4 +1,4 @@
-import { apiSlice } from '../../api/apiSlice';
+import { apiSlice } from "../../api/apiSlice";
 
 export const paymentsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -8,35 +8,43 @@ export const paymentsApiSlice = apiSlice.injectEndpoints({
           url: `/payments`,
         };
       },
-      providesTags: ['Payments', 'PaymentsDelete'],
+      providesTags: ["Payments", "PaymentsDelete"],
+    }),
+    getBanks: builder.query({
+      query: () => {
+        return {
+          url: `/payments/banks`,
+        };
+      },
     }),
     addPayments: builder.mutation({
       query: ({ ...body }) => {
         return {
           url: `/admin/payments`,
-          method: 'POST',
+          method: "POST",
           body: body,
         };
       },
+      invalidatesTags: ["Payments"],
     }),
     deletePayments: builder.mutation({
       query: ({ id }) => {
         return {
           url: `/admin/payments/${id}`,
-          method: 'DELETE',
+          method: "DELETE",
         };
       },
-      invalidatesTags: ['Payments', 'PaymentsDelete'],
+      invalidatesTags: ["Payments", "PaymentsDelete"],
     }),
     updatePayments: builder.mutation({
       query: ({ buildingID, ...body }) => {
         return {
           url: `/admin/payments/${buildingID}`,
-          method: 'PUT',
+          method: "PUT",
           body: body,
         };
       },
-      invalidatesTags: ['Payments'],
+      invalidatesTags: ["Payments"],
     }),
   }),
 });
@@ -46,4 +54,5 @@ export const {
   useDeletePaymentsMutation,
   useUpdatePaymentsMutation,
   useGetPaymentsQuery,
+  useGetBanksQuery,
 } = paymentsApiSlice;
