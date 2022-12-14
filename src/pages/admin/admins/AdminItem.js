@@ -26,7 +26,7 @@ const AdminItem = ({ user }) => {
     <tr>
       <td
         onClick={() => {
-          navigate('/admin/admins/detail-admin/1');
+          navigate(`/admin/admins/detail-admin/${user.id}`);
         }}
         style={{ cursor: 'pointer' }}
       >
