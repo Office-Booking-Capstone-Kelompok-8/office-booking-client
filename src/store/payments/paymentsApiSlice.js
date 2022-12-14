@@ -1,27 +1,27 @@
-import { apiSlice } from "../../api/apiSlice";
+import { apiSlice } from '../../api/apiSlice';
 
 export const paymentsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getPayments: builder.query({
       query: () => {
         return {
-          url: `/payments`,
+          url: `/payments/methods`,
         };
       },
-      providesTags: ["Payments", "PaymentsDelete"],
+      providesTags: ['Payments', 'PaymentsDelete'],
     }),
     getPaymentDetails: builder.query({
       query: ({ id }) => {
         return {
-          url: `/payments/${id}`,
+          url: `/payments/methods/${id}`,
         };
       },
-      providesTags: ["Payments"],
+      providesTags: ['Payments'],
     }),
     getBanks: builder.query({
       query: () => {
         return {
-          url: `/payments/banks`,
+          url: `/payments/methods/banks`,
         };
       },
     }),
@@ -29,30 +29,30 @@ export const paymentsApiSlice = apiSlice.injectEndpoints({
       query: ({ ...body }) => {
         return {
           url: `/admin/payments`,
-          method: "POST",
+          method: 'POST',
           body: body,
         };
       },
-      invalidatesTags: ["Payments"],
+      invalidatesTags: ['Payments'],
     }),
     deletePayments: builder.mutation({
       query: ({ id }) => {
         return {
           url: `/admin/payments/${id}`,
-          method: "DELETE",
+          method: 'DELETE',
         };
       },
-      invalidatesTags: ["Payments", "PaymentsDelete"],
+      invalidatesTags: ['Payments', 'PaymentsDelete'],
     }),
     updatePayments: builder.mutation({
       query: ({ buildingID, ...body }) => {
         return {
           url: `/admin/payments/${buildingID}`,
-          method: "PUT",
+          method: 'PUT',
           body: body,
         };
       },
-      invalidatesTags: ["Payments"],
+      invalidatesTags: ['Payments'],
     }),
   }),
 });

@@ -15,7 +15,7 @@ import { notifySuccess } from '../../../utils/helpers';
 
 const Settings = () => {
   // const navigate = useNavigate();
-  const { data: payments, isLoading } = useGetPaymentsQuery();
+  const { data: payments, isLoading, error } = useGetPaymentsQuery();
   const [addPayment, { error: addError, isSuccess: addSuccess }] =
     useAddPaymentsMutation();
   const { data: banks, isSuccess: successGetBank } = useGetBanksQuery();
@@ -32,6 +32,7 @@ const Settings = () => {
   }, [successGetBank, addSuccess]);
 
   if (addError) console.log(addError);
+  console.log(error);
 
   // CONFIG FORM
   const initialValues = {
