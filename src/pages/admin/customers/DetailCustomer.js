@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 import Icon from '@mdi/react';
 import {
   mdiAt,
@@ -15,6 +15,7 @@ import { notifyError, notifySuccess } from '../../../utils/helpers';
 import { useDeleteUserMutation } from '../../../store/users/usersApiSlice';
 
 const DetailCustomer = () => {
+    const navigate = useNavigate();
     const { id } = useParams();
     const {
         isLoading,
@@ -23,23 +24,25 @@ const DetailCustomer = () => {
         isErrorDetail,
     } = useDetailCustomerQuery({ id: id });
     
-    const [deleteCustomer, { isSuccessDelete, errorDelete }] = useDeleteUserMutation();
+   
+    const [deleteCustomer, { isSuccess, error }] = useDeleteUserMutation();
+
     useEffect(() => {
-        if (errorDelete?.status === 500) {
-          notifyError('Server Error');
+        if (error?.status === 500) {
+            notifyError('Server Error');
         }
-        if (isSuccessDelete) {
-          notifySuccess('Berhasil Dihapus');
+        if (isSuccess) {
+            notifySuccess('Berhasil Dihapus');
+            navigate('/admin/customers')
         }
-      }, [errorDelete, isSuccessDelete]);
+    }, [error, isSuccess]);
 
     const deleteHandler = () => {
         if (window.confirm('Delete this account?')) {
-            deleteCustomer({ id: customer?.data?.id });
+        deleteCustomer({ id: customer.data.id });
         }
     };
 
-    
     if (isErrorDetail) {
         if (errorDetail.status === 404) {
             console.log(errorDetail);
@@ -49,7 +52,6 @@ const DetailCustomer = () => {
 
     if (isLoading) return <Spinner />;
     
-
   return (
     <div>
         <div className="row mb-4">
