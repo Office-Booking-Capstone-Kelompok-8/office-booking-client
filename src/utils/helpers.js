@@ -1,4 +1,4 @@
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 export const splitBreadcumbs = (breadcumbs) => {
   breadcumbs.shift();
@@ -11,35 +11,41 @@ export const splitBreadcumbs = (breadcumbs) => {
   }
 
   if (breadcumbs.length > 0) {
-    const textSplit = breadcumbs[breadcumbs.length - 1].split('-');
-    const bread = textSplit.join(' ');
+    const textSplit = breadcumbs[breadcumbs.length - 1].split("-");
+    const bread = textSplit.join(" ");
     return bread;
   }
-  return 'dashboard';
+  return "dashboard";
 };
 
 export const notifyError = (message) => {
   toast.error(message, {
-    position: 'top-center',
+    position: "top-center",
     autoClose: 3000,
     hideProgressBar: true,
     closeOnClick: true,
     pauseOnHover: false,
     draggable: false,
     progress: undefined,
-    theme: 'colored',
+    theme: "colored",
   });
 };
 
 export const notifySuccess = (message) => {
   toast.success(message, {
-    position: 'top-center',
+    position: "top-center",
     autoClose: 3000,
     hideProgressBar: true,
     closeOnClick: true,
     pauseOnHover: false,
     draggable: false,
     progress: undefined,
-    theme: 'colored',
+    theme: "colored",
   });
+};
+
+const checkReservationColor = (id) => {
+  if (id === 1) return "bg-warning";
+  if (id === 2) return "bg-warning";
+  if (id === 3) return "bg-warning";
 };

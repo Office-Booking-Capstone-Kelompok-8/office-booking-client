@@ -1,58 +1,60 @@
-import React, { useState, useEffect } from 'react';
-import reserva from './../../../assets/img/reservation.png';
-import Icon from '@mdi/react';
+import React, { useState, useEffect } from "react";
+import reserva from "./../../../assets/img/reservation.png";
+import Icon from "@mdi/react";
 import {
   mdiClockTimeFourOutline,
   mdiProgressCheck,
   mdiCloseCircleOutline,
-  mdiAccountCreditCardOutline
-} from '@mdi/js';
-import Pagination from '../../../components/admin/Pagination';
-import { useGetReservationsQuery } from '../../../store/reservations/reservationsApiSlice';
-import ReservationItem from './ReservationItem';
-import Spinner from '../../../components/admin/Spinner';
+  mdiAccountCreditCardOutline,
+} from "@mdi/js";
+import Pagination from "../../../components/admin/Pagination";
+import { useGetReservationsQuery } from "../../../store/reservations/reservationsApiSlice";
+import ReservationItem from "./ReservationItem";
+import Spinner from "../../../components/admin/Spinner";
 
 const Reservations = () => {
-  const { 
-    data: reservations, 
-    isLoading, 
-    isSuccess 
-  } = useGetReservationsQuery();
+  const {
+    data: reservations,
+    isLoading,
+    isSuccess,
+    error,
+  } = useGetReservationsQuery({ page: 1, limit: 20 });
   const [reservation, setReservation] = useState(null);
+  console.log(error);
 
   // Pagination
   const totalReservations = reservation?.length;
-  const reservationPerPage = 3;
+  const reservationPerPage = 20;
   const [currentPage, setCurrentPage] = useState(1);
 
   // Mengatur data per page
   const lastPage = currentPage * reservationPerPage;
   const firstPage = lastPage - reservationPerPage;
   const currentReservation = reservation?.slice(firstPage, lastPage);
- 
+
   useEffect(() => {
     if (isSuccess) {
       setReservation(reservations.data);
     }
   }, [isSuccess, reservations]);
-  
+
   console.log(reservations);
-  
-   const nextPage = () =>
-     setCurrentPage((prev) => {
-       if (prev === Math.ceil(totalReservations / reservationPerPage)) {
-         return prev;
-       }
-       return prev + 1;
-     });
-   const prevPage = () =>
-     setCurrentPage((prev) => {
-       if (prev === 1) {
-         return prev;
-       }
-       return prev - 1;
-     });
-   const paginate = (numPage) => setCurrentPage(numPage);
+
+  const nextPage = () =>
+    setCurrentPage((prev) => {
+      if (prev === Math.ceil(totalReservations / reservationPerPage)) {
+        return prev;
+      }
+      return prev + 1;
+    });
+  const prevPage = () =>
+    setCurrentPage((prev) => {
+      if (prev === 1) {
+        return prev;
+      }
+      return prev - 1;
+    });
+  const paginate = (numPage) => setCurrentPage(numPage);
 
   return (
     <div>
@@ -77,7 +79,7 @@ const Reservations = () => {
                     <Icon
                       path={mdiClockTimeFourOutline}
                       size={1}
-                      style={{ marginRight: '.7rem' }}
+                      style={{ marginRight: ".7rem" }}
                     />
                     <span className="text-gray-dark text-sm">pending</span>
                   </div>
@@ -88,7 +90,7 @@ const Reservations = () => {
                     <Icon
                       path={mdiProgressCheck}
                       size={1}
-                      style={{ marginRight: '.7rem' }}
+                      style={{ marginRight: ".7rem" }}
                     />
                     <span className="text-gray-dark text-sm">accepted</span>
                   </div>
@@ -99,7 +101,7 @@ const Reservations = () => {
                     <Icon
                       path={mdiCloseCircleOutline}
                       size={1}
-                      style={{ marginRight: '.7rem' }}
+                      style={{ marginRight: ".7rem" }}
                     />
                     <span className="text-gray-dark text-sm">reject</span>
                   </div>
@@ -110,7 +112,7 @@ const Reservations = () => {
                     <Icon
                       path={mdiAccountCreditCardOutline}
                       size={1}
-                      style={{ marginRight: '.7rem' }}
+                      style={{ marginRight: ".7rem" }}
                     />
                     <span className="text-gray-dark text-sm">
                       waiting payment
@@ -123,18 +125,18 @@ const Reservations = () => {
           </div>
         </div>
       </div>
-        {isLoading ? (
-          <Spinner />
-        ) : (
+      {isLoading ? (
+        <Spinner />
+      ) : (
         <div
           className="card"
           style={{
-            boxShadow: '0px 8px 24px rgba(112, 144, 176, 0.25)',
+            boxShadow: "0px 8px 24px rgba(112, 144, 176, 0.25)",
             borderRadius: 9,
           }}
         >
           <div className="card-body">
-              <table className="table">
+            <table className="table">
               <thead>
                 <tr>
                   <th className="text-sm text-gray-dark">Building Name</th>
@@ -142,30 +144,32 @@ const Reservations = () => {
                   <th className="text-sm text-gray-dark">Start Date</th>
                   <th className="text-sm text-gray-dark">End Date</th>
                   <th className="text-sm text-gray-dark">Price</th>
-                  <th className="text-sm text-gray-dark">Update Status</th>
+                  <th className="text-sm text-gray-dark">Status</th>
                   <th className="text-sm text-gray-dark"></th>
                 </tr>
               </thead>
               <tbody>
                 {currentReservation?.map((reservation) => (
-                  <ReservationItem reservation={reservation}  key={reservation?.id} />
+                  <ReservationItem
+                    reservation={reservation}
+                    key={reservation?.id}
+                  />
                 ))}
-                </tbody>
-              </table>
-            
+              </tbody>
+            </table>
           </div>
-            <div className="d-flex justify-content-center">
-              <Pagination
-                currentPage={currentPage}
-                totalReservations={totalReservations}
-                reservationPerPage={reservationPerPage}
-                nextPage={nextPage}
-                paginate={paginate}
-                prevPage={prevPage}
-              />
-            </div>
+          <div className="d-flex justify-content-center">
+            <Pagination
+              currentPage={currentPage}
+              totalReservations={totalReservations}
+              reservationPerPage={reservationPerPage}
+              nextPage={nextPage}
+              paginate={paginate}
+              prevPage={prevPage}
+            />
+          </div>
         </div>
-        )}
+      )}
     </div>
   );
 };
