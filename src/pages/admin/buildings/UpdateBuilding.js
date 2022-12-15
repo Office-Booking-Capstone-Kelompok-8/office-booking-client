@@ -15,6 +15,7 @@ import {
   useAddFacilitiesMutation,
   useDeleteFacilitiesMutation,
   useGetBuildingDetailQuery,
+  useUpdateBuildingMutation,
 } from '../../../store/building/buildingApiSLice';
 import { BASE_URL } from '../../../utils/constants';
 import Auth from '../../../utils/auth';
@@ -25,7 +26,8 @@ const UpdateBuilding = () => {
   const [selectedMainImg, setSelectedMainImg] = useState('');
   const [selectedMoreImg, setSelectedMoreImg] = useState([]);
   const [onUpdate, setOnUpdate] = useState(false);
-  const { isUpload, uploadPicture } = useUploadImgBuilding();
+  const { isUpload } = useUploadImgBuilding();
+  const [updateBuilding] = useUpdateBuildingMutation();
 
   // Get Building
   const {
@@ -41,7 +43,6 @@ const UpdateBuilding = () => {
   useEffect(() => {
     setSelectedMainImg(building?.data?.pictures[0]?.url);
     setSelectedMoreImg(building?.data?.pictures);
-    console.log('RENDER');
   }, [building]);
 
   // Region Features
@@ -53,7 +54,7 @@ const UpdateBuilding = () => {
   }));
 
   // Facility Features
-  const [addFacilities, { error: errorFacility }] = useAddFacilitiesMutation();
+  const [addFacilities] = useAddFacilitiesMutation();
   const [deleteFacilities] = useDeleteFacilitiesMutation();
   const [selectIcon, setSelectIcon] = useState('');
   const [showIconList, setShowIconList] = useState(false);
@@ -69,7 +70,6 @@ const UpdateBuilding = () => {
   // Images
   const [errorImg, setErrorImg] = useState('');
   const [formDataImages, setFormDataImages] = useState([]);
-  console.log(errorFacility);
   // CONFIG FORM
   const initialValues = {
     images: [],
@@ -85,13 +85,11 @@ const UpdateBuilding = () => {
   };
 
   const validationSchema = yup.object({
-    images: yup.array().min(1).max(10).required(),
     buildingName: yup.string().required('name is a required field').trim(),
     city: yup.number().required(),
     district: yup.number().required(),
     address: yup.string().required().trim(),
     capacity: yup.number('not a number').required().max(1000),
-    facilities: yup.array().min(1),
     annual: yup.number().required(),
     monthly: yup.number().required(),
     description: yup.string().required().trim(),
@@ -99,25 +97,25 @@ const UpdateBuilding = () => {
 
   const onSubmit = async (values, props) => {
     // Get Empty Building & Upload Picture
-    await uploadPicture(
-      formDataImages,
-      values.buildingName,
-      values.city,
-      values.district,
-      values.address,
-      values.capacity,
-      values.description,
-      values.annual,
-      values.monthly,
-      listFacilities
-    );
+    await updateBuilding({
+      buildingID: building?.data?.id,
+      name: values.buildingName,
+      location: {
+        cityId: values.city,
+        districtId: values.district,
+        address: values.address,
+      },
+      capacity: values.capacity,
+      price: {
+        annual: values.annual,
+        monthly: values.monthly,
+      },
+      description: values.description,
+    });
+    refetch();
 
     // RESET
-    props.resetForm();
-    setFormDataImages([]);
-    setSelectedMainImg('');
-    setSelectedMoreImg([]);
-    notifySuccess('Building added successfully');
+    notifySuccess('Building Updated successfully');
     setListFacilities([]);
   };
 
@@ -145,7 +143,6 @@ const UpdateBuilding = () => {
         validateOnChange={false}
       >
         {(props) => {
-          // console.log(props.errors);
           return (
             <Form>
               {/* IMAGES */}
@@ -168,7 +165,6 @@ const UpdateBuilding = () => {
                             setSelectedMainImg('');
                             const formDataNew = formDataImages.filter(
                               (file) => {
-                                console.log(file?.get('index'));
                                 return file?.get('index') !== '0';
                               }
                             );
@@ -225,7 +221,6 @@ const UpdateBuilding = () => {
                             <div
                               className="delete-img"
                               onClick={async (e) => {
-                                console.log(urlImg);
                                 await fetch(
                                   `${BASE_URL}/admin/buildings/${building?.data?.id}/pictures/${urlImg.id}`,
                                   {

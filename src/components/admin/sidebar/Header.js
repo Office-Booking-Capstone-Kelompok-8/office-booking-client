@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Styles.css';
 
 import Icon from '@mdi/react';
-import { mdiEmailOutline, mdiBellOutline, mdiMagnify } from '@mdi/js';
+import { mdiMagnify } from '@mdi/js';
 import { useNavigate } from 'react-router-dom';
 import { useDetailCustomerQuery } from '../../../store/users/usersApiSlice';
 import Cookies from 'js-cookie';
@@ -55,18 +55,6 @@ const Header = () => {
         />
       </form>
       <div className="d-flex align-items-center">
-        <Icon
-          path={mdiBellOutline}
-          title="User Profile"
-          size={1}
-          className="icons"
-        />
-        <Icon
-          path={mdiEmailOutline}
-          title="User Profile"
-          size={1}
-          className="icons m-3"
-        />
         <div
           onClick={() => {
             navigate('/admin/profile');

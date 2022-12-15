@@ -527,7 +527,7 @@ const AddBuilding = () => {
                           ...props.values.facilities,
                           {
                             name: formStateFacilities.Name,
-                            icon: formStateFacilities.IconID,
+                            iconId: formStateFacilities.IconID,
                             description: formStateFacilities.description,
                           },
                         ]);
