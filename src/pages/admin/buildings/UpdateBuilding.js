@@ -11,13 +11,20 @@ import { useNavigate, useParams } from 'react-router-dom';
 import useUploadImgBuilding from '../../../hooks/useUploadImgBuilding';
 import { notifySuccess } from '../../../utils/helpers';
 import { ToastContainer } from 'react-toastify';
-import { useGetBuildingDetailQuery } from '../../../store/building/buildingApiSLice';
+import {
+  useAddFacilitiesMutation,
+  useDeleteFacilitiesMutation,
+  useGetBuildingDetailQuery,
+} from '../../../store/building/buildingApiSLice';
+import { BASE_URL } from '../../../utils/constants';
+import Auth from '../../../utils/auth';
 
 const UpdateBuilding = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [selectedMainImg, setSelectedMainImg] = useState('');
   const [selectedMoreImg, setSelectedMoreImg] = useState([]);
+  const [onUpdate, setOnUpdate] = useState(false);
   const { isUpload, uploadPicture } = useUploadImgBuilding();
 
   // Get Building
@@ -25,6 +32,7 @@ const UpdateBuilding = () => {
     data: building,
     // error,
     // isSuccess,
+    refetch,
     isLoading,
   } = useGetBuildingDetailQuery({
     id: id,
@@ -33,10 +41,8 @@ const UpdateBuilding = () => {
   useEffect(() => {
     setSelectedMainImg(building?.data?.pictures[0]?.url);
     setSelectedMoreImg(building?.data?.pictures);
+    console.log('RENDER');
   }, [building]);
-  console.log(building);
-  console.log(selectedMoreImg);
-  console.log(building?.data?.pictures);
 
   // Region Features
   const { city, getDistrict, district } = useRegion();
@@ -47,6 +53,8 @@ const UpdateBuilding = () => {
   }));
 
   // Facility Features
+  const [addFacilities, { error: errorFacility }] = useAddFacilitiesMutation();
+  const [deleteFacilities] = useDeleteFacilitiesMutation();
   const [selectIcon, setSelectIcon] = useState('');
   const [showIconList, setShowIconList] = useState(false);
   const [listFacilities, setListFacilities] = useState([]);
@@ -61,7 +69,7 @@ const UpdateBuilding = () => {
   // Images
   const [errorImg, setErrorImg] = useState('');
   const [formDataImages, setFormDataImages] = useState([]);
-
+  console.log(errorFacility);
   // CONFIG FORM
   const initialValues = {
     images: [],
@@ -203,6 +211,7 @@ const UpdateBuilding = () => {
                         />
                       </label>
                     )}
+
                     {selectedMoreImg &&
                       selectedMoreImg
                         ?.filter((img) => img?.index !== 0)
@@ -215,17 +224,31 @@ const UpdateBuilding = () => {
                             />
                             <div
                               className="delete-img"
-                              onClick={(e) => {
-                                const filterImg = selectedMoreImg.filter(
-                                  (img) => img !== urlImg
-                                );
-                                setSelectedMoreImg(filterImg);
+                              onClick={async (e) => {
+                                console.log(urlImg);
+                                await fetch(
+                                  `${BASE_URL}/admin/buildings/${building?.data?.id}/pictures/${urlImg.id}`,
+                                  {
+                                    method: 'DELETE',
+                                    headers: {
+                                      Authorization: `Bearer ${Auth.getAccessToken()}`,
+                                    },
+                                  }
+                                )
+                                  .then(async (res) => await res.json())
+                                  .catch((err) => console.log(err));
+                                refetch();
                               }}
                             >
                               <Icon path={mdiCloseCircle} />
                             </div>
                           </div>
                         ))}
+                    {onUpdate && (
+                      <div className="d-flex justify-content-center align-items-center mx-4">
+                        <Spinner />
+                      </div>
+                    )}
                     {selectedMoreImg?.length < 9 && (
                       <label
                         htmlFor="moreImage"
@@ -238,24 +261,33 @@ const UpdateBuilding = () => {
                           multiple
                           id="moreImage"
                           accept="image/*"
-                          onChange={(e) => {
+                          onChange={async (e) => {
                             if (e.target.files.length > 9) {
                               setErrorImg('Maximum image is 10');
                               return;
                             }
+                            const formData = new FormData();
+                            formData.append('picture', e.target.files[0]);
+                            formData.append('index', 1);
+                            formData.append('alt', 'Alt photo');
                             setErrorImg('');
-                            for (let file of e.target.files) {
-                              const urlFileBlob = URL.createObjectURL(file);
-                              const formData = new FormData();
-                              formData.append('picture', file);
-                              formData.append('index', 1);
-                              formData.append('alt', 'Alt photo');
-                              setFormDataImages([...formDataImages, formData]);
-                              setSelectedMoreImg((prev) => [
-                                ...prev,
-                                urlFileBlob,
-                              ]);
-                            }
+
+                            setOnUpdate(true);
+                            await fetch(
+                              `${BASE_URL}/admin/buildings/${building?.data?.id}/pictures`,
+                              {
+                                method: 'POST',
+                                body: formData,
+                                headers: {
+                                  Authorization: `Bearer ${Auth.getAccessToken()}`,
+                                },
+                              }
+                            )
+                              .then(async (res) => await res.json())
+
+                              .catch((err) => console.log(err));
+                            setOnUpdate(false);
+                            refetch();
                           }}
                         />
                       </label>
@@ -451,11 +483,12 @@ const UpdateBuilding = () => {
                             </div>
                             <button
                               className="btn bg-error text-sm text-white"
-                              onClick={() => {
-                                const deleteFac = listFacilities.filter(
-                                  (fac) => fac?.id !== list?.id
-                                );
-                                setListFacilities(deleteFac);
+                              onClick={async () => {
+                                await deleteFacilities({
+                                  buildingId: building?.data?.id,
+                                  facilityId: list.id,
+                                });
+                                refetch();
                               }}
                               type="button"
                             >
@@ -536,7 +569,7 @@ const UpdateBuilding = () => {
                   </div>
                   <button
                     className="btn btn-primary mt-3 text-sm"
-                    onClick={() => {
+                    onClick={async () => {
                       if (
                         formStateFacilities.description &&
                         formStateFacilities.Name &&
@@ -552,14 +585,20 @@ const UpdateBuilding = () => {
                           description: '',
                           IconID: null,
                         });
-                        props.setFieldValue('facilities', [
-                          ...props.values.facilities,
+                        const newFacility = [
                           {
                             name: formStateFacilities.Name,
-                            icon: formStateFacilities.IconID,
+                            iconId: formStateFacilities.IconID,
                             description: formStateFacilities.description,
                           },
-                        ]);
+                        ];
+                        await addFacilities({
+                          id: building?.data?.id,
+                          facility: newFacility,
+                        });
+
+                        refetch();
+
                         setSelectIcon('');
                       }
                     }}

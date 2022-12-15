@@ -24,6 +24,7 @@ export const buildingApiSlice = apiSlice.injectEndpoints({
           url: `/admin/buildings/${id}`,
         };
       },
+      invalidatesTags: ['Buildings'],
     }),
     getIconFacilities: builder.query({
       query: () => {
@@ -59,6 +60,16 @@ export const buildingApiSlice = apiSlice.injectEndpoints({
           body: facility,
         };
       },
+      invalidatesTags: ['Buildings'],
+    }),
+    deleteFacilities: builder.mutation({
+      query: ({ buildingId, facilityId }) => {
+        return {
+          url: `/admin/buildings/${buildingId}/facilities/${facilityId}`,
+          method: 'DELETE',
+        };
+      },
+      invalidatesTags: ['Buildings'],
     }),
   }),
 });
@@ -71,4 +82,5 @@ export const {
   useDeleteBuildingMutation,
   useUpdateBuildingMutation,
   useAddFacilitiesMutation,
+  useDeleteFacilitiesMutation,
 } = buildingApiSlice;
