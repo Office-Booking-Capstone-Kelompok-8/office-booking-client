@@ -1,6 +1,6 @@
 import { mdiCloseCircle, mdiFileImagePlus, mdiMenuDown } from '@mdi/js';
 import Icon from '@mdi/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as yup from 'yup';
@@ -8,6 +8,7 @@ import Spinner from '../../../components/admin/Spinner';
 import useGetIcon from '../../../hooks/useGetIcon';
 import useRegion from '../../../hooks/useRegion';
 import { useNavigate, useParams } from 'react-router-dom';
+import useUploadImgBuilding from '../../../hooks/useUploadImgBuilding';
 import { notifySuccess } from '../../../utils/helpers';
 import { ToastContainer } from 'react-toastify';
 import { useGetBuildingDetailQuery } from '../../../store/building/buildingApiSLice';
@@ -17,22 +18,34 @@ const UpdateBuilding = () => {
   const { id } = useParams();
   const [selectedMainImg, setSelectedMainImg] = useState('');
   const [selectedMoreImg, setSelectedMoreImg] = useState([]);
+  const { isUpload, uploadPicture } = useUploadImgBuilding();
 
   // Get Building
-  const { data: building, isLoading } = useGetBuildingDetailQuery({
+  const {
+    data: building,
+    // error,
+    // isSuccess,
+    isLoading,
+  } = useGetBuildingDetailQuery({
     id: id,
   });
 
+  useEffect(() => {
+    setSelectedMainImg(building?.data?.pictures[0]?.url);
+    setSelectedMoreImg(building?.data?.pictures);
+  }, [building]);
+  console.log(building);
+  console.log(selectedMoreImg);
+  console.log(building?.data?.pictures);
+
   // Region Features
-  const { city, getDistrict, district, cityByName } = useRegion({
-    cityName: building?.data?.location?.city,
-  });
+  const { city, getDistrict, district } = useRegion();
   const optionCity = city.map((c) => ({ value: c?.id, label: c?.name }));
   const optionDistrict = district.map((d) => ({
     value: d?.id,
     label: d?.name,
   }));
-  console.log(cityByName);
+
   // Facility Features
   const [selectIcon, setSelectIcon] = useState('');
   const [showIconList, setShowIconList] = useState(false);
@@ -53,14 +66,14 @@ const UpdateBuilding = () => {
   const initialValues = {
     images: [],
     buildingName: building?.data?.name,
-    city: '',
-    district: '',
-    address: '',
-    capacity: '',
+    city: building?.data?.location?.city?.id,
+    district: building?.data?.location?.district?.id,
+    address: building?.data?.location?.address,
+    capacity: building?.data?.capacity,
     facilities: [],
-    annual: '',
-    monthly: '',
-    description: '',
+    annual: building?.data?.price?.annual,
+    monthly: building?.data?.price?.monthly,
+    description: building?.data?.description,
   };
 
   const validationSchema = yup.object({
@@ -78,18 +91,18 @@ const UpdateBuilding = () => {
 
   const onSubmit = async (values, props) => {
     // Get Empty Building & Upload Picture
-    // await uploadPicture(
-    //   formDataImages,
-    //   values.buildingName,
-    //   values.city,
-    //   values.district,
-    //   values.address,
-    //   values.capacity,
-    //   values.description,
-    //   values.annual,
-    //   values.monthly,
-    //   listFacilities
-    // );
+    await uploadPicture(
+      formDataImages,
+      values.buildingName,
+      values.city,
+      values.district,
+      values.address,
+      values.capacity,
+      values.description,
+      values.annual,
+      values.monthly,
+      listFacilities
+    );
 
     // RESET
     props.resetForm();
@@ -99,8 +112,6 @@ const UpdateBuilding = () => {
     notifySuccess('Building added successfully');
     setListFacilities([]);
   };
-
-  console.log(building);
 
   if (isLoading) return <Spinner />;
 
@@ -122,6 +133,8 @@ const UpdateBuilding = () => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
+        validateOnBlur={false}
+        validateOnChange={false}
       >
         {(props) => {
           // console.log(props.errors);
@@ -134,7 +147,7 @@ const UpdateBuilding = () => {
                 </p>
                 <div className="col-9">
                   <div className="d-flex flex-wrap">
-                    {selectedMainImg && (
+                    {selectedMainImg ? (
                       <div className="img-wrap">
                         <img
                           src={selectedMainImg}
@@ -160,6 +173,8 @@ const UpdateBuilding = () => {
                           Main Image
                         </span>
                       </div>
+                    ) : (
+                      <Spinner />
                     )}
                     {Boolean(selectedMainImg) || (
                       <label
@@ -189,27 +204,29 @@ const UpdateBuilding = () => {
                       </label>
                     )}
                     {selectedMoreImg &&
-                      selectedMoreImg.map((urlImg, i) => (
-                        <div className="img-wrap" key={i}>
-                          <img
-                            src={urlImg}
-                            alt="images-preview"
-                            className="img-preview"
-                          />
-                          <div
-                            className="delete-img"
-                            onClick={(e) => {
-                              const filterImg = selectedMoreImg.filter(
-                                (img) => img !== urlImg
-                              );
-                              setSelectedMoreImg(filterImg);
-                            }}
-                          >
-                            <Icon path={mdiCloseCircle} />
+                      selectedMoreImg
+                        ?.filter((img) => img?.index !== 0)
+                        .map((urlImg, i) => (
+                          <div className="img-wrap" key={i}>
+                            <img
+                              src={urlImg?.url}
+                              alt="images-preview"
+                              className="img-preview"
+                            />
+                            <div
+                              className="delete-img"
+                              onClick={(e) => {
+                                const filterImg = selectedMoreImg.filter(
+                                  (img) => img !== urlImg
+                                );
+                                setSelectedMoreImg(filterImg);
+                              }}
+                            >
+                              <Icon path={mdiCloseCircle} />
+                            </div>
                           </div>
-                        </div>
-                      ))}
-                    {selectedMoreImg.length < 9 && (
+                        ))}
+                    {selectedMoreImg?.length < 9 && (
                       <label
                         htmlFor="moreImage"
                         className="img-upload d-flex flex-column align-items-center text-gray-dark text-sm"
@@ -283,16 +300,16 @@ const UpdateBuilding = () => {
                     id="nameBuilding"
                     className="react-select__control"
                     placeholder="Select One..."
+                    defaultValue={{
+                      value: building?.data?.location?.city?.id,
+                      label: building?.data?.location?.city?.name,
+                    }}
                     styles={{
                       control: (provided, state) => ({
                         ...provided,
                         border: '1px',
                         borderColor: state.isFocused ? '#3583EF' : '#3583EF',
                       }),
-                    }}
-                    defaultValue={{
-                      label: building?.data?.location?.city,
-                      value: 10,
                     }}
                     options={optionCity}
                     onChange={async (e) => {
@@ -321,6 +338,10 @@ const UpdateBuilding = () => {
                     id="nameBuilding"
                     className="react-select__control"
                     placeholder="Select One..."
+                    defaultValue={{
+                      value: building?.data?.location?.district?.id,
+                      label: building?.data?.location?.district?.name,
+                    }}
                     styles={{
                       control: (provided, state) => ({
                         ...provided,
@@ -389,8 +410,8 @@ const UpdateBuilding = () => {
                   Facilities <span className="text-error">*</span>
                 </label>
                 <div className="col-9">
-                  {listFacilities.length !== 0
-                    ? listFacilities.map((list, i) => (
+                  {building?.data?.facilities?.length !== 0
+                    ? building?.data?.facilities?.map((list, i) => (
                         <div
                           key={i}
                           style={{
@@ -422,7 +443,7 @@ const UpdateBuilding = () => {
                                     width: '1.5rem',
                                   }}
                                 />
-                                <span>{list?.Name}</span>
+                                <span>{list?.name}</span>
                               </div>
                               <p className="text-sm mt-2 fw-light">
                                 {list?.description}
@@ -632,9 +653,9 @@ const UpdateBuilding = () => {
                 <button
                   type="submit"
                   className="col-3 button text-white me-3 bg-primary"
-                  disabled={props.isSubmitting}
+                  disabled={props.isSubmitting && isUpload}
                 >
-                  {props.isSubmitting ? 'Please Wait' : 'Save'}
+                  {props.isSubmitting && isUpload ? 'Please Wait' : 'Save'}
                 </button>
               </div>
             </Form>
