@@ -131,7 +131,6 @@ const Buildings = () => {
                 <tr>
                   <th className="text-sm text-gray-dark">Name</th>
                   <th className="text-sm text-gray-dark">District</th>
-                  <th className="text-sm text-gray-dark">Size</th>
                   <th className="text-sm text-gray-dark">Capacity</th>
                   <th className="text-sm text-gray-dark">Price</th>
                   <th className="text-sm text-gray-dark"></th>

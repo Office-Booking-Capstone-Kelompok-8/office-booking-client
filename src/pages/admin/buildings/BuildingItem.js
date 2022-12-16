@@ -28,7 +28,7 @@ const BuildingItem = ({ building }) => {
     <tr>
       <td
         onClick={() => {
-          navigate('/admin/buildings/detail-building/1');
+          navigate(`/admin/buildings/detail-building/${building.id}`);
         }}
       >
         <h1 className="text-primary-dark text-sm">
@@ -43,11 +43,10 @@ const BuildingItem = ({ building }) => {
       <td className="text-primary-dark text-sm">
         {building.location.district}
       </td>
-      <td className="text-primary-dark text-sm">300m2</td>
-      <td className="text-primary-dark text-sm">45 people</td>
+      <td className="text-primary-dark text-sm">{building.capacity} people</td>
       <td>
-        <h1 className="text-primary-dark text-sm">Rp 350.000 /month</h1>
-        <h1 className="text-primary-dark text-sm">Rp 11.350.000 /year</h1>
+        <h1 className="text-primary-dark text-sm">Rp {building.price.monthly} /month</h1>
+        <h1 className="text-primary-dark text-sm">Rp {building.price.annual} /year</h1>
       </td>
       <td>
         <Link
