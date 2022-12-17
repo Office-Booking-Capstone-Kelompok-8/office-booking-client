@@ -13,6 +13,9 @@ const BuildingItem = ({ building }) => {
     if (error?.status === 500) {
       notifyError('Server Error');
     }
+    if (error?.status === 409) {
+      notifyError('Building has active reservation');
+    }
     if (isSuccess) {
       notifySuccess('Berhasil Dihapus');
     }
@@ -23,6 +26,8 @@ const BuildingItem = ({ building }) => {
       deleteBuilding({ id: building.id });
     }
   };
+
+  console.log(error);
 
   return (
     <tr>
@@ -45,8 +50,12 @@ const BuildingItem = ({ building }) => {
       </td>
       <td className="text-primary-dark text-sm">{building.capacity} people</td>
       <td>
-        <h1 className="text-primary-dark text-sm">Rp {building.price.monthly} /month</h1>
-        <h1 className="text-primary-dark text-sm">Rp {building.price.annual} /year</h1>
+        <h1 className="text-primary-dark text-sm">
+          Rp {building.price.monthly} /month
+        </h1>
+        <h1 className="text-primary-dark text-sm">
+          Rp {building.price.annual} /year
+        </h1>
       </td>
       <td>
         <Link

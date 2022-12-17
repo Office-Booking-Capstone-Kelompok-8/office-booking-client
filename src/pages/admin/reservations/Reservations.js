@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from "react";
-import reserva from "./../../../assets/img/reservation.png";
-import Icon from "@mdi/react";
+import React, { useState, useEffect } from 'react';
+import reserva from './../../../assets/img/reservation.png';
+import Icon from '@mdi/react';
 import {
   mdiClockTimeFourOutline,
   mdiProgressCheck,
   mdiCloseCircleOutline,
   mdiAccountCreditCardOutline,
-} from "@mdi/js";
-import Pagination from "../../../components/admin/Pagination";
-import { useGetReservationsQuery } from "../../../store/reservations/reservationsApiSlice";
-import ReservationItem from "./ReservationItem";
-import Spinner from "../../../components/admin/Spinner";
+} from '@mdi/js';
+import Pagination from '../../../components/admin/Pagination';
+import { useGetReservationsQuery } from '../../../store/reservations/reservationsApiSlice';
+import ReservationItem from './ReservationItem';
+import Spinner from '../../../components/admin/Spinner';
+import { ToastContainer } from 'react-toastify';
 
 const Reservations = () => {
   const {
@@ -21,10 +22,11 @@ const Reservations = () => {
   } = useGetReservationsQuery({ page: 1, limit: 20 });
   const [reservation, setReservation] = useState(null);
   console.log(error);
+  console.log(reservation);
 
   // Pagination
   const totalReservations = reservation?.length;
-  const reservationPerPage = 20;
+  const reservationPerPage = 100;
   const [currentPage, setCurrentPage] = useState(1);
 
   // Mengatur data per page
@@ -37,8 +39,6 @@ const Reservations = () => {
       setReservation(reservations.data);
     }
   }, [isSuccess, reservations]);
-
-  console.log(reservations);
 
   const nextPage = () =>
     setCurrentPage((prev) => {
@@ -58,6 +58,18 @@ const Reservations = () => {
 
   return (
     <div>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={false}
+        theme="colored"
+      />
       <div className="row px-2">
         <div className="col-12 col-md-7 col-lg-8">
           <div className="row mb-3">
@@ -79,7 +91,7 @@ const Reservations = () => {
                     <Icon
                       path={mdiClockTimeFourOutline}
                       size={1}
-                      style={{ marginRight: ".7rem" }}
+                      style={{ marginRight: '.7rem' }}
                     />
                     <span className="text-gray-dark text-sm">pending</span>
                   </div>
@@ -90,7 +102,7 @@ const Reservations = () => {
                     <Icon
                       path={mdiProgressCheck}
                       size={1}
-                      style={{ marginRight: ".7rem" }}
+                      style={{ marginRight: '.7rem' }}
                     />
                     <span className="text-gray-dark text-sm">accepted</span>
                   </div>
@@ -101,7 +113,7 @@ const Reservations = () => {
                     <Icon
                       path={mdiCloseCircleOutline}
                       size={1}
-                      style={{ marginRight: ".7rem" }}
+                      style={{ marginRight: '.7rem' }}
                     />
                     <span className="text-gray-dark text-sm">reject</span>
                   </div>
@@ -112,7 +124,7 @@ const Reservations = () => {
                     <Icon
                       path={mdiAccountCreditCardOutline}
                       size={1}
-                      style={{ marginRight: ".7rem" }}
+                      style={{ marginRight: '.7rem' }}
                     />
                     <span className="text-gray-dark text-sm">
                       waiting payment
@@ -131,7 +143,7 @@ const Reservations = () => {
         <div
           className="card"
           style={{
-            boxShadow: "0px 8px 24px rgba(112, 144, 176, 0.25)",
+            boxShadow: '0px 8px 24px rgba(112, 144, 176, 0.25)',
             borderRadius: 9,
           }}
         >

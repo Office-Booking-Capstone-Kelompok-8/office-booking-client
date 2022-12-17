@@ -5,6 +5,7 @@ import { useGetBuildingQuery } from '../../../store/building/buildingApiSLice';
 import Pagination from '../../../components/admin/Pagination';
 import BuildingItem from './BuildingItem';
 import Spinner from '../../../components/admin/Spinner';
+import { ToastContainer } from 'react-toastify';
 
 const Buildings = () => {
   const { data, isSuccess } = useGetBuildingQuery({
@@ -22,7 +23,7 @@ const Buildings = () => {
 
   // Pagination
   const totalBuilding = buildingData?.length;
-  const buildingPerPage = 3;
+  const buildingPerPage = 10;
   const [currentPage, setCurrentPage] = useState(1);
 
   // Mengatur data per page
@@ -48,6 +49,18 @@ const Buildings = () => {
 
   return (
     <div>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={false}
+        theme="colored"
+      />
       <div className="mb-2">
         <div className="row mb-3">
           <div className="col-md-12 d-flex justify-content-end">

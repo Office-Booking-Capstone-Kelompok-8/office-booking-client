@@ -191,12 +191,6 @@ const LoginAdmin = () => {
                       )}
                     </ErrorMessage>
                   </div>
-                  <div className="mb-3 d-flex align-items-center">
-                    <Field type="checkbox" name="remember" id="remember" />
-                    <label htmlFor="remember" className="text-sm d-block mx-1 ">
-                      Remember Me
-                    </label>
-                  </div>
                   <button
                     type="submit"
                     className={`col-3 button text-white me-3 bg-primary`}

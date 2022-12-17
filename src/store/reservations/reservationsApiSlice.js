@@ -1,4 +1,4 @@
-import { apiSlice } from "../../api/apiSlice";
+import { apiSlice } from '../../api/apiSlice';
 
 export const reservationsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -9,9 +9,18 @@ export const reservationsApiSlice = apiSlice.injectEndpoints({
           params: body,
         };
       },
-      providesTags: ["Reservations"],
+      providesTags: ['Reservations'],
+    }),
+    getReservationsDetail: builder.query({
+      query: ({ id }) => {
+        return {
+          url: `/admin/reservations/${id}`,
+        };
+      },
+      invalidatesTags: ['Reservations'],
     }),
   }),
 });
 
-export const { useGetReservationsQuery } = reservationsApiSlice;
+export const { useGetReservationsQuery, useGetReservationsDetailQuery } =
+  reservationsApiSlice;
