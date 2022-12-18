@@ -19,8 +19,17 @@ export const reservationsApiSlice = apiSlice.injectEndpoints({
       },
       invalidatesTags: ['Reservations'],
     }),
+    deleteReservation: builder.mutation({
+      query: ({ id }) => {
+        return {
+          url: `/admin/reservations/${id}`,
+          method: 'DELETE',
+        };
+      },
+      invalidatesTags: ['Reservations', 'ReservationDelete'],
+    }),
   }),
 });
 
-export const { useGetReservationsQuery, useGetReservationsDetailQuery } =
+export const { useGetReservationsQuery, useGetReservationsDetailQuery, useDeleteReservationMutation } =
   reservationsApiSlice;

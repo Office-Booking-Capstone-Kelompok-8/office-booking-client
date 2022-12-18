@@ -22,25 +22,48 @@ const SearchResults = () => {
       <div id="search" className="search">
         <div className="container">
           <div className="row">
-            {isSuccess &&
-              data?.data?.map((build) => (
+            {data?.data?.length !== 0
+              ? data?.data?.map((build) => (
                 <BuildingCardResult key={build?.id} building={build} />
-              ))}
-
-            {}
+              ))
+              : 
+              <>
+                <div className="justify-content-center pt-2">
+                  <img
+                    src={result}
+                    className="mx-auto d-block pt-5 w-20"
+                    alt="notfound"
+                  />
+                  <h4 className=" text-center pt-2 fw-bold pt-3">
+                    Ups!... no results found
+                  </h4>
+                  <h5 className=" text-center pt-2">please try another search</h5>
+                </div>
+              </> 
+              }  
+              
+            {/* {data?.data?.length !== 0 ? data?.data?.map((build) => {
+                return (
+                  <BuildingCardResult key={build?.id} building={build} />
+                );
+              }) : 
+              <>
+                <div className="justify-content-center pt-2">
+                  <img
+                    src={result}
+                    className="mx-auto d-block pt-5 w-20"
+                    alt="notfound"
+                  />
+                  <h4 className=" text-center pt-2 fw-bold pt-3">
+                    Ups!... no results found
+                  </h4>
+                  <h5 className=" text-center pt-2">please try another search</h5>
+                </div>
+              </>
+            } */}
           </div>
 
-          <div className="justify-content-center pt-2">
-            <img
-              src={result}
-              className="mx-auto d-block pt-5 w-20"
-              alt="notfound"
-            />
-            <h4 className=" text-center pt-2 fw-bold pt-3">
-              Ups!... no results found
-            </h4>
-            <h5 className=" text-center pt-2">please try another search</h5>
-          </div>
+          
         </div>
       </div>
     </div>
