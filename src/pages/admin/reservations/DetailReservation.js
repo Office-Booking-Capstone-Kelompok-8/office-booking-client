@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Icon from '@mdi/react';
 import {
@@ -25,13 +25,19 @@ const DetailReservation = () => {
   // QUERY
   const {
     data: reservation,
-    error,
+    // error,
     isLoading,
+    isSuccess,
+    refetch,
   } = useGetReservationsDetailQuery({
     id: id,
   });
-  console.log(error);
-  console.log(reservation);
+
+  // Message State
+  const [message, setMessage] = useState('');
+
+  // console.log(error);
+  console.log(reservation?.data);
 
   if (isLoading) return <Spinner />;
   return (
@@ -69,7 +75,7 @@ const DetailReservation = () => {
             <Icon path={mdiClockTimeFourOutline} size={1} className="me-1" />
             <span>{reservation.data.createdAt}</span>
           </div>
-          <IconStatus status={reservation.data.status} />
+          <IconStatus status={reservation?.data?.status} />
         </div>
         <div className="d-flex">
           <div className="d-flex" style={{ marginRight: '7rem' }}>
@@ -81,12 +87,12 @@ const DetailReservation = () => {
                 objectFit: 'cover',
                 objectPosition: 'center',
               }}
-              src={reservation.data.building.picture}
+              src={reservation?.data?.building?.picture}
               alt="image_building"
             />
             <div className="px-3">
               <h5 className="text-primary-dark">
-                {reservation.data.building.name}
+                {reservation?.data?.building?.name}
               </h5>
               <div className="d-flex">
                 <Icon
@@ -96,9 +102,11 @@ const DetailReservation = () => {
                   className="text-primary"
                 />
                 <div>
-                  <h3 className="text-md">{reservation.data.building.city}</h3>
+                  <h3 className="text-md">
+                    {reservation?.data?.building?.city}
+                  </h3>
                   <span className="text-sm">
-                    {reservation.data.building.address}
+                    {reservation?.data?.building?.address}
                   </span>
                 </div>
               </div>
@@ -111,7 +119,7 @@ const DetailReservation = () => {
                 />
                 <h3 className="text-md">
                   {reservation.data.startDate}
-                  <span> - </span> <span>{reservation.data.endDate}</span>
+                  <span> - </span> <span>{reservation?.data?.endDate}</span>
                 </h3>
               </div>
               <Link className="text-primary">Info Detail Building</Link>
@@ -125,7 +133,7 @@ const DetailReservation = () => {
           ></div>
           <div>
             <h5 className="text-primary-dark">
-              {reservation.data.companyName}
+              {reservation?.data?.companyName}
             </h5>
             <div className="d-flex">
               <Icon
@@ -134,7 +142,7 @@ const DetailReservation = () => {
                 style={{ marginRight: '.7rem' }}
                 className="text-primary"
               />
-              <p>{reservation.data.tenant.name}</p>
+              <p>{reservation?.data?.tenant?.name}</p>
             </div>
             <div className="d-flex">
               <Icon
@@ -143,20 +151,39 @@ const DetailReservation = () => {
                 style={{ marginRight: '.7rem' }}
                 className="text-primary"
               />
-              <p>{reservation.data.tenant.email}</p>
+              <p>{reservation?.data?.tenant?.email}</p>
             </div>
           </div>
         </div>
-        <textarea
-          placeholder="Message..."
-          type="text"
-          className="input-field mt-3"
-        />
+        {reservation?.data?.status?.id > 1 && (
+          <div className="mt-3">
+            <h6>Message</h6>
+            <p className="text-sm">
+              {reservation?.data?.message || 'No Message'}
+            </p>
+          </div>
+        )}
+        {(reservation?.data?.status?.id === 1 ||
+          reservation?.data?.status?.id === 4 ||
+          reservation?.data?.status?.id === 5) && (
+          <textarea
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Message..."
+            type="text"
+            className="input-field mt-3"
+          />
+        )}
         <div className="d-flex justify-content-between bg-gray mt-3 p-2">
           <h5>Total Price</h5>
           <h5 className="fw-bold">Rp. {reservation.data.amount}</h5>
         </div>
-        <ButtonReservationStatus statusId={reservation.data?.status?.id} />
+        <ButtonReservationStatus
+          statusId={reservation?.data?.status?.id}
+          reservationId={reservation?.data?.id}
+          message={message}
+          refetch={refetch}
+        />
       </div>
     </div>
   );
