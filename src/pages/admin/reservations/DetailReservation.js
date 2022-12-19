@@ -153,11 +153,16 @@ const DetailReservation = () => {
                   className="text-primary"
                 />
                 <h3 className="text-md">
-                  {reservation.data.startDate}
+                  {reservation?.data?.startDate}
                   <span> - </span> <span>{reservation?.data?.endDate}</span>
                 </h3>
               </div>
-              <Link className="text-primary">Info Detail Building</Link>
+              <Link
+                className="text-primary"
+                to={`/admin/buildings/detail-building/${reservation?.data?.building?.id}`}
+              >
+                Info Detail Building
+              </Link>
             </div>
           </div>
           <div
@@ -218,6 +223,7 @@ const DetailReservation = () => {
           reservationId={reservation?.data?.id}
           message={message}
           refetch={refetch}
+          setMessage={setMessage}
         />
       </div>
     </div>

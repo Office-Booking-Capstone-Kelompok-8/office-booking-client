@@ -24,17 +24,16 @@ const BuildingItem = ({ building }) => {
 
   const deleteHandler = () => {
     Swal.fire({
-        title: "Delete this building?",
-        text: "this item will be removed permanently",
-        confirmButtonColor: "#3085D6",
-        confirmButtonText: "Delete",
-        showCancelButton: true
-    })
-    .then((window) => {
+      title: 'Delete this building?',
+      text: 'this item will be removed permanently',
+      confirmButtonColor: '#3085D6',
+      confirmButtonText: 'Delete',
+      showCancelButton: true,
+    }).then((window) => {
       if (window.isConfirmed) {
-        deleteBuilding({ id: building.id })
-      }    
-    })
+        deleteBuilding({ id: building.id });
+      }
+    });
   };
 
   console.log(error);
@@ -45,6 +44,7 @@ const BuildingItem = ({ building }) => {
         onClick={() => {
           navigate(`/admin/buildings/detail-building/${building.id}`);
         }}
+        style={{ cursor: 'pointer' }}
       >
         <h1 className="text-primary-dark text-sm">
           <img

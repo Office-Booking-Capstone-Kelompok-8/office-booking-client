@@ -8,7 +8,7 @@ import BuildingCardResult from './BuildingCardResult';
 const SearchResults = () => {
   const { input } = useParams();
   console.log(input);
-  const { data, isSuccess, isLoading, error } = useGetBuildingQuery({
+  const { data, isLoading, error } = useGetBuildingQuery({
     buildingName: input,
     page: 1,
     limit: 20,
@@ -22,11 +22,11 @@ const SearchResults = () => {
       <div id="search" className="search">
         <div className="container">
           <div className="row">
-            {data?.data?.length !== 0
-              ? data?.data?.map((build) => (
+            {data?.data?.length !== 0 ? (
+              data?.data?.map((build) => (
                 <BuildingCardResult key={build?.id} building={build} />
               ))
-              : 
+            ) : (
               <>
                 <div className="justify-content-center pt-2">
                   <img
@@ -37,11 +37,13 @@ const SearchResults = () => {
                   <h4 className=" text-center pt-2 fw-bold pt-3">
                     Ups!... no results found
                   </h4>
-                  <h5 className=" text-center pt-2">please try another search</h5>
+                  <h5 className=" text-center pt-2">
+                    please try another search
+                  </h5>
                 </div>
-              </> 
-              }  
-              
+              </>
+            )}
+
             {/* {data?.data?.length !== 0 ? data?.data?.map((build) => {
                 return (
                   <BuildingCardResult key={build?.id} building={build} />
@@ -62,8 +64,6 @@ const SearchResults = () => {
               </>
             } */}
           </div>
-
-          
         </div>
       </div>
     </div>

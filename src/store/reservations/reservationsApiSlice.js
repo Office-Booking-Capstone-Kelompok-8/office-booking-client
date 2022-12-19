@@ -19,6 +19,13 @@ export const reservationsApiSlice = apiSlice.injectEndpoints({
       },
       invalidatesTags: ['Reservations'],
     }),
+    getReservationsTotal: builder.query({
+      query: () => {
+        return {
+          url: `/admin/reservations/total`,
+        };
+      },
+    }),
     updateReservations: builder.mutation({
       query: ({ id, ...body }) => {
         return {
@@ -57,4 +64,5 @@ export const {
   useUpdateReservationsMutation,
   useUpdateReservationsStatusMutation,
   useDeleteReservationMutation,
+  useGetReservationsTotalQuery,
 } = reservationsApiSlice;

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Spinner from '../../../components/admin/Spinner';
 import {
   useUpdateReservationsMutation,
@@ -10,13 +10,12 @@ const ButtonReservationStatus = ({
   reservationId,
   message,
   refetch,
+  setMessage,
 }) => {
-  const [updateReservation, { error, isLoading, isError }] =
+  const [updateReservation, { error, isLoading }] =
     useUpdateReservationsMutation();
-  const [
-    updateReservationStatus,
-    { error: errorStatus, isLoading: isLoadingSTatus, isError: isErrorStatus },
-  ] = useUpdateReservationsStatusMutation();
+  const [updateReservationStatus, { isLoading: isLoadingSTatus }] =
+    useUpdateReservationsStatusMutation();
   console.log(error);
   console.log(isLoadingSTatus);
 
@@ -41,6 +40,7 @@ const ButtonReservationStatus = ({
                   statusId: statusId + 1,
                 });
                 await refetch();
+                setMessage('');
               }}
             >
               Reject
@@ -59,6 +59,7 @@ const ButtonReservationStatus = ({
                   statusId: statusId + 3,
                 });
                 await refetch();
+                setMessage('');
               }}
             >
               Process Payment
@@ -82,6 +83,7 @@ const ButtonReservationStatus = ({
                 statusId: statusId - 1,
               });
               await refetch();
+              setMessage('');
             }}
           >
             Cancel
@@ -100,6 +102,7 @@ const ButtonReservationStatus = ({
                 statusId: statusId + 1,
               });
               await refetch();
+              setMessage('');
             }}
           >
             Activate
@@ -108,7 +111,25 @@ const ButtonReservationStatus = ({
       )}
       {statusId === 5 && (
         <>
-          <button className="btn btn-success px-5">Complete</button>
+          <button
+            className="btn btn-success px-5"
+            onClick={async () => {
+              if (message) {
+                await updateReservation({
+                  id: reservationId,
+                  message: message,
+                });
+              }
+              await updateReservationStatus({
+                id: reservationId,
+                statusId: statusId + 1,
+              });
+              await refetch();
+              setMessage('');
+            }}
+          >
+            Complete
+          </button>
         </>
       )}
     </div>

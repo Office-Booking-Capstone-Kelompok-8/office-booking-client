@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {
+  mdiCheck,
   mdiClockTimeFourOutline,
   mdiCloseCircleOutline,
   mdiCurrencyUsd,
@@ -8,7 +9,7 @@ import {
 import Icon from '@mdi/react';
 import React, { useEffect, useState } from 'react';
 
-const IconStatus = ({ status }) => {
+const IconStatus = ({ status, total, count }) => {
   const [color, setColor] = useState('');
   const [iconStatus, setIcon] = useState(mdiClockTimeFourOutline);
 
@@ -34,17 +35,24 @@ const IconStatus = ({ status }) => {
         setColor('success');
         setIcon(mdiEyeOutline);
         break;
+      case 6:
+        setColor('success');
+        setIcon(mdiCheck);
+        break;
       default:
         break;
     }
   }, [status]);
   return (
     <div
-      className={`d-flex align-items-center text-${color} bg-${color}-light py-1 px-2 rounded justify-content-center`}
+      className={`d-flex align-items-center text-${color} bg-${color}-light py-1 px-2 rounded justify-content-between`}
       style={{ fontSize: '.6rem' }}
     >
-      <Icon path={iconStatus} size={0.7} className="me-1" />
-      <span>{status.status}</span>
+      <div className="d-flex justify-content-center w-100 align-items-center">
+        <Icon path={iconStatus} size={0.7} className="me-1" />
+        <span>{status.status}</span>
+      </div>
+      {total && <span className="text-md fw-bold ms-1">{count}</span>}
     </div>
   );
 };

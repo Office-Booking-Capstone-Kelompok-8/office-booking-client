@@ -4,7 +4,10 @@ import { Link } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import Pagination from '../../../components/admin/Pagination';
 import Spinner from '../../../components/admin/Spinner';
-import { useGetUsersQuery } from '../../../store/users/usersApiSlice';
+import {
+  useGetUsersNumberQuery,
+  useGetUsersQuery,
+} from '../../../store/users/usersApiSlice';
 import customers from './../../../assets/img/customers.png';
 import CustomerItem from './CustomerItem';
 
@@ -16,6 +19,10 @@ const Customers = () => {
   } = useGetUsersQuery({
     role: 1,
   });
+
+  const { data: userThisMonth, error: errorThisMonth } =
+    useGetUsersNumberQuery();
+  console.log(userThisMonth, errorThisMonth);
 
   const [customer, setCustomer] = useState(null);
 
@@ -72,7 +79,7 @@ const Customers = () => {
                 <img src={customers} className="w-100" alt="customers" />
               </div>
               <div className="col-8">
-                <h3 className="fw-bold">12.000</h3>
+                <h3 className="fw-bold">{userThisMonth?.data?.allTime}</h3>
                 <span className="text-sm mb-2 d-inline-block">
                   Total Customers
                 </span>
@@ -85,7 +92,7 @@ const Customers = () => {
                       marginRight: '1rem',
                     }}
                   >
-                    + 100
+                    {userThisMonth?.data?.thisMonth}+
                   </h3>
                   <span className="text-sm text-gray-dark me-4 pt-2">
                     new customers this month
