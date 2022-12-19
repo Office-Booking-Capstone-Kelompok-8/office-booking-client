@@ -11,6 +11,9 @@ const CustomerItem = ({ user }) => {
     if (error?.status === 500) {
       notifyError('Server Error');
     }
+    if (error?.status === 409) {
+      notifyError('User has active reservation');
+    }
     if (isSuccess) {
       notifySuccess('customer deleted successfully');
     }
@@ -18,17 +21,16 @@ const CustomerItem = ({ user }) => {
 
   const deleteHandler = () => {
     Swal.fire({
-        title: "Delete this account?",
-        text: "this item will be removed permanently",
-        confirmButtonColor: "#3085D6",
-        confirmButtonText: "Delete",
-        showCancelButton: true
-    })
-    .then((window) => {
+      title: 'Delete this account?',
+      text: 'this item will be removed permanently',
+      confirmButtonColor: '#3085D6',
+      confirmButtonText: 'Delete',
+      showCancelButton: true,
+    }).then((window) => {
       if (window.isConfirmed) {
-        deleteCustomer({ id: user.id })
-      }    
-    })
+        deleteCustomer({ id: user.id });
+      }
+    });
   };
 
   const navigate = useNavigate();
@@ -38,7 +40,8 @@ const CustomerItem = ({ user }) => {
         onClick={() => {
           navigate(`/admin/customers/detail-customer/${user.id}`);
         }}
-        style={{ cursor: 'pointer' }}>
+        style={{ cursor: 'pointer' }}
+      >
         <h1 className="text-primary-dark text-sm">
           <img
             src={user?.picture}
