@@ -116,7 +116,7 @@ const Sidebar = () => {
 
 
           <NavLink
-            to="/admin/settings"
+            to="/admin/payments"
             className="nav-link__admin d-block d-block d-flex justify-content-center justify-content-md-start align-items-center"
           >
             <div>

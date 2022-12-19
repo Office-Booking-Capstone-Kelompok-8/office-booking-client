@@ -1,45 +1,43 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 import React, { useEffect, useState } from 'react';
-import Spinner from '../../../components/admin/Spinner';
+import Select from 'react-select';
+import { ToastContainer } from 'react-toastify';
 import {
-  useAddPaymentsMutation,
   useGetBanksQuery,
-  useGetPaymentsQuery,
+  useGetPaymentDetailsQuery,
+  useUpdatePaymentsMutation,
 } from '../../../store/payments/paymentsApiSlice';
 import * as yup from 'yup';
-import { Formik, Field, ErrorMessage, Form } from 'formik';
-import Select from 'react-select';
-import BankItem from './BankItem';
-import { ToastContainer } from 'react-toastify';
+import { useParams } from 'react-router-dom';
+import Spinner from '../../../components/admin/Spinner';
 import { notifySuccess } from '../../../utils/helpers';
 
-const Settings = () => {
-  // const navigate = useNavigate();
-  const { data: payments, isLoading, error } = useGetPaymentsQuery();
-  const [addPayment, { error: addError, isSuccess: addSuccess }] =
-    useAddPaymentsMutation();
+const UpdatePayment = () => {
+  const { id } = useParams();
   const { data: banks, isSuccess: successGetBank } = useGetBanksQuery();
-
-  const [banksOptions, setBanksOptions] = useState([]);
+  const { data: payments, isLoading } = useGetPaymentDetailsQuery({ id: id });
+  const [updatePayment, { isSuccess: successUpdate, error: errorUpdate }] =
+    useUpdatePaymentsMutation();
 
   useEffect(() => {
-    if (addSuccess) notifySuccess('Add Payment Successfully');
     if (successGetBank) {
       setBanksOptions(
         banks?.data?.map((bank) => ({ value: bank?.id, label: bank?.name }))
       );
     }
-  }, [successGetBank, addSuccess]);
+    if (successUpdate) notifySuccess('Payment Updated Successfully');
+  }, [successGetBank, successUpdate]);
 
-  if (addError) console.log(addError);
-  console.log(error);
+  if (errorUpdate) {
+    console.log(errorUpdate);
+  }
 
   // CONFIG FORM
   const initialValues = {
     bank: '',
-    accountName: '',
-    accountNumber: '',
-    description: 'Test',
+    accountName: payments?.data?.accountName,
+    accountNumber: payments?.data?.accountNumber,
   };
 
   const validationSchema = yup.object({
@@ -51,15 +49,18 @@ const Settings = () => {
       .matches(/^[0-9]+$/, 'number is invalid'),
   });
 
-  const onSubmit = async (values, props) => {
-    await addPayment({
+  const onSubmit = (values) => {
+    updatePayment({
+      buildingID: id,
       bankId: values.bank,
       accountName: values.accountName,
       accountNumber: values.accountNumber,
     });
-    props.resetForm();
   };
 
+  const [banksOptions, setBanksOptions] = useState([]);
+
+  if (isLoading) return <Spinner />;
   return (
     <div>
       <ToastContainer
@@ -151,9 +152,10 @@ const Settings = () => {
                 <div className="col-md-12">
                   <button
                     type="submit"
-                    className="col-3 button text-white me-3 bg-primary"
+                    to="/admin/payments/edit"
+                    className="btn bg-primary text-white text-sm me-5 px-5 py-2"
                   >
-                    {props.isSubmitting ? 'Please Wait' : 'Add Payment'}
+                    Update
                   </button>
                 </div>
               </div>
@@ -161,40 +163,8 @@ const Settings = () => {
           );
         }}
       </Formik>
-
-      {/* Table */}
-      <div
-        className="card"
-        style={{
-          boxShadow: '0px 8px 24px rgba(112, 144, 176, 0.25)',
-          borderRadius: 9,
-          marginTop: '3rem',
-        }}
-      >
-        <div className="card-body">
-          {isLoading ? (
-            <Spinner />
-          ) : (
-            <table className="table">
-              <thead>
-                <tr>
-                  <th className="text-sm text-gray-dark">Bank</th>
-                  <th className="text-sm text-gray-dark">Account Number</th>
-                  <th className="text-sm text-gray-dark">Account Name</th>
-                  <th className="text-sm text-gray-dark">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {payments?.data?.map((payment) => (
-                  <BankItem key={payment.id} payment={payment} />
-                ))}
-              </tbody>
-            </table>
-          )}
-        </div>
-      </div>
     </div>
   );
 };
 
-export default Settings;
+export default UpdatePayment;
