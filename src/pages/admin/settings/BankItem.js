@@ -2,20 +2,29 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDeletePaymentsMutation } from '../../../store/payments/paymentsApiSlice';
 import { notifySuccess } from '../../../utils/helpers';
+import Swal from 'sweetalert2';
 
 const BankItem = ({ payment }) => {
   const navigate = useNavigate();
-  const [deletePayment, { isSuccess: successDelete }] =
-    useDeletePaymentsMutation();
+  const [deletePayment, { isSuccess: successDelete }] = useDeletePaymentsMutation();
 
   useEffect(() => {
-    if (successDelete) notifySuccess('Delete Success');
+    if (successDelete) notifySuccess('payment deleted successfully');
   });
 
   const deleteHandler = () => {
-    if (window.confirm('Delete this account?')) {
-      deletePayment({ id: payment.id });
-    }
+    Swal.fire({
+        title: "Delete this payment?",
+        text: "this item will be removed permanently",
+        confirmButtonColor: "#3085D6",
+        confirmButtonText: "Delete",
+        showCancelButton: true
+    })
+    .then((window) => {
+      if (window.isConfirmed) {
+        deletePayment({ id: payment.id })
+      }    
+    })
   };
 
   return (

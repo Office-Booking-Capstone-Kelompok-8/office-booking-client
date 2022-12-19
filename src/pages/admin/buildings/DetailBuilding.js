@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useGetBuildingDetailQuery } from '../../../store/building/buildingApiSLice';
 import Icon from '@mdi/react';
 import {
@@ -9,8 +9,12 @@ import {
 } from '@mdi/js';
 import Spinner from '../../../components/admin/Spinner';
 import NotFound from '../../error/NotFound';
+import { useDeleteBuildingMutation } from '../../../store/building/buildingApiSLice';
+import Swal from 'sweetalert2';
+import { notifyError, notifySuccess } from '../../../utils/helpers';
 
 const DetailBuilding = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const { 
     isLoading,
@@ -18,6 +22,37 @@ const DetailBuilding = () => {
     errorDetail,
     isErrorDetail,
   } = useGetBuildingDetailQuery({id: id});
+  
+
+  const [deleteBuilding, { isSuccess, error }] = useDeleteBuildingMutation();
+
+  useEffect(() => {
+    if (error?.status === 500) {
+      notifyError('Server Error');
+    }
+    if (error?.status === 409) {
+      notifyError('Building has active reservation');
+    }
+    if (isSuccess) {
+      notifySuccess('building deleted successfully');
+    }
+  }, [error, isSuccess]);
+
+  const deleteHandler = () => {
+    Swal.fire({
+      title: "Delete this building?",
+      text: "this item will be removed permanently",
+      confirmButtonColor: "#3085D6",
+      confirmButtonText: "Delete",
+      showCancelButton: true
+    })
+    .then((window) => {
+      if (window.isConfirmed) {
+        deleteBuilding({ id: building.data.id })
+      }    
+      navigate('/admin/buildings');
+    })
+  };
 
   if (isErrorDetail) {
     if (errorDetail.status === 404) {
@@ -38,7 +73,7 @@ const DetailBuilding = () => {
           >
             Update
           </Link>
-          <button className="btn bg-error text-white text-sm me-5 px-5 py-2">
+          <button onClick={deleteHandler} className="btn bg-error text-white text-sm me-5 px-5 py-2">
             Delete
           </button>
         </div>

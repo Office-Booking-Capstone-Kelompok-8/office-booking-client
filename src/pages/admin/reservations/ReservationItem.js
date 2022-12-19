@@ -1,13 +1,41 @@
 import { mdiDeleteOutline } from '@mdi/js';
 import Icon from '@mdi/react';
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import IconStatus from './IconStatus';
+import { useDeleteReservationMutation } from '../../../store/reservations/reservationsApiSlice';
+import Swal from 'sweetalert2';
+import { notifyError, notifySuccess } from '../../../utils/helpers';
 
 const ReservationItem = ({ reservation }) => {
-  const navigate = useNavigate();
-  console.log(reservation);
+  
+  const [deleteReservation, { isSuccess, error }] = useDeleteReservationMutation();
 
+  useEffect(() => {
+    if (error?.status === 500) {
+      notifyError('Server Error');
+    }
+    if (isSuccess) {
+      notifySuccess('reservation deleted successfully');
+    }
+  }, [error, isSuccess]);
+
+  const deleteHandler = () => {
+    Swal.fire({
+        title: "Delete this reservation?",
+        text: "this item will be removed permanently",
+        confirmButtonColor: "#3085D6",
+        confirmButtonText: "Delete",
+        showCancelButton: true
+    })
+    .then((window) => {
+      if (window.isConfirmed) {
+        deleteReservation({ id: reservation.id })
+      }    
+    })
+  };
+
+  const navigate = useNavigate();
   return (
     <tr>
       <td
@@ -35,6 +63,7 @@ const ReservationItem = ({ reservation }) => {
       <td>
         <Icon
           path={mdiDeleteOutline}
+          onClick={deleteHandler}
           size={1.2}
           className="bg-error text-white p-1 rounded"
         />

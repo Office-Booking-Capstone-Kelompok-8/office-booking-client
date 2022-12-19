@@ -9,7 +9,7 @@ import {
   mdiAccountMultipleOutline,
   mdiLogin,
   mdiHomeRoof,
-  mdiCog,
+  mdiCreditCardOutline
 } from '@mdi/js';
 import Auth from '../../../utils/auth';
 
@@ -73,52 +73,56 @@ const Sidebar = () => {
             </div>
             <span className="d-none d-md-inline">Reservations</span>
           </NavLink>
-          <div className="nav-item dropdown">
-            <div className="sidenav-item">
-              <NavLink
-                className="nav-link__admin dropdown-toggle d-block d-block d-flex justify-content-center justify-content-md-start align-items-center"
-                id="navbarDropdown"
-                role="button"
-                data-bs-toggle="dropdown"
-              >
-                <div>
-                  <Icon
-                    path={mdiAccountMultipleOutline}
-                    title="User Profile"
-                    className="m-3 w-2"
-                  />
-                  <span className="d-none d-md-inline">Users</span>
-                </div>
-              </NavLink>
-              <div className="dropdown-menu">
-                <div className="nav-link__admin dropdown-item">
+
+          <div className="accordion accordion-flush" id="accordionFlushExample">
+            <div className="accordion-item">
+              <h2 className="accordion-header" id="flush-headingOne">
+                <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                   <NavLink
-                    className="sidenav_link d-block d-block d-flex justify-content-center justify-content-md-start align-items-center"
+                    to="/admin/customers"
+                    className="nav-link__admin d-block d-block d-flex justify-content-center justify-content-md-start align-items-center"
+                  >
+                  <div>
+                    <Icon
+                      path={mdiAccountMultipleOutline}
+                      title="nav-link__admin User Profile"
+                      className="w-2 me-3"
+                    />
+                    <span className="d-none d-md-inline">Users</span>
+                  </div>
+                  </NavLink>
+                </button>
+              </h2>
+              <div id="flush-collapseOne" className="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                <div className="accordion-body">
+                  <NavLink
+                    className="nav-link__admin d-block d-block d-flex justify-content-center justify-content-md-start align-items-center"
                     to="/admin/customers"
                   >
                     <span className="d-none d-md-inline">Customers</span>
-                  </NavLink>
+                  </NavLink>  
                 </div>
-                <div className="nav-link__admin dropdown-item">
-                  <NavLink
-                    className="sidenav_link d-block d-block d-flex justify-content-center justify-content-md-start align-items-center"
-                    to="/admin/admins"
-                  >
-                    <span className="d-none d-md-inline">Admins</span>
-                  </NavLink>
+                <div className="accordion-body">
+                    <NavLink
+                      className="nav-link__admin d-block d-block d-flex justify-content-center justify-content-md-start align-items-center"
+                      to="/admin/admins"
+                    >
+                      <span className="d-none d-md-inline">Admins</span>
+                    </NavLink>
                 </div>
               </div>
             </div>
           </div>
 
+
           <NavLink
-            to="/admin/settings"
+            to="/admin/payments"
             className="nav-link__admin d-block d-block d-flex justify-content-center justify-content-md-start align-items-center"
           >
             <div>
-              <Icon path={mdiCog} title="User Profile" className="m-3 w-2" />
+              <Icon path={mdiCreditCardOutline} title="User Profile" className="m-3 w-2" />
             </div>
-            <span className="d-none d-md-inline">Settings</span>
+            <span className="d-none d-md-inline">Payments</span>
           </NavLink>
         </div>
       </div>

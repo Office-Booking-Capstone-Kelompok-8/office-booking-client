@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDeleteUserMutation } from '../../../store/users/usersApiSlice';
 import { notifyError, notifySuccess } from '../../../utils/helpers';
+import Swal from 'sweetalert2';
 
 const AdminItem = ({ user }) => {
   const [deleteCustomer, { isSuccess, error }] = useDeleteUserMutation();
@@ -11,14 +12,23 @@ const AdminItem = ({ user }) => {
       notifyError('Server Error');
     }
     if (isSuccess) {
-      notifySuccess('Berhasil Dihapus');
+      notifySuccess('admin deleted successfully');
     }
   }, [error, isSuccess]);
 
   const deleteHandler = () => {
-    if (window.confirm('Delete this account?')) {
-      deleteCustomer({ id: user.id });
-    }
+    Swal.fire({
+        title: "Delete this account?",
+        text: "this item will be removed permanently",
+        confirmButtonColor: "#3085D6",
+        confirmButtonText: "Delete",
+        showCancelButton: true
+    })
+    .then((window) => {
+      if (window.isConfirmed) {
+        deleteCustomer({ id: user.id })
+      }    
+    })
   };
 
   const navigate = useNavigate();

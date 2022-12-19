@@ -13,7 +13,7 @@ import { useParams } from 'react-router-dom';
 import Spinner from '../../../components/admin/Spinner';
 import { notifySuccess } from '../../../utils/helpers';
 
-const UpdateSetting = () => {
+const UpdatePayment = () => {
   const { id } = useParams();
   const { data: banks, isSuccess: successGetBank } = useGetBanksQuery();
   const { data: payments, isLoading } = useGetPaymentDetailsQuery({ id: id });
@@ -26,7 +26,7 @@ const UpdateSetting = () => {
         banks?.data?.map((bank) => ({ value: bank?.id, label: bank?.name }))
       );
     }
-    if (successUpdate) notifySuccess('Payment Updated');
+    if (successUpdate) notifySuccess('payment updated successfully');
   }, [successGetBank, successUpdate]);
 
   if (errorUpdate) {
@@ -50,7 +50,6 @@ const UpdateSetting = () => {
   });
 
   const onSubmit = (values) => {
-    console.log(values);
     updatePayment({
       buildingID: id,
       bankId: values.bank,
@@ -153,7 +152,7 @@ const UpdateSetting = () => {
                 <div className="col-md-12">
                   <button
                     type="submit"
-                    to="/admin/settings/edit"
+                    to="/admin/payments/edit"
                     className="btn bg-primary text-white text-sm me-5 px-5 py-2"
                   >
                     Update
@@ -168,4 +167,4 @@ const UpdateSetting = () => {
   );
 };
 
-export default UpdateSetting;
+export default UpdatePayment;

@@ -94,7 +94,7 @@ const AddBuilding = () => {
     setFormDataImages([]);
     setSelectedMainImg('');
     setSelectedMoreImg([]);
-    notifySuccess('Building added successfully');
+    notifySuccess('building created successfully');
     setListFacilities([]);
   };
 

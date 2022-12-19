@@ -13,9 +13,9 @@ import BankItem from './BankItem';
 import { ToastContainer } from 'react-toastify';
 import { notifySuccess } from '../../../utils/helpers';
 
-const Settings = () => {
+const Payments = () => {
   // const navigate = useNavigate();
-  const { data: payments, isLoading, error } = useGetPaymentsQuery();
+  const { data: payments, isLoading } = useGetPaymentsQuery();
   const [addPayment, { error: addError, isSuccess: addSuccess }] =
     useAddPaymentsMutation();
   const { data: banks, isSuccess: successGetBank } = useGetBanksQuery();
@@ -23,7 +23,7 @@ const Settings = () => {
   const [banksOptions, setBanksOptions] = useState([]);
 
   useEffect(() => {
-    if (addSuccess) notifySuccess('Add Payment Successfully');
+    if (addSuccess) notifySuccess('payment created successfully');
     if (successGetBank) {
       setBanksOptions(
         banks?.data?.map((bank) => ({ value: bank?.id, label: bank?.name }))
@@ -32,7 +32,6 @@ const Settings = () => {
   }, [successGetBank, addSuccess]);
 
   if (addError) console.log(addError);
-  console.log(error);
 
   // CONFIG FORM
   const initialValues = {
@@ -197,4 +196,4 @@ const Settings = () => {
   );
 };
 
-export default Settings;
+export default Payments;

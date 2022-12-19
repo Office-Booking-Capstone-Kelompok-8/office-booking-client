@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDeleteBuildingMutation } from '../../../store/building/buildingApiSLice';
 import { notifyError, notifySuccess } from '../../../utils/helpers';
+import Swal from 'sweetalert2';
 
 const BuildingItem = ({ building }) => {
   const navigate = useNavigate();
@@ -17,14 +18,23 @@ const BuildingItem = ({ building }) => {
       notifyError('Building has active reservation');
     }
     if (isSuccess) {
-      notifySuccess('Berhasil Dihapus');
+      notifySuccess('building deleted successfully');
     }
   }, [error, isSuccess]);
 
   const deleteHandler = () => {
-    if (window.confirm('Delete this building?')) {
-      deleteBuilding({ id: building.id });
-    }
+    Swal.fire({
+        title: "Delete this building?",
+        text: "this item will be removed permanently",
+        confirmButtonColor: "#3085D6",
+        confirmButtonText: "Delete",
+        showCancelButton: true
+    })
+    .then((window) => {
+      if (window.isConfirmed) {
+        deleteBuilding({ id: building.id })
+      }    
+    })
   };
 
   console.log(error);

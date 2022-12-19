@@ -20,14 +20,14 @@ import Admins from "../pages/admin/admins/Admins";
 import AddAdmin from "../pages/admin/admins/AddAdmin";
 import UpdateAdmin from "../pages/admin/admins/UpdateAdmin";
 import DetailAdmin from "../pages/admin/admins/DetailAdmin";
-import Settings from "../pages/admin/settings/Settings";
 import ProtectedRoute from "./ProtectedRoute";
 import PrivateRoute from "./PrivateRoute";
 import ProfileAdmin from "../pages/admin/admins/ProfileAdmin";
 import SearchBuilding from "../pages/enduser/SearchBuilding";
 import DetailBuildingUser from "../pages/enduser/detailbuilding/DetailBuildingUser";
 import LandingPage from "../pages/enduser/landingpaage/LandingPage";
-import UpdateSetting from "../pages/admin/settings/UpdateSetting";
+import Payments from "../pages/admin/settings/Payments";
+import UpdatePayment from "../pages/admin/settings/UpdatePayment";
 
 export default function SetupRoute() {
   return (
@@ -71,9 +71,9 @@ export default function SetupRoute() {
             <Route path="detail-admin/:id" element={<DetailAdmin />} />
           </Route>
           {/* Settings */}
-          <Route path="settings">
-            <Route index element={<Settings />} />
-            <Route path="update/:id" element={<UpdateSetting />} />
+          <Route path="payments">
+            <Route index element={<Payments />} />
+            <Route path="update/:id" element={<UpdatePayment />} />
           </Route>
         </Route>
       </Route>

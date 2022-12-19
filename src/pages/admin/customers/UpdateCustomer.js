@@ -35,7 +35,7 @@ const UpdateCustomer = () => {
       setSelectedPhotoProfile(customer?.data?.picture);
     }
     if (successUpdate) {
-      notifySuccess('Customer Updated');
+      notifySuccess('customer updated successfully');
     }
   }, [customer]);
 
