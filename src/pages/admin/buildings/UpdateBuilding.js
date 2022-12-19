@@ -115,7 +115,7 @@ const UpdateBuilding = () => {
     refetch();
 
     // RESET
-    notifySuccess('Building Updated successfully');
+    notifySuccess('building updated successfully');
     setListFacilities([]);
   };
 

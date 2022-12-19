@@ -61,7 +61,7 @@ const AddAdmin = () => {
       password: values.password,
     }).then(async (res) => {
       await uploadPicture(res.data?.data.uid, formDataState);
-      notifySuccess('Success Added');
+      notifySuccess('admin created successfullyy');
       props.resetForm();
       setSelectedPhotoProfile('');
     });

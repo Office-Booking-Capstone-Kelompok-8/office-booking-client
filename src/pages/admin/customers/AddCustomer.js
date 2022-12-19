@@ -62,7 +62,7 @@ const AddCustomer = () => {
       password: values.password,
     }).then(async (res) => {
       await uploadPicture(res.data?.data.uid, formDataState);
-      notifySuccess('user created successfully');
+      notifySuccess('customer created successfully');
       props.resetForm();
       setSelectedPhotoProfile('');
     });

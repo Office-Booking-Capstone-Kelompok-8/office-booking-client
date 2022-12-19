@@ -16,7 +16,7 @@ const ReservationItem = ({ reservation }) => {
       notifyError('Server Error');
     }
     if (isSuccess) {
-      notifySuccess('Berhasil Dihapus');
+      notifySuccess('reservation deleted successfully');
     }
   }, [error, isSuccess]);
 

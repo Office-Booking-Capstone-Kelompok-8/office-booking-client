@@ -14,6 +14,7 @@ import Spinner from '../../../components/admin/Spinner';
 import NotFound from '../../error/NotFound';
 import { notifyError, notifySuccess } from '../../../utils/helpers';
 import { useDeleteUserMutation } from '../../../store/users/usersApiSlice';
+import Swal from 'sweetalert2';
 
 const DetailCustomer = () => {
   const navigate = useNavigate();
@@ -32,15 +33,24 @@ const DetailCustomer = () => {
       notifyError('Server Error');
     }
     if (isSuccess) {
-      notifySuccess('Berhasil Dihapus');
-      navigate('/admin/customers');
+      notifySuccess('customer deleted successfully');
     }
   }, [error, isSuccess]);
 
   const deleteHandler = () => {
-    if (window.confirm('Delete this account?')) {
-      deleteCustomer({ id: customer.data.id });
-    }
+    Swal.fire({
+        title: "Delete this account?",
+        text: "this item will be removed permanently",
+        confirmButtonColor: "#3085D6",
+        confirmButtonText: "Delete",
+        showCancelButton: true
+    })
+    .then((window) => {
+      if (window.isConfirmed) {
+        deleteCustomer({ id: customer.data.id })
+      }    
+      navigate('/admin/customers');
+    })
   };
 
   if (isErrorDetail) {

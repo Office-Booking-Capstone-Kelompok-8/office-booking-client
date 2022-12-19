@@ -12,7 +12,7 @@ const CustomerItem = ({ user }) => {
       notifyError('Server Error');
     }
     if (isSuccess) {
-      notifySuccess('Berhasil Dihapus');
+      notifySuccess('customer deleted successfully');
     }
   }, [error, isSuccess]);
 

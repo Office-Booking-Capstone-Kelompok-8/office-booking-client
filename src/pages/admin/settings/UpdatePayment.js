@@ -26,7 +26,7 @@ const UpdatePayment = () => {
         banks?.data?.map((bank) => ({ value: bank?.id, label: bank?.name }))
       );
     }
-    if (successUpdate) notifySuccess('Payment Updated Successfully');
+    if (successUpdate) notifySuccess('payment updated successfully');
   }, [successGetBank, successUpdate]);
 
   if (errorUpdate) {

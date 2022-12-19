@@ -35,7 +35,7 @@ const UpdateAdmin = () => {
       setSelectedPhotoProfile(admin?.data?.picture);
     }
     if (successUpdate) {
-      notifySuccess('Admin Updated');
+      notifySuccess('admin updated successfully');
     }
   }, [admin]);
 

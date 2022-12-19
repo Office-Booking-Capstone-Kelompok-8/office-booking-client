@@ -15,7 +15,7 @@ import { notifySuccess } from '../../../utils/helpers';
 
 const Payments = () => {
   // const navigate = useNavigate();
-  const { data: payments, isLoading, error } = useGetPaymentsQuery();
+  const { data: payments, isLoading } = useGetPaymentsQuery();
   const [addPayment, { error: addError, isSuccess: addSuccess }] =
     useAddPaymentsMutation();
   const { data: banks, isSuccess: successGetBank } = useGetBanksQuery();
@@ -23,7 +23,7 @@ const Payments = () => {
   const [banksOptions, setBanksOptions] = useState([]);
 
   useEffect(() => {
-    if (addSuccess) notifySuccess('Add Payment Successfully');
+    if (addSuccess) notifySuccess('payment created successfully');
     if (successGetBank) {
       setBanksOptions(
         banks?.data?.map((bank) => ({ value: bank?.id, label: bank?.name }))

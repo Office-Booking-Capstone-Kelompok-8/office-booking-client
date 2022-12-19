@@ -60,7 +60,7 @@ const ProfileAdmin = () => {
       }
     }
     if (successUpdate || successPassword) {
-      notifySuccess('Update successfully');
+      notifySuccess('admin updated successfully');
     }
   }, [isErrorUpdate, successUpdate, successPassword, errorUpdate]);
 

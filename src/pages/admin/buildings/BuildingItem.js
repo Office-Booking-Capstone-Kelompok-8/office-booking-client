@@ -18,7 +18,7 @@ const BuildingItem = ({ building }) => {
       notifyError('Building has active reservation');
     }
     if (isSuccess) {
-      notifySuccess('Berhasil Dihapus');
+      notifySuccess('building deleted successfully');
     }
   }, [error, isSuccess]);
 

@@ -12,7 +12,7 @@ const AdminItem = ({ user }) => {
       notifyError('Server Error');
     }
     if (isSuccess) {
-      notifySuccess('Berhasil Dihapus');
+      notifySuccess('admin deleted successfully');
     }
   }, [error, isSuccess]);
 

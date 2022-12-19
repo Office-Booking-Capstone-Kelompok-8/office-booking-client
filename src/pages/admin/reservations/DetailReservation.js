@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Icon from '@mdi/react';
 import {
@@ -17,10 +17,13 @@ import { useGetReservationsDetailQuery } from '../../../store/reservations/reser
 import Spinner from '../../../components/admin/Spinner';
 import IconStatus from './IconStatus';
 import ButtonReservationStatus from './ButtonReservationStatus';
+import { useDeleteReservationMutation } from '../../../store/reservations/reservationsApiSlice';
+import Swal from 'sweetalert2';
+import { notifyError, notifySuccess } from '../../../utils/helpers';
 
 const DetailReservation = () => {
-  const { id } = useParams();
   const navigate = useNavigate();
+  const { id } = useParams();
 
   // QUERY
   const {
@@ -33,7 +36,35 @@ const DetailReservation = () => {
   console.log(error);
   console.log(reservation);
 
+  const [deleteReservation, { isSuccess, errorDelete }] = useDeleteReservationMutation();
+
+  useEffect(() => {
+    if (errorDelete?.status === 500) {
+      notifyError('Server Error');
+    }
+    if (isSuccess) {
+      notifySuccess('reservation deleted successfully');
+    }
+  }, [errorDelete, isSuccess]);
+
+  const deleteHandler = () => {
+    Swal.fire({
+        title: "Delete this reservation?",
+        text: "this item will be removed permanently",
+        confirmButtonColor: "#3085D6",
+        confirmButtonText: "Delete",
+        showCancelButton: true
+    })
+    .then((window) => {
+      if (window.isConfirmed) {
+        deleteReservation({ id: reservation.data.id })
+      }    
+      navigate('/admin/reservations');
+    })
+  };
+
   if (isLoading) return <Spinner />;
+  
   return (
     <div>
       <ToastContainer
@@ -55,7 +86,7 @@ const DetailReservation = () => {
         >
           Back
         </button>
-        <button className="btn bg-error text-white text-sm me-4 px-5 py-2">
+        <button onClick={deleteHandler} className="btn bg-error text-white text-sm me-4 px-5 py-2">
           Delete
         </button>
       </div>

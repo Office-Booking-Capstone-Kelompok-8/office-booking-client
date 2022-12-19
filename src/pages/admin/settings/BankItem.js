@@ -9,7 +9,7 @@ const BankItem = ({ payment }) => {
   const [deletePayment, { isSuccess: successDelete }] = useDeletePaymentsMutation();
 
   useEffect(() => {
-    if (successDelete) notifySuccess('Payment Deleted Successfully');
+    if (successDelete) notifySuccess('payment deleted successfully');
   });
 
   const deleteHandler = () => {
