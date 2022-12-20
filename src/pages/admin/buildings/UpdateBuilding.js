@@ -27,8 +27,8 @@ const UpdateBuilding = () => {
   const [selectedMoreImg, setSelectedMoreImg] = useState([]);
   const [onUpdate, setOnUpdate] = useState(false);
   const { isUpload } = useUploadImgBuilding();
-  const [updateBuilding] = useUpdateBuildingMutation();
-
+  const [updateBuilding, { error }] = useUpdateBuildingMutation();
+  console.log(error);
   // Get Building
   const {
     data: building,
@@ -118,7 +118,7 @@ const UpdateBuilding = () => {
     notifySuccess('building updated successfully');
     setListFacilities([]);
   };
-
+  console.log(building?.data?.isPublished);
   if (isLoading) return <Spinner />;
 
   return (
@@ -684,6 +684,36 @@ const UpdateBuilding = () => {
                 >
                   Cancel
                 </button>
+                {building?.data?.isPublished ? (
+                  <button
+                    type="button"
+                    className="col-3 button btn-success btn me-4"
+                    onClick={async () => {
+                      await updateBuilding({
+                        buildingID: building?.data?.id,
+                        isPublished: false,
+                      });
+                      refetch();
+                    }}
+                  >
+                    Save as Draft
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    className="col-3 button btn-success btn me-4"
+                    onClick={async () => {
+                      await updateBuilding({
+                        buildingID: building?.data?.id,
+                        isPublished: true,
+                      });
+                      refetch();
+                    }}
+                  >
+                    Publish
+                  </button>
+                )}
+
                 <button
                   type="submit"
                   className="col-3 button text-white me-3 bg-primary"

@@ -14,15 +14,84 @@ import google from './../../../assets/img/google.png';
 import appstore from './../../../assets/img/app-store.png';
 import Icon from '@mdi/react';
 import { mdiBank, mdiTextBoxOutline, mdiAlert } from '@mdi/js';
+import Select from 'react-select';
+import useRegion from '../../../hooks/useRegion';
+import { Form, Formik, Field, ErrorMessage } from 'formik';
+import { useNavigate } from 'react-router-dom';
+import * as yup from 'yup';
+import { notifyError } from '../../../utils/helpers';
+import { ToastContainer } from 'react-toastify';
 
 const LandingPage = () => {
+  const navigate = useNavigate();
+  const { city } = useRegion();
+  const optionCity = city.map((c) => ({ value: c?.id, label: c?.name }));
+  const optionCapacity = [
+    { value: { min: 1, max: 50 }, label: '1 - 50 Person' },
+    { value: { min: 50, max: 100 }, label: '50 - 100 Person' },
+    { value: { min: 100, max: 200 }, label: '100 - 200 Person' },
+    { value: { min: 200, max: 500 }, label: '200 - 500 Person' },
+    { value: { min: 500, max: 1000 }, label: '500 - 1000 Person' },
+  ];
+  const optionDuration = [
+    { value: 1, label: '1 Month' },
+    { value: 2, label: '2 Month' },
+    { value: 3, label: '3 Month' },
+    { value: 4, label: '4 Month' },
+    { value: 5, label: '5 Month' },
+    { value: 6, label: '6 Month' },
+    { value: 7, label: '7 Month' },
+    { value: 8, label: '8 Month' },
+    { value: 9, label: '9 Month' },
+    { value: 10, label: '10 Month' },
+    { value: 11, label: '11 Month' },
+    { value: 12, label: '12 Month' },
+  ];
+
+  const initialValues = {
+    date: '',
+    capacity: {
+      value: { min: '', max: '' },
+      label: '',
+    },
+    duration: {
+      value: '',
+      label: '',
+    },
+    city: {
+      value: '',
+      label: '',
+    },
+  };
+
+  const onSubmit = (values) => {
+    console.log(values);
+    if (values.date && values.duration.value) {
+      navigate('/search-building', { state: values });
+    } else {
+      notifyError('Date & Duration is required');
+    }
+  };
+
   return (
     <div style={{ position: 'relative' }}>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover={false}
+        theme="colored"
+      />
       <Navbar />
       <div className="mt-5" style={{ backgroundColor: '#FAFAFA' }}>
-        <div className="banner">
+        <div className="banner px-5">
           <div
-            className="row d-flex-justify-content-center"
+            className="row d-flex-justify-content-center mx-auto"
             style={{ marginLeft: '7rem' }}
           >
             <h1 className="text-white fw-bold" style={{ fontSize: 50 }}>
@@ -32,6 +101,61 @@ const LandingPage = () => {
               With our global network of workspaces, find the office zone you
               want
             </h3>
+            <Formik initialValues={initialValues} onSubmit={onSubmit}>
+              {(props) => {
+                console.log(props.values);
+                return (
+                  <Form className="d-flex flex-column gap-3">
+                    <div className="row">
+                      <Select
+                        placeholder="City"
+                        options={optionCity}
+                        className="col-8"
+                        onChange={(e) => {
+                          props.setFieldValue('city', {
+                            value: e.value,
+                            label: e.label,
+                          });
+                        }}
+                      />
+                      <button type="submit" className="btn btn-primary col-4">
+                        Search
+                      </button>
+                    </div>
+                    <div className="row">
+                      <Select
+                        placeholder="Capacity"
+                        className="col-4"
+                        options={optionCapacity}
+                        onChange={(e) => {
+                          props.setFieldValue('capacity', {
+                            value: { min: e.value.min, max: e.value.max },
+                            label: e.label,
+                          });
+                        }}
+                      />
+                      <Field
+                        type="date"
+                        className="col-4 rounded"
+                        style={{ border: 'none', outline: 'none' }}
+                        name="date"
+                      />
+                      <Select
+                        placeholder="Duration"
+                        className="col-4"
+                        options={optionDuration}
+                        onChange={(e) => {
+                          props.setFieldValue('duration', {
+                            value: e.value,
+                            label: e.label,
+                          });
+                        }}
+                      />
+                    </div>
+                  </Form>
+                );
+              }}
+            </Formik>
           </div>
         </div>
 
