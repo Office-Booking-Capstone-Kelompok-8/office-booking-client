@@ -184,9 +184,7 @@ const DetailCustomer = () => {
               <tbody>
                   {reservations?.data?.map((list) => (
                     <tr key={list.id}>
-                      <td onClick={() => {
-                        navigate(`/admin/reservations/detail-reservation/${list.id}`);
-                      }}>
+                      <td>
                       <h1 className="text-primary-dark text-sm">
                           <img
                           src={list?.building?.picture}
