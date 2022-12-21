@@ -1,25 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import buildings from './../../../assets/img/building-dashboard.png';
-import { useGetBuildingQuery } from '../../../store/building/buildingApiSLice';
-import Pagination from '../../../components/admin/Pagination';
-import BuildingItem from './BuildingItem';
-import Spinner from '../../../components/admin/Spinner';
-import { ToastContainer } from 'react-toastify';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import buildings from "./../../../assets/img/building-dashboard.png";
+import {
+  useGetBuildingQuery,
+  useGetBuildingTotalQuery,
+} from "../../../store/building/buildingApiSLice";
+import Pagination from "../../../components/admin/Pagination";
+import BuildingItem from "./BuildingItem";
+import Spinner from "../../../components/admin/Spinner";
+import { ToastContainer } from "react-toastify";
 
 const Buildings = () => {
   const { data, isSuccess } = useGetBuildingQuery({
     page: 1,
     limit: 20,
   });
+  const { data: dataTotal, error: errorTotal } = useGetBuildingTotalQuery();
   const [buildingData, setBuildingData] = useState(null);
+
+  console.log(dataTotal, errorTotal);
 
   useEffect(() => {
     if (isSuccess) {
       setBuildingData(data.data);
     }
   }, [isSuccess, data]);
-  console.log(buildingData);
 
   // Pagination
   const totalBuilding = buildingData?.length;
@@ -82,17 +87,19 @@ const Buildings = () => {
                   <img src={buildings} className="w-100" alt="buildings" />
                 </div>
                 <div className="col-md-8 col-lg-8">
-                  <h3 className="fw-bold">750</h3>
+                  <h3 className="fw-bold">
+                    {dataTotal?.data?.byTimeFrame?.allTime}
+                  </h3>
                   <span className="text-sm ">Total Buildings</span>
                   <div className="justify-content-between rounded d-flex flex-column flex-lg-row">
                     <h3
                       className="text-primary text-sm px-2 py-2"
                       style={{
-                        background: 'rgba(202, 222, 251, 0.6)',
+                        background: "rgba(202, 222, 251, 0.6)",
                         borderRadius: 9,
                       }}
                     >
-                      + 23
+                      + {dataTotal?.data?.byTimeFrame?.thisMonth}
                     </h3>
                     <span className="text-sm text-gray-dark me-4 pt-2">
                       new buildings this month
@@ -103,22 +110,15 @@ const Buildings = () => {
             </div>
             <div className="col-md-6 col-lg-6 d-flex flex-column pt-3 p-5">
               <div className="col-md-12 col-lg-12 align-items-center d-flex flex-lg-row">
-                <div className="col-md-3 col-lg-3 me-5 shadow-sm row rounded w-15 h-6">
-                  <h3 className="fw-bold text-md">55</h3>
-                  <span className="text-sm">Jakarta Pusat</span>
-                </div>
-                <div className="col-md-3 col-lg-3 me-5 shadow-sm row rounded w-15 h-6">
-                  <h3 className="fw-bold text-md">45</h3>
-                  <span className="text-sm">Jakarta Timur</span>
-                </div>
-                <div className="col-md-3 col-lg-3 me-5 shadow-sm row rounded w-15 h-6">
-                  <h3 className="fw-bold text-md">67</h3>
-                  <span className="text-sm">Jakarta Selatan</span>
-                </div>
-                <div className="col-md-3 col-lg-3 me-5 shadow-sm row rounded w-15 h-6">
-                  <h3 className="fw-bold text-md">5</h3>
-                  <span className="text-sm">Jakarta Utara</span>
-                </div>
+                {dataTotal?.data?.byCity?.map((city) => (
+                  <div
+                    className="col-md-3 col-lg-3 me-5 shadow-sm row rounded w-15 h-6"
+                    key={city?.cityId}
+                  >
+                    <h3 className="fw-bold text-md">{city.total}</h3>
+                    <span className="text-sm">{city.cityName}</span>
+                  </div>
+                ))}
               </div>
               <div className="justify-content-between pt-3">
                 <div className="shadow-sm row rounded w-15 h-6">
@@ -133,7 +133,7 @@ const Buildings = () => {
       <div
         className="card"
         style={{
-          boxShadow: '0px 8px 24px rgba(112, 144, 176, 0.25)',
+          boxShadow: "0px 8px 24px rgba(112, 144, 176, 0.25)",
           borderRadius: 9,
         }}
       >
