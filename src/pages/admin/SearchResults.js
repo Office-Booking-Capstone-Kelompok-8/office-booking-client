@@ -22,7 +22,7 @@ const SearchResults = () => {
       <div id="search" className="search">
         <div className="container">
           <div className="row">
-            {data?.data?.length !== 0 ? (
+            {data?.data !== null ? (
               data?.data?.map((build) => (
                 <BuildingCardResult key={build?.id} building={build} />
               ))

@@ -16,9 +16,8 @@ import Icon from '@mdi/react';
 import { mdiBank, mdiTextBoxOutline, mdiAlert } from '@mdi/js';
 import Select from 'react-select';
 import useRegion from '../../../hooks/useRegion';
-import { Form, Formik, Field, ErrorMessage } from 'formik';
+import { Form, Formik, Field } from 'formik';
 import { useNavigate } from 'react-router-dom';
-import * as yup from 'yup';
 import { notifyError } from '../../../utils/helpers';
 import { ToastContainer } from 'react-toastify';
 
@@ -354,7 +353,10 @@ const LandingPage = () => {
                       className="accordion accordion-landing accordion-flush bg-dark"
                       id="accordionFlushExample"
                     >
-                      <div className="accordion-item pt-3" style={{ backgroundColor: '#FAFAFA' }}>
+                      <div
+                        className="accordion-item pt-3"
+                        style={{ backgroundColor: '#FAFAFA' }}
+                      >
                         <h2 className="accordion-header" id="flush-headingOne">
                           <button
                             style={{ fontSize: 20, backgroundColor: '#FAFAFA' }}
@@ -383,7 +385,10 @@ const LandingPage = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="accordion-item pt-3" style={{ backgroundColor: '#FAFAFA' }}>
+                      <div
+                        className="accordion-item pt-3"
+                        style={{ backgroundColor: '#FAFAFA' }}
+                      >
                         <h2 className="accordion-header" id="flush-headingTwo">
                           <button
                             style={{ fontSize: 20, backgroundColor: '#FAFAFA' }}
@@ -415,7 +420,10 @@ const LandingPage = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="accordion-item pt-3" style={{ backgroundColor: '#FAFAFA' }}>
+                      <div
+                        className="accordion-item pt-3"
+                        style={{ backgroundColor: '#FAFAFA' }}
+                      >
                         <h2
                           className="accordion-header"
                           id="flush-headingThree"
@@ -450,7 +458,10 @@ const LandingPage = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="accordion-item pt-3" style={{ backgroundColor: '#FAFAFA' }}>
+                      <div
+                        className="accordion-item pt-3"
+                        style={{ backgroundColor: '#FAFAFA' }}
+                      >
                         <h2 className="accordion-header" id="flush-headingFour">
                           <button
                             style={{ fontSize: 20, backgroundColor: '#FAFAFA' }}

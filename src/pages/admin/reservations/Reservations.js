@@ -15,12 +15,10 @@ const Reservations = () => {
     data: reservations,
     isLoading,
     isSuccess,
-  } = useGetReservationsQuery({ page: 1, limit: 20 });
+  } = useGetReservationsQuery({ page: 1, limit: 100 });
   const [reservation, setReservation] = useState(null);
 
-  const { data: reservationTotal, error: reservationTotalError } =
-    useGetReservationsTotalQuery();
-  console.log(reservationTotal, reservationTotalError);
+  const { data: reservationTotal } = useGetReservationsTotalQuery();
   // Pagination
   const totalReservations = reservation?.length;
   const reservationPerPage = 10;

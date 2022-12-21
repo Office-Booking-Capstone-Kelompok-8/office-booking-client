@@ -1,16 +1,19 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const BuildingCardResult = ({ building }) => {
-  console.log(building);
+  const navigate = useNavigate();
   return (
-    <div className="col-md-3 mb-3">
+    <div className="col-md-3 mb-3" style={{ cursor: 'pointer' }}>
       <div
         className="card"
         style={{
-          zIndex: -1,
           boxShadow: '0 8 24 rgba(112, 144, 176, 0.15)',
           borderRadius: 10,
           overflow: 'hidden',
+        }}
+        onClick={() => {
+          navigate(`/admin/buildings/detail-building/${building.id}`);
         }}
       >
         <img

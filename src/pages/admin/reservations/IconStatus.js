@@ -45,7 +45,11 @@ const IconStatus = ({ status, total, count }) => {
   }, [status]);
   return (
     <div
-      className={`d-flex align-items-center text-${color} bg-${color}-light py-1 px-2 rounded justify-content-between`}
+      className={`d-flex ${
+        total && 'shadow-sm'
+      } align-items-center text-${color} bg-${
+        total || color
+      }-light py-1 px-2 rounded justify-content-between`}
       style={{ fontSize: '.6rem' }}
     >
       <div className="d-flex justify-content-center w-100 align-items-center">

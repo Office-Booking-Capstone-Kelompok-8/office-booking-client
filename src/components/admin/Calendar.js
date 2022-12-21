@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Calendar } from 'react-calendar';
 import './styles.css';
 
-const CalendarComponent = () => {
+const CalendarComponent = ({ chooseDate }) => {
   const [date, setDate] = useState(new Date());
   const onChange = (date) => setDate(date);
-  console.log(date);
+
+  useEffect(() => {
+    const dateString = date.toLocaleDateString();
+    const dateSplit = dateString.split('/');
+    const dateJoin = [...[dateSplit[2], dateSplit[0], dateSplit[1]]].join('-');
+    chooseDate(dateJoin);
+  }, [date]);
+
   return (
     <Calendar
       value={date}

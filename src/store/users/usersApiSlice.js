@@ -62,6 +62,13 @@ export const usersApiSlice = apiSlice.injectEndpoints({
         };
       },
     }),
+    getUsersStatistics: builder.query({
+      query: () => {
+        return {
+          url: `/admin/users/statistics`,
+        };
+      },
+    }),
   }),
 });
 
@@ -73,4 +80,5 @@ export const {
   useUpdateUserMutation,
   useAddAdminMutation,
   useGetUsersNumberQuery,
+  useGetUsersStatisticsQuery,
 } = usersApiSlice;

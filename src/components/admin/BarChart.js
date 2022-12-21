@@ -2,8 +2,11 @@ import React from 'react';
 import { Bar } from 'react-chartjs-2';
 // eslint-disable-next-line no-unused-vars
 import { Chart as ChartJs } from 'chart.js/auto';
+import { useGetUsersStatisticsQuery } from '../../store/users/usersApiSlice';
 
 const BarChart = () => {
+  const { data: statistics, error: errors } = useGetUsersStatisticsQuery();
+  console.log(statistics, errors);
   return (
     <Bar
       options={{
@@ -16,24 +19,11 @@ const BarChart = () => {
         },
       }}
       data={{
-        labels: [
-          'Jan',
-          'Feb',
-          'Mar',
-          'Apr',
-          'Mei',
-          'Jun',
-          'Jul',
-          'Aug',
-          'Sep',
-          'Oct',
-          'Nov',
-          'Des',
-        ],
+        labels: statistics?.data?.map((stat) => stat.month).reverse(),
         datasets: [
           {
             label: 'Customer',
-            data: [12, 13, 45, 11, 11, 11, 11, 11, 4, 5, 15, 87],
+            data: statistics?.data?.map((stat) => stat.total).reverse(),
             backgroundColor: '#0D6AEC',
           },
         ],

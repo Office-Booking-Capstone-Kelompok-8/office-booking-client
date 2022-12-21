@@ -26,6 +26,13 @@ export const reservationsApiSlice = apiSlice.injectEndpoints({
         };
       },
     }),
+    getReservationsRevenue: builder.query({
+      query: () => {
+        return {
+          url: `/admin/reservations/revenue`,
+        };
+      },
+    }),
     updateReservations: builder.mutation({
       query: ({ id, ...body }) => {
         return {
@@ -65,4 +72,5 @@ export const {
   useUpdateReservationsStatusMutation,
   useDeleteReservationMutation,
   useGetReservationsTotalQuery,
+  useGetReservationsRevenueQuery,
 } = reservationsApiSlice;

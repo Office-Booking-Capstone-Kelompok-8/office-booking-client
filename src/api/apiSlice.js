@@ -36,7 +36,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
       // retry original query
       result = await baseQuery(args, api, extraOptions);
     } else {
-      Auth.logOut();
+      // Auth.logOut();
     }
   }
 
