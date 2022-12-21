@@ -8,12 +8,8 @@ import { BASE_URL } from '../utils/constants';
 
 const useUploadImgBuilding = () => {
   const [isUpload, setIsUpload] = useState(false);
-  const [updateBuilding, { error }] = useUpdateBuildingMutation();
-  const [addFacilities, { error: errorFacility }] = useAddFacilitiesMutation();
-
-  if (error || errorFacility) {
-    console.log(error, errorFacility);
-  }
+  const [updateBuilding] = useUpdateBuildingMutation();
+  const [addFacilities] = useAddFacilitiesMutation();
 
   const uploadPicture = async (
     imgData,

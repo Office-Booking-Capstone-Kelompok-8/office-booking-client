@@ -17,7 +17,6 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 
   // If token expired
   if (result?.error) {
-    console.log('Sending refresh token');
     const dataRT = {
       refreshToken: Auth.getRefreshToken(),
     };

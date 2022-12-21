@@ -1,4 +1,4 @@
-import { apiSlice } from "../../api/apiSlice";
+import { apiSlice } from '../../api/apiSlice';
 
 export const buildingApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -9,7 +9,7 @@ export const buildingApiSlice = apiSlice.injectEndpoints({
           params: body,
         };
       },
-      providesTags: ["Buildings", "BuildingsDelete"],
+      providesTags: ['Buildings', 'BuildingsDelete'],
     }),
     getBuildingCustomer: builder.query({
       query: ({ ...body }) => {
@@ -18,7 +18,7 @@ export const buildingApiSlice = apiSlice.injectEndpoints({
           params: body,
         };
       },
-      providesTags: ["Buildings", "BuildingsDelete"],
+      providesTags: ['Buildings', 'BuildingsDelete'],
     }),
     getBuildingEmpty: builder.query({
       query: () => {
@@ -33,7 +33,15 @@ export const buildingApiSlice = apiSlice.injectEndpoints({
           url: `/admin/buildings/${id}`,
         };
       },
-      invalidatesTags: ["Buildings"],
+      invalidatesTags: ['Buildings'],
+    }),
+    getBuildingDetailEndUser: builder.query({
+      query: ({ id }) => {
+        return {
+          url: `/buildings/${id}`,
+        };
+      },
+      invalidatesTags: ['Buildings'],
     }),
     getBuildingTotal: builder.query({
       query: () => {
@@ -41,7 +49,7 @@ export const buildingApiSlice = apiSlice.injectEndpoints({
           url: `/admin/buildings/total`,
         };
       },
-      invalidatesTags: ["Buildings"],
+      invalidatesTags: ['Buildings'],
     }),
     getIconFacilities: builder.query({
       query: () => {
@@ -54,39 +62,39 @@ export const buildingApiSlice = apiSlice.injectEndpoints({
       query: ({ id }) => {
         return {
           url: `/admin/buildings/${id}`,
-          method: "DELETE",
+          method: 'DELETE',
         };
       },
-      invalidatesTags: ["Buildings", "BuildingsDelete"],
+      invalidatesTags: ['Buildings', 'BuildingsDelete'],
     }),
     updateBuilding: builder.mutation({
       query: ({ buildingID, ...body }) => {
         return {
           url: `/admin/buildings/${buildingID}`,
-          method: "PUT",
+          method: 'PUT',
           body: body,
         };
       },
-      invalidatesTags: ["Buildings"],
+      invalidatesTags: ['Buildings'],
     }),
     addFacilities: builder.mutation({
       query: ({ id, facility }) => {
         return {
           url: `/admin/buildings/${id}/facilities`,
-          method: "POST",
+          method: 'POST',
           body: facility,
         };
       },
-      invalidatesTags: ["Buildings"],
+      invalidatesTags: ['Buildings'],
     }),
     deleteFacilities: builder.mutation({
       query: ({ buildingId, facilityId }) => {
         return {
           url: `/admin/buildings/${buildingId}/facilities/${facilityId}`,
-          method: "DELETE",
+          method: 'DELETE',
         };
       },
-      invalidatesTags: ["Buildings"],
+      invalidatesTags: ['Buildings'],
     }),
   }),
 });
@@ -102,4 +110,5 @@ export const {
   useDeleteFacilitiesMutation,
   useGetBuildingTotalQuery,
   useGetBuildingCustomerQuery,
+  useGetBuildingDetailEndUserQuery,
 } = buildingApiSlice;

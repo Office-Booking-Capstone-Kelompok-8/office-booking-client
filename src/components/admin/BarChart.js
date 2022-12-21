@@ -6,7 +6,6 @@ import { useGetUsersStatisticsQuery } from '../../store/users/usersApiSlice';
 
 const BarChart = () => {
   const { data: statistics, error: errors } = useGetUsersStatisticsQuery();
-  console.log(statistics, errors);
   return (
     <Bar
       options={{
