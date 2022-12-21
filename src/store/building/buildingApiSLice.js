@@ -11,6 +11,15 @@ export const buildingApiSlice = apiSlice.injectEndpoints({
       },
       providesTags: ["Buildings", "BuildingsDelete"],
     }),
+    getBuildingCustomer: builder.query({
+      query: ({ ...body }) => {
+        return {
+          url: `/buildings`,
+          params: body,
+        };
+      },
+      providesTags: ["Buildings", "BuildingsDelete"],
+    }),
     getBuildingEmpty: builder.query({
       query: () => {
         return {
@@ -92,4 +101,5 @@ export const {
   useAddFacilitiesMutation,
   useDeleteFacilitiesMutation,
   useGetBuildingTotalQuery,
+  useGetBuildingCustomerQuery,
 } = buildingApiSlice;
