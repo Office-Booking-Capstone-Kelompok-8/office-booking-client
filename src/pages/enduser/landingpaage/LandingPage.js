@@ -351,13 +351,13 @@ const LandingPage = () => {
                   </div>
                   <div className="col-md-6 col-lg-6">
                     <div
-                      className="accordion accordion-flush bg-dark"
+                      className="accordion accordion-landing accordion-flush bg-dark"
                       id="accordionFlushExample"
                     >
-                      <div className="accordion-item pt-3">
+                      <div className="accordion-item pt-3" style={{ backgroundColor: '#FAFAFA' }}>
                         <h2 className="accordion-header" id="flush-headingOne">
                           <button
-                            style={{ fontSize: 20 }}
+                            style={{ fontSize: 20, backgroundColor: '#FAFAFA' }}
                             className="accordion-button collapsed"
                             type="button"
                             data-bs-toggle="collapse"
@@ -383,10 +383,10 @@ const LandingPage = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="accordion-item pt-3">
+                      <div className="accordion-item pt-3" style={{ backgroundColor: '#FAFAFA' }}>
                         <h2 className="accordion-header" id="flush-headingTwo">
                           <button
-                            style={{ fontSize: 20 }}
+                            style={{ fontSize: 20, backgroundColor: '#FAFAFA' }}
                             className="accordion-button collapsed"
                             type="button"
                             data-bs-toggle="collapse"
@@ -415,13 +415,13 @@ const LandingPage = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="accordion-item pt-3">
+                      <div className="accordion-item pt-3" style={{ backgroundColor: '#FAFAFA' }}>
                         <h2
                           className="accordion-header"
                           id="flush-headingThree"
                         >
                           <button
-                            style={{ fontSize: 20 }}
+                            style={{ fontSize: 20, backgroundColor: '#FAFAFA' }}
                             className="accordion-button collapsed"
                             type="button"
                             data-bs-toggle="collapse"
@@ -450,10 +450,10 @@ const LandingPage = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="accordion-item pt-3">
+                      <div className="accordion-item pt-3" style={{ backgroundColor: '#FAFAFA' }}>
                         <h2 className="accordion-header" id="flush-headingFour">
                           <button
-                            style={{ fontSize: 20 }}
+                            style={{ fontSize: 20, backgroundColor: '#FAFAFA' }}
                             className="accordion-button collapsed"
                             type="button"
                             data-bs-toggle="collapse"

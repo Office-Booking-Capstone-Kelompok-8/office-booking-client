@@ -5,8 +5,7 @@ import Icon from '@mdi/react';
 import {
   mdiAt,
   mdiPhoneOutline,
-  mdiEmoticonOutline,
-  mdiClockTimeFourOutline,
+  mdiEmoticonOutline
 } from '@mdi/js';
 import emptybox from './../../../assets/img/emptybox.png';
 import { useDetailCustomerQuery } from '../../../store/users/usersApiSlice';
@@ -15,6 +14,8 @@ import NotFound from '../../error/NotFound';
 import { notifyError, notifySuccess } from '../../../utils/helpers';
 import { useDeleteUserMutation } from '../../../store/users/usersApiSlice';
 import Swal from 'sweetalert2';
+import { useGetReservationsQuery } from '../../../store/reservations/reservationsApiSlice';
+import IconStatus from '../reservations/IconStatus';
 
 const DetailCustomer = () => {
   const navigate = useNavigate();
@@ -26,11 +27,19 @@ const DetailCustomer = () => {
     isErrorDetail,
   } = useDetailCustomerQuery({ id: id });
 
+  const {
+    data: reservations,
+    isLoadinReserv
+  } = useGetReservationsQuery({ page: 1, limit: 20, userId: customer?.data?.id });
+
   const [deleteCustomer, { isSuccess, error }] = useDeleteUserMutation();
 
   useEffect(() => {
     if (error?.status === 500) {
       notifyError('Server Error');
+    }
+    if (error?.status === 409) {
+      notifyError('User has active reservation');
     }
     if (isSuccess) {
       notifySuccess('customer deleted successfully');
@@ -55,12 +64,12 @@ const DetailCustomer = () => {
 
   if (isErrorDetail) {
     if (errorDetail.status === 404) {
-      console.log(errorDetail);
       return <NotFound />;
     }
   }
 
   if (isLoading) return <Spinner />;
+  if (isLoadinReserv) return <Spinner />;
 
   return (
     <div>
@@ -137,6 +146,22 @@ const DetailCustomer = () => {
 
       <div>
         <h3 className="text-primary-dark">Reservations History</h3>
+        { isLoadinReserv ? (
+          <Spinner />
+        ) : reservations?.data === null ? (
+          <>
+            <div className="justify-content-center pt-2">
+              <img
+                src={emptybox}
+                className="mx-auto d-block pt-5 w-10"
+                alt="notfound"
+              />
+              <p className="text-gray-dark text-md text-center pt-2">
+                Nothing to see here
+              </p>
+            </div>
+          </>
+        ) : (
         <div
           className="card"
           style={{
@@ -157,53 +182,38 @@ const DetailCustomer = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    <h1 className="text-primary-dark text-sm">
-                      <img
-                        src="https://rupacita.com/wp-content/uploads/2020/11/connecticut-innovations-offices-new-haven-2-1536x919-1.jpg"
-                        alt="name"
-                        className="img-building 4 h-4 m-2"
-                      />
-                      Melati meeting room
-                    </h1>
-                  </td>
-                  <td className="text-primary-dark text-sm">
-                    panjangmail@gmail.com
-                  </td>
-                  <td className="text-primary-dark text-sm">22/10/11</td>
-                  <td className="text-primary-dark text-sm">22/10/11</td>
-                  <td className="text-primary-dark text-sm">Rp 11.350.000</td>
-                  <td>
-                    <div className="text-warning d-flex align-items-center">
-                      <Icon
-                        path={mdiClockTimeFourOutline}
-                        size={0.8}
-                        style={{ marginRight: '.7rem' }}
-                        className="text-warning text-sm"
-                      />
-                      pending
-                    </div>
-                  </td>
-                </tr>
+                  {reservations?.data?.map((list) => (
+                    <tr key={list.id}>
+                      <td onClick={() => {
+                        navigate(`/admin/reservations/detail-reservation/${list.id}`);
+                      }}>
+                      <h1 className="text-primary-dark text-sm">
+                          <img
+                          src={list?.building?.picture}
+                          alt="building"
+                          className="img-building 4 h-4 m-2"
+                          />
+                          {list?.building?.name}
+                      </h1>
+                      </td>
+                      <td className="text-primary-dark text-sm">
+                      {list?.tenant?.email}
+                      </td>
+                      <td className="text-primary-dark text-sm">{list?.startDate}</td>
+                      <td className="text-primary-dark text-sm">{list?.endDate}</td>
+                      <td className="text-primary-dark text-sm">Rp {list?.amount}</td>
+                      <td>
+                      <div className="text-warning d-flex align-items-center">
+                        <IconStatus status={list?.status}/>
+                      </div>
+                      </td>  
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
         </div>
-        {
-          <>
-            <div className="justify-content-center pt-2">
-              <img
-                src={emptybox}
-                className="mx-auto d-block pt-5 w-10"
-                alt="notfound"
-              />
-              <p className="text-gray-dark text-md text-center pt-2">
-                Nothing to see here
-              </p>
-            </div>
-          </>
-        }
+      )}
       </div>
     </div>
   );
