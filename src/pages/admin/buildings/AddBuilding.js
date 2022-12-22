@@ -18,11 +18,6 @@ const AddBuilding = () => {
   const [selectedMoreImg, setSelectedMoreImg] = useState([]);
   const { isUpload, uploadPicture } = useUploadImgBuilding();
 
-  // Get Building
-  // const { data: buildingDetail } = useGetBuildingDetailQuery({
-  //   id: 'd1f1b859-e5d3-4cd5-b6d2-3c3ae161a726',
-  // });
-
   // Region Features
   const { city, getDistrict, district } = useRegion();
   const optionCity = city.map((c) => ({ value: c?.id, label: c?.name }));

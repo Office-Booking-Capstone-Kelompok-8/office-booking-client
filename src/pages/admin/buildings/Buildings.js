@@ -104,7 +104,7 @@ const Buildings = () => {
                         borderRadius: 9,
                       }}
                     >
-                      + {dataTotal?.data?.byTimeFrame?.thisMonth}
+                      {dataTotal?.data?.byTimeFrame?.thisMonth} +
                     </h3>
                     <span className="text-sm text-gray-dark">
                       new buildings this month
