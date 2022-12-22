@@ -218,7 +218,7 @@ const DetailReservation = () => {
         <div className="d-flex justify-content-between bg-gray mt-3 p-2">
           <h5>Total Price</h5>
           <h5 className="fw-bold">
-            Rp. {Intl.NumberFormat("en-US").format(reservation.data.amount)}
+            Rp {Intl.NumberFormat("id-ID").format(reservation.data.amount)}
           </h5>
         </div>
         <ButtonReservationStatus

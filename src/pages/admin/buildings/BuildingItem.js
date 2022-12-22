@@ -60,10 +60,10 @@ const BuildingItem = ({ building }) => {
       </td>
       <td>
         <h1 className="text-primary-dark text-sm">
-          Rp {Intl.NumberFormat("en-US").format(building.price.monthly)} /month
+          Rp {Intl.NumberFormat("id-ID").format(building.price.monthly)} /month
         </h1>
         <h1 className="text-primary-dark text-sm">
-          Rp {Intl.NumberFormat("en-US").format(building.price.annual)} /year
+          Rp {Intl.NumberFormat("id-ID").format(building.price.annual)} /year
         </h1>
       </td>
       <td>

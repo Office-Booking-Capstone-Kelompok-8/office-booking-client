@@ -60,7 +60,7 @@ const ReservationItem = ({ reservation }) => {
         {dateParse(reservation.endDate)}
       </td>
       <td className="text-primary-dark text-sm">
-        Rp. {Intl.NumberFormat("en-US").format(reservation.amount)}
+        Rp {Intl.NumberFormat("id-ID").format(reservation.amount)}
       </td>
       <td className="text-primary-dark text-sm">
         <IconStatus status={reservation.status} />

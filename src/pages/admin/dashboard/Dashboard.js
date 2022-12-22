@@ -48,8 +48,8 @@ const Dashboard = () => {
                 </div>
                 <div className="col-8">
                   <h3 className="fw-bold">
-                    Rp.{" "}
-                    {Intl.NumberFormat("en-US").format(
+                    Rp{" "}
+                    {Intl.NumberFormat("id-ID").format(
                       reservationRevenue?.data?.allTime
                     )}
                   </h3>
@@ -177,7 +177,7 @@ const Dashboard = () => {
                           {dateParse(resev.endDate)}
                         </span>
                         <span className="d-block text-lg fw-bold">
-                          Rp. {Intl.NumberFormat("en-US").format(resev.amount)}
+                          Rp {Intl.NumberFormat("id-ID").format(resev.amount)}
                         </span>
                       </div>
                     </div>
