@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet';
 import SetupRoute from './routes';
 
 function App() {
@@ -7,6 +8,9 @@ function App() {
         overflowX: 'hidden',
       }}
     >
+      <Helmet>
+        <title>Office Zone</title>
+      </Helmet>
       <SetupRoute />
     </main>
   );

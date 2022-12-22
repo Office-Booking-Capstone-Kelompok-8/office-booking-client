@@ -8,7 +8,7 @@ const useUploadPictureUser = () => {
     setIsUpload(true);
     try {
       await fetch(
-        `https://dev.fortyfourvisual.com/v1/admin/users/${uid}/picture`,
+        `https://api.fortyfourvisual.com/v1/admin/users/${uid}/picture`,
         {
           method: 'PUT',
           body: data,
