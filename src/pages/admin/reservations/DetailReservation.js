@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import Icon from '@mdi/react';
+import { Link, useNavigate, useParams } from "react-router-dom";
+import Icon from "@mdi/react";
 import {
   mdiAccountCircleOutline,
   // mdiCurrencyUsd,
@@ -12,15 +12,15 @@ import {
   // mdiProgressCheck,
   // mdiCloseCircleOutline,
   // mdiAccountCreditCardOutline,
-} from '@mdi/js';
-import { ToastContainer } from 'react-toastify';
-import { useGetReservationsDetailQuery } from '../../../store/reservations/reservationsApiSlice';
-import Spinner from '../../../components/admin/Spinner';
-import IconStatus from './IconStatus';
-import ButtonReservationStatus from './ButtonReservationStatus';
-import { useDeleteReservationMutation } from '../../../store/reservations/reservationsApiSlice';
-import Swal from 'sweetalert2';
-import { notifyError, notifySuccess } from '../../../utils/helpers';
+} from "@mdi/js";
+import { ToastContainer } from "react-toastify";
+import { useGetReservationsDetailQuery } from "../../../store/reservations/reservationsApiSlice";
+import Spinner from "../../../components/admin/Spinner";
+import IconStatus from "./IconStatus";
+import ButtonReservationStatus from "./ButtonReservationStatus";
+import { useDeleteReservationMutation } from "../../../store/reservations/reservationsApiSlice";
+import Swal from "sweetalert2";
+import { dateParse, notifyError, notifySuccess } from "../../../utils/helpers";
 
 const DetailReservation = () => {
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ const DetailReservation = () => {
   });
 
   // Message State
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
 
   // console.log(error);
   console.log(reservation?.data);
@@ -48,25 +48,25 @@ const DetailReservation = () => {
 
   useEffect(() => {
     if (errorDelete?.status === 500) {
-      notifyError('Server Error');
+      notifyError("Server Error");
     }
     if (isSuccess) {
-      notifySuccess('reservation deleted successfully');
+      notifySuccess("reservation deleted successfully");
     }
   }, [errorDelete, isSuccess]);
 
   const deleteHandler = () => {
     Swal.fire({
-      title: 'Delete this reservation?',
-      text: 'this item will be removed permanently',
-      confirmButtonColor: '#3085D6',
-      confirmButtonText: 'Delete',
+      title: "Delete this reservation?",
+      text: "this item will be removed permanently",
+      confirmButtonColor: "#3085D6",
+      confirmButtonText: "Delete",
       showCancelButton: true,
     }).then((window) => {
       if (window.isConfirmed) {
         deleteReservation({ id: reservation.data.id });
       }
-      navigate('/admin/reservations');
+      navigate("/admin/reservations");
     });
   };
 
@@ -104,23 +104,23 @@ const DetailReservation = () => {
       <div className="shadow p-4 rounded">
         <div
           className="d-flex justify-content-between pb-3 mb-3 text-sm"
-          style={{ borderBottom: '1px #d7d7d7 solid' }}
+          style={{ borderBottom: "1px #d7d7d7 solid" }}
         >
           <div className="d-flex text-gray-dark align-items-center">
             <Icon path={mdiClockTimeFourOutline} size={1} className="me-1" />
-            <span>{reservation.data.createdAt}</span>
+            <span>{dateParse(reservation.data.createdAt)}</span>
           </div>
           <IconStatus status={reservation?.data?.status} />
         </div>
         <div className="d-flex">
-          <div className="d-flex" style={{ marginRight: '7rem' }}>
+          <div className="d-flex" style={{ marginRight: "7rem" }}>
             <img
               style={{
-                width: '4rem',
-                height: '4rem',
-                borderRadius: '10px',
-                objectFit: 'cover',
-                objectPosition: 'center',
+                width: "4rem",
+                height: "4rem",
+                borderRadius: "10px",
+                objectFit: "cover",
+                objectPosition: "center",
               }}
               src={reservation?.data?.building?.picture}
               alt="image_building"
@@ -133,7 +133,7 @@ const DetailReservation = () => {
                 <Icon
                   path={mdiMapMarkerOutline}
                   size={1}
-                  style={{ marginRight: '.7rem' }}
+                  style={{ marginRight: ".7rem" }}
                   className="text-primary"
                 />
                 <div>
@@ -149,12 +149,13 @@ const DetailReservation = () => {
                 <Icon
                   path={mdiCalendarRange}
                   size={1}
-                  style={{ marginRight: '.7rem' }}
+                  style={{ marginRight: ".7rem" }}
                   className="text-primary"
                 />
                 <h3 className="text-md">
-                  {reservation?.data?.startDate}
-                  <span> - </span> <span>{reservation?.data?.endDate}</span>
+                  {dateParse(reservation?.data?.startDate)}
+                  <span> - </span>{" "}
+                  <span>{dateParse(reservation?.data?.endDate)}</span>
                 </h3>
               </div>
               <Link
@@ -167,8 +168,8 @@ const DetailReservation = () => {
           </div>
           <div
             style={{
-              border: '1px #d7d7d7 solid',
-              marginRight: '2rem',
+              border: "1px #d7d7d7 solid",
+              marginRight: "2rem",
             }}
           ></div>
           <div>
@@ -179,7 +180,7 @@ const DetailReservation = () => {
               <Icon
                 path={mdiAccountCircleOutline}
                 size={1}
-                style={{ marginRight: '.7rem' }}
+                style={{ marginRight: ".7rem" }}
                 className="text-primary"
               />
               <p>{reservation?.data?.tenant?.name}</p>
@@ -188,7 +189,7 @@ const DetailReservation = () => {
               <Icon
                 path={mdiEmail}
                 size={1}
-                style={{ marginRight: '.7rem' }}
+                style={{ marginRight: ".7rem" }}
                 className="text-primary"
               />
               <p>{reservation?.data?.tenant?.email}</p>
@@ -199,7 +200,7 @@ const DetailReservation = () => {
           <div className="mt-3">
             <h6>Message</h6>
             <p className="text-sm">
-              {reservation?.data?.message || 'No Message'}
+              {reservation?.data?.message || "No Message"}
             </p>
           </div>
         )}
@@ -216,7 +217,9 @@ const DetailReservation = () => {
         )}
         <div className="d-flex justify-content-between bg-gray mt-3 p-2">
           <h5>Total Price</h5>
-          <h5 className="fw-bold">Rp. {reservation.data.amount}</h5>
+          <h5 className="fw-bold">
+            Rp. {Intl.NumberFormat("en-US").format(reservation.data.amount)}
+          </h5>
         </div>
         <ButtonReservationStatus
           statusId={reservation?.data?.status?.id}

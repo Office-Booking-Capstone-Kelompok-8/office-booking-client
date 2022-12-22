@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
-import earnings from './../../../assets/img/earning-dashboard.png';
-import buildings from './../../../assets/img/building-dashboard.png';
-import './../styles.css';
-import BarChart from '../../../components/admin/BarChart';
-import CalendarComponent from '../../../components/admin/Calendar';
-import { useGetBuildingTotalQuery } from '../../../store/building/buildingApiSLice';
+import React, { useState } from "react";
+import earnings from "./../../../assets/img/earning-dashboard.png";
+import buildings from "./../../../assets/img/building-dashboard.png";
+import "./../styles.css";
+import BarChart from "../../../components/admin/BarChart";
+import CalendarComponent from "../../../components/admin/Calendar";
+import { useGetBuildingTotalQuery } from "../../../store/building/buildingApiSLice";
 import {
   useGetReservationsQuery,
   useGetReservationsRevenueQuery,
   useGetReservationsTotalQuery,
-} from '../../../store/reservations/reservationsApiSlice';
-import Spinner from '../../../components/admin/Spinner';
-import IconStatus from '../reservations/IconStatus';
+} from "../../../store/reservations/reservationsApiSlice";
+import Spinner from "../../../components/admin/Spinner";
+import IconStatus from "../reservations/IconStatus";
+import { dateParse } from "../../../utils/helpers";
 
 const Dashboard = () => {
   const { data: buildingTotal } = useGetBuildingTotalQuery();
@@ -20,8 +21,8 @@ const Dashboard = () => {
 
   // Set Date Now
   const dateString = new Date().toLocaleDateString();
-  const dateSplit = dateString.split('/');
-  const dateJoin = [...[dateSplit[2], dateSplit[0], dateSplit[1]]].join('-');
+  const dateSplit = dateString.split("/");
+  const dateJoin = [...[dateSplit[2], dateSplit[0], dateSplit[1]]].join("-");
   const [date, setDate] = useState(dateJoin);
 
   const convertDate = (dateCal) => {
@@ -47,7 +48,10 @@ const Dashboard = () => {
                 </div>
                 <div className="col-8">
                   <h3 className="fw-bold">
-                    Rp. {reservationRevenue?.data?.allTime}
+                    Rp.{" "}
+                    {Intl.NumberFormat("en-US").format(
+                      reservationRevenue?.data?.allTime
+                    )}
                   </h3>
                   <span className="text-sm ">Total Earnings</span>
                 </div>
@@ -134,9 +138,9 @@ const Dashboard = () => {
             <h5 className="mb-4">Reservation</h5>
             <div
               style={{
-                height: '65vh',
-                overflowX: 'auto',
-                paddingRight: '1rem',
+                height: "65vh",
+                overflowX: "auto",
+                paddingRight: "1rem",
               }}
             >
               {isLoading ? (
@@ -154,13 +158,13 @@ const Dashboard = () => {
                       {resev.building.city}
                     </span>
                     <div className="d-flex justify-content-start mt-2">
-                      <div style={{ width: '30%', marginRight: '1rem' }}>
+                      <div style={{ width: "30%", marginRight: "1rem" }}>
                         <img
                           src={resev.building.picture}
                           alt="building-images"
                           style={{
-                            width: '100%',
-                            borderRadius: '12px',
+                            width: "100%",
+                            borderRadius: "12px",
                           }}
                         />
                       </div>
@@ -169,10 +173,11 @@ const Dashboard = () => {
                           {resev.tenant.name}
                         </span>
                         <span className="d-block">
-                          {resev.startDate} - {resev.endDate}
+                          {dateParse(resev.startDate)} -{" "}
+                          {dateParse(resev.endDate)}
                         </span>
                         <span className="d-block text-lg fw-bold">
-                          Rp. 12.000.000
+                          Rp. {Intl.NumberFormat("en-US").format(resev.amount)}
                         </span>
                       </div>
                     </div>

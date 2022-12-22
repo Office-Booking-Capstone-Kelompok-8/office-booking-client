@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react';
-import { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useDeleteBuildingMutation } from '../../../store/building/buildingApiSLice';
-import { notifyError, notifySuccess } from '../../../utils/helpers';
-import Swal from 'sweetalert2';
+import React from "react";
+import { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDeleteBuildingMutation } from "../../../store/building/buildingApiSLice";
+import { notifyError, notifySuccess } from "../../../utils/helpers";
+import Swal from "sweetalert2";
 
 const BuildingItem = ({ building }) => {
   const navigate = useNavigate();
@@ -12,22 +12,22 @@ const BuildingItem = ({ building }) => {
 
   useEffect(() => {
     if (error?.status === 500) {
-      notifyError('Server Error');
+      notifyError("Server Error");
     }
     if (error?.status === 409) {
-      notifyError('Building has active reservation');
+      notifyError("Building has active reservation");
     }
     if (isSuccess) {
-      notifySuccess('building deleted successfully');
+      notifySuccess("building deleted successfully");
     }
   }, [error, isSuccess]);
 
   const deleteHandler = () => {
     Swal.fire({
-      title: 'Delete this building?',
-      text: 'this item will be removed permanently',
-      confirmButtonColor: '#3085D6',
-      confirmButtonText: 'Delete',
+      title: "Delete this building?",
+      text: "this item will be removed permanently",
+      confirmButtonColor: "#3085D6",
+      confirmButtonText: "Delete",
       showCancelButton: true,
     }).then((window) => {
       if (window.isConfirmed) {
@@ -36,7 +36,7 @@ const BuildingItem = ({ building }) => {
     });
   };
 
-  console.log(error);
+  console.log(building);
 
   return (
     <tr>
@@ -44,7 +44,7 @@ const BuildingItem = ({ building }) => {
         onClick={() => {
           navigate(`/admin/buildings/detail-building/${building.id}`);
         }}
-        style={{ cursor: 'pointer' }}
+        style={{ cursor: "pointer" }}
       >
         <h1 className="text-primary-dark text-sm">
           <img
@@ -58,13 +58,12 @@ const BuildingItem = ({ building }) => {
       <td className="text-primary-dark text-sm">
         {building.location.district}
       </td>
-      <td className="text-primary-dark text-sm">{building.capacity} people</td>
       <td>
         <h1 className="text-primary-dark text-sm">
-          Rp {building.price.monthly} /month
+          Rp {Intl.NumberFormat("en-US").format(building.price.monthly)} /month
         </h1>
         <h1 className="text-primary-dark text-sm">
-          Rp {building.price.annual} /year
+          Rp {Intl.NumberFormat("en-US").format(building.price.annual)} /year
         </h1>
       </td>
       <td>
