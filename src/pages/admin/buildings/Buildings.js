@@ -79,20 +79,25 @@ const Buildings = () => {
         </div>
       </div>
       <div className="row px-2">
-        <div className="col-12 col-md-7 col-lg-8">
+        <div className="col-12 col-md-7 w-100 col-lg-8">
           <div className="row mb-3">
-            <div className="col-md-6 col-lg-6 p-3">
+            <div className="col-6 p-3">
               <div className="shadow-sm row rounded p-2 align-items-center">
-                <div className="col-md-4 col-lg-4">
+                <div className="col-4">
                   <img src={buildings} className="w-100" alt="buildings" />
                 </div>
-                <div className="col-md-8 col-lg-8">
+                <div className="col-8">
                   <h3 className="fw-bold">
                     {dataTotal?.data?.byTimeFrame?.allTime}
                   </h3>
                   <span className="text-sm ">Total Buildings</span>
-                  <div className="justify-content-between rounded d-flex flex-column flex-lg-row">
-                    <h3
+                  <div>
+                    <div style={{
+                            gap: '.5rem',
+                            display: 'flex',
+                            alignItems: 'center',
+                          }}>
+                      <h3
                       className="text-primary text-sm px-2 py-2"
                       style={{
                         background: "rgba(202, 222, 251, 0.6)",
@@ -101,30 +106,25 @@ const Buildings = () => {
                     >
                       + {dataTotal?.data?.byTimeFrame?.thisMonth}
                     </h3>
-                    <span className="text-sm text-gray-dark me-4 pt-2">
+                    <span className="text-sm text-gray-dark">
                       new buildings this month
                     </span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="col-md-6 col-lg-6 d-flex flex-column pt-3 p-5">
-              <div className="col-md-12 col-lg-12 align-items-center d-flex flex-lg-row">
+            <div className="col-6 d-flex flex-column pt-3 p-5">
+              <div className="col-12 row align-items-center d-flex gap-5 flex-lg-row">
                 {dataTotal?.data?.byCity?.map((city) => (
                   <div
-                    className="col-md-3 col-lg-3 me-5 shadow-sm row rounded w-15 h-6"
+                    className="col-2 shadow-sm row rounded w-15 h-9"
                     key={city?.cityId}
                   >
                     <h3 className="fw-bold text-md">{city.total}</h3>
                     <span className="text-sm">{city.cityName}</span>
                   </div>
                 ))}
-              </div>
-              <div className="justify-content-between pt-3">
-                <div className="shadow-sm row rounded w-15 h-6">
-                  <h3 className="fw-bold text-md">14</h3>
-                  <span className="text-sm ">Jakarta Barat</span>
-                </div>
               </div>
             </div>
           </div>
