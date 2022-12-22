@@ -162,7 +162,7 @@ const LandingPage = () => {
               <div className="row ">
                 <div className="col-md-4 pt-5">
                   <h1 className="fw-bold pt-5" style={{ fontSize: 34 }}>
-                    Offices to suit your usiness and budget
+                    Offices to suit your business and budget
                   </h1>
                   <p style={{ fontSize: 20 }}>
                     We provide a variety of business className office spaces to
