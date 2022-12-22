@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react';
-import { useGetIconFacilitiesQuery } from '../store/building/buildingApiSLice';
+import { useEffect, useState } from "react";
+import { useGetIconFacilitiesQuery } from "../store/building/buildingApiSLice";
 
 const useGetIcon = () => {
   const {
@@ -15,10 +15,6 @@ const useGetIcon = () => {
   useEffect(() => {
     if (isSuccess) {
       setIconData(iconData?.data);
-    }
-
-    if (isError) {
-      console.log(error);
     }
   }, [iconData, isSuccess]);
 

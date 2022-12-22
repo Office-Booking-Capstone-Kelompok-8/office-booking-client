@@ -1,24 +1,24 @@
-import { useState } from 'react';
-import imgLogin from './../../assets/img/people-admin-login.png';
-import logo from './../../assets/img/logo.png';
-import Icon from '@mdi/react';
-import 'react-toastify/dist/ReactToastify.css';
+import { useState } from "react";
+import imgLogin from "./../../assets/img/people-admin-login.png";
+import logo from "./../../assets/img/logo.png";
+import Icon from "@mdi/react";
+import "react-toastify/dist/ReactToastify.css";
 import {
   mdiAccountOutline,
   mdiEyeOffOutline,
   mdiEyeOutline,
   mdiLockOutline,
-} from '@mdi/js';
-import { Formik, Form, ErrorMessage, Field } from 'formik';
-import * as yup from 'yup';
-import { useLoginMutation } from '../../store/auth/authApiSlice';
-import { ToastContainer } from 'react-toastify';
-import { notifyError } from '../../utils/helpers';
-import { useNavigate } from 'react-router-dom';
-import Auth from '../../utils/auth';
-import { BASE_URL } from '../../utils/constants';
-import { useDispatch } from 'react-redux';
-import { setCredential } from '../../store/auth/authSlice';
+} from "@mdi/js";
+import { Formik, Form, ErrorMessage, Field } from "formik";
+import * as yup from "yup";
+import { useLoginMutation } from "../../store/auth/authApiSlice";
+import { ToastContainer } from "react-toastify";
+import { notifyError } from "../../utils/helpers";
+import { useNavigate } from "react-router-dom";
+import Auth from "../../utils/auth";
+import { BASE_URL } from "../../utils/constants";
+import { useDispatch } from "react-redux";
+import { setCredential } from "../../store/auth/authSlice";
 
 const LoginAdmin = () => {
   const navigate = useNavigate();
@@ -31,8 +31,8 @@ const LoginAdmin = () => {
   const [login] = useLoginMutation();
   // Formik Setup
   const initialValues = {
-    email: '',
-    password: '',
+    email: "",
+    password: "",
     remember: false,
   };
   const validationSchema = yup.object({
@@ -46,12 +46,11 @@ const LoginAdmin = () => {
         password: values.password,
       }).unwrap();
       // Store User to Cookie
-      console.log(userData);
       Auth.storeUserToCookie(userData.data);
 
       // Get User Detail
       await fetch(`${BASE_URL}/admin/users/${userData?.data?.userId}`, {
-        method: 'GET',
+        method: "GET",
         headers: {
           Authorization: `Bearer ${Auth.getAccessToken()}`,
         },
@@ -72,15 +71,14 @@ const LoginAdmin = () => {
           );
         });
 
-      navigate('/admin');
+      navigate("/admin");
     } catch (error) {
-      console.log(error);
       if (error.status === 401 || error.status === 400) {
-        notifyError('Email or Password Invalid');
+        notifyError("Email or Password Invalid");
       } else if (error.status === 500) {
-        notifyError('Database Error');
+        notifyError("Database Error");
       } else {
-        notifyError('Server Error');
+        notifyError("Server Error");
       }
     }
   };
@@ -101,8 +99,8 @@ const LoginAdmin = () => {
       <div
         className="row vh-100"
         style={{
-          overflowX: 'hidden',
-          display: 'flex',
+          overflowX: "hidden",
+          display: "flex",
         }}
       >
         <div className="col d-md-flex d-none bg-gray-light justify-content-center align-items-center">
@@ -127,7 +125,7 @@ const LoginAdmin = () => {
                       <div className="w-2">
                         <Icon
                           path={mdiAccountOutline}
-                          style={{ color: '#8C8C8C' }}
+                          style={{ color: "#8C8C8C" }}
                         />
                       </div>
                       <Field
@@ -136,9 +134,9 @@ const LoginAdmin = () => {
                         name="email"
                         className="border-0 w-100"
                         style={{
-                          outline: 'none',
-                          fontSize: '.75rem',
-                          marginLeft: '.3rem',
+                          outline: "none",
+                          fontSize: ".75rem",
+                          marginLeft: ".3rem",
                         }}
                       />
                     </div>
@@ -157,30 +155,30 @@ const LoginAdmin = () => {
                       <div className="w-2">
                         <Icon
                           path={mdiLockOutline}
-                          style={{ color: '#8C8C8C' }}
+                          style={{ color: "#8C8C8C" }}
                         />
                       </div>
                       <Field
                         placeholder="Password"
                         name="password"
-                        type={showPassword ? 'text' : 'password'}
+                        type={showPassword ? "text" : "password"}
                         className=" border-0 w-100"
                         style={{
-                          outline: 'none',
-                          fontSize: '.75rem',
-                          marginLeft: '.3rem',
+                          outline: "none",
+                          fontSize: ".75rem",
+                          marginLeft: ".3rem",
                         }}
                       />
                       <div className="w-2" onClick={toggleShowPassword}>
                         {showPassword ? (
                           <Icon
                             path={mdiEyeOffOutline}
-                            style={{ color: '#8C8C8C', cursor: 'pointer' }}
+                            style={{ color: "#8C8C8C", cursor: "pointer" }}
                           />
                         ) : (
                           <Icon
                             path={mdiEyeOutline}
-                            style={{ color: '#8C8C8C', cursor: 'pointer' }}
+                            style={{ color: "#8C8C8C", cursor: "pointer" }}
                           />
                         )}
                       </div>
@@ -196,7 +194,7 @@ const LoginAdmin = () => {
                     className={`col-3 button text-white me-3 bg-primary`}
                     disabled={props.isSubmitting}
                   >
-                    {props.isSubmitting ? 'Loading' : 'Log In'}
+                    {props.isSubmitting ? "Loading" : "Log In"}
                   </button>
                 </Form>
               );

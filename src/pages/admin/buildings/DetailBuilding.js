@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
-import { useGetBuildingDetailQuery } from '../../../store/building/buildingApiSLice';
-import Icon from '@mdi/react';
+import React, { useEffect } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { useGetBuildingDetailQuery } from "../../../store/building/buildingApiSLice";
+import Icon from "@mdi/react";
 import {
   mdiMapMarkerOutline,
   mdiCurrencyUsd,
   mdiAccountMultipleOutline,
   mdiArrowExpandAll,
-} from '@mdi/js';
-import Spinner from '../../../components/admin/Spinner';
-import NotFound from '../../error/NotFound';
-import { useDeleteBuildingMutation } from '../../../store/building/buildingApiSLice';
-import Swal from 'sweetalert2';
-import { notifyError, notifySuccess } from '../../../utils/helpers';
+} from "@mdi/js";
+import Spinner from "../../../components/admin/Spinner";
+import NotFound from "../../error/NotFound";
+import { useDeleteBuildingMutation } from "../../../store/building/buildingApiSLice";
+import Swal from "sweetalert2";
+import { notifyError, notifySuccess } from "../../../utils/helpers";
 
 const DetailBuilding = () => {
   const navigate = useNavigate();
@@ -28,41 +28,38 @@ const DetailBuilding = () => {
 
   useEffect(() => {
     if (error?.status === 500) {
-      notifyError('Server Error');
+      notifyError("Server Error");
     }
     if (error?.status === 409) {
-      notifyError('Building has active reservation');
+      notifyError("Building has active reservation");
     }
     if (isSuccess) {
-      notifySuccess('building deleted successfully');
+      notifySuccess("building deleted successfully");
     }
   }, [error, isSuccess]);
 
   const deleteHandler = () => {
     Swal.fire({
-      title: 'Delete this building?',
-      text: 'this item will be removed permanently',
-      confirmButtonColor: '#3085D6',
-      confirmButtonText: 'Delete',
+      title: "Delete this building?",
+      text: "this item will be removed permanently",
+      confirmButtonColor: "#3085D6",
+      confirmButtonText: "Delete",
       showCancelButton: true,
     }).then((window) => {
       if (window.isConfirmed) {
         deleteBuilding({ id: building.data.id });
-        navigate('/admin/buildings');
+        navigate("/admin/buildings");
       }
     });
   };
 
   if (isErrorDetail) {
     if (errorDetail.status === 404) {
-      console.log(errorDetail);
       return <NotFound />;
     }
   }
 
   if (isLoading) return <Spinner />;
-
-  console.log(building);
 
   return (
     <div>
@@ -121,7 +118,7 @@ const DetailBuilding = () => {
                       <div
                         key={i}
                         className={`carousel-item ${
-                          pic.index === 0 && 'active'
+                          pic.index === 0 && "active"
                         }`}
                         style={{ zIndex: -1 }}
                       >
@@ -167,7 +164,7 @@ const DetailBuilding = () => {
                   <Icon
                     path={mdiMapMarkerOutline}
                     size={1.2}
-                    style={{ marginRight: '.7rem' }}
+                    style={{ marginRight: ".7rem" }}
                     className="text-primary"
                   />
                   <div>
@@ -183,7 +180,7 @@ const DetailBuilding = () => {
                   <Icon
                     path={mdiCurrencyUsd}
                     size={1.2}
-                    style={{ marginRight: '.7rem' }}
+                    style={{ marginRight: ".7rem" }}
                     className="text-primary"
                   />
                   <div>
@@ -203,7 +200,7 @@ const DetailBuilding = () => {
                   <Icon
                     path={mdiArrowExpandAll}
                     size={1.2}
-                    style={{ marginRight: '.7rem' }}
+                    style={{ marginRight: ".7rem" }}
                     className="text-primary"
                   />
                   <h3 className="text-md">
@@ -215,7 +212,7 @@ const DetailBuilding = () => {
                   <Icon
                     path={mdiAccountMultipleOutline}
                     size={1.2}
-                    style={{ marginRight: '.7rem' }}
+                    style={{ marginRight: ".7rem" }}
                     className="text-primary"
                   />
                   <h3 className="text-md">
@@ -241,29 +238,29 @@ const DetailBuilding = () => {
                   className="col-md-2 d-flex align-items-center pt-4"
                   key={i}
                 >
-                  <div style={{ marginBottom: '1rem' }}>
+                  <div style={{ marginBottom: "1rem" }}>
                     <div
                       className="title-facility fw-bold d-flex"
                       style={{
-                        gap: '.5rem',
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
+                        gap: ".5rem",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
                       }}
                     >
                       <div>
                         <div
                           style={{
-                            gap: '.5rem',
-                            display: 'flex',
-                            alignItems: 'center',
+                            gap: ".5rem",
+                            display: "flex",
+                            alignItems: "center",
                           }}
                         >
                           <img
                             src={list?.icon}
                             alt="icons"
                             style={{
-                              width: '1.5rem',
+                              width: "1.5rem",
                             }}
                           />
                           <span>{list?.name}</span>
