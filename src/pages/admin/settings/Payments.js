@@ -1,17 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
-import Spinner from '../../../components/admin/Spinner';
+import React, { useEffect, useState } from "react";
+import Spinner from "../../../components/admin/Spinner";
 import {
   useAddPaymentsMutation,
   useGetBanksQuery,
   useGetPaymentsQuery,
-} from '../../../store/payments/paymentsApiSlice';
-import * as yup from 'yup';
-import { Formik, Field, ErrorMessage, Form } from 'formik';
-import Select from 'react-select';
-import BankItem from './BankItem';
-import { ToastContainer } from 'react-toastify';
-import { notifySuccess } from '../../../utils/helpers';
+} from "../../../store/payments/paymentsApiSlice";
+import * as yup from "yup";
+import { Formik, Field, ErrorMessage, Form } from "formik";
+import Select from "react-select";
+import BankItem from "./BankItem";
+import { ToastContainer } from "react-toastify";
+import { notifySuccess } from "../../../utils/helpers";
 
 const Payments = () => {
   // const navigate = useNavigate();
@@ -23,7 +23,7 @@ const Payments = () => {
   const [banksOptions, setBanksOptions] = useState([]);
 
   useEffect(() => {
-    if (addSuccess) notifySuccess('payment created successfully');
+    if (addSuccess) notifySuccess("payment created successfully");
     if (successGetBank) {
       setBanksOptions(
         banks?.data?.map((bank) => ({ value: bank?.id, label: bank?.name }))
@@ -31,14 +31,12 @@ const Payments = () => {
     }
   }, [successGetBank, addSuccess]);
 
-  if (addError) console.log(addError);
-
   // CONFIG FORM
   const initialValues = {
-    bank: '',
-    accountName: '',
-    accountNumber: '',
-    description: 'Test',
+    bank: "",
+    accountName: "",
+    accountNumber: "",
+    description: "Test",
   };
 
   const validationSchema = yup.object({
@@ -47,7 +45,7 @@ const Payments = () => {
     accountNumber: yup
       .string()
       .required()
-      .matches(/^[0-9]+$/, 'number is invalid'),
+      .matches(/^[0-9]+$/, "number is invalid"),
   });
 
   const onSubmit = async (values, props) => {
@@ -95,17 +93,17 @@ const Payments = () => {
                     className="react-select__control text-sm"
                     placeholder="Choose Bank"
                     options={banksOptions}
-                    onChange={(e) => props.setFieldValue('bank', e.value)}
+                    onChange={(e) => props.setFieldValue("bank", e.value)}
                     styles={{
                       control: (provided, state) => ({
                         ...provided,
-                        border: '1px',
-                        borderColor: state.isFocused ? '#3583EF' : '#3583EF',
+                        border: "1px",
+                        borderColor: state.isFocused ? "#3583EF" : "#3583EF",
                       }),
                     }}
                     theme={(theme) => ({
                       ...theme,
-                      borderRadius: '10px',
+                      borderRadius: "10px",
                     })}
                   />
                   <ErrorMessage name="bank">
@@ -152,7 +150,7 @@ const Payments = () => {
                     type="submit"
                     className="col-3 button text-white me-3 bg-primary"
                   >
-                    {props.isSubmitting ? 'Please Wait' : 'Add Payment'}
+                    {props.isSubmitting ? "Please Wait" : "Add Payment"}
                   </button>
                 </div>
               </div>
@@ -165,9 +163,9 @@ const Payments = () => {
       <div
         className="card"
         style={{
-          boxShadow: '0px 8px 24px rgba(112, 144, 176, 0.25)',
+          boxShadow: "0px 8px 24px rgba(112, 144, 176, 0.25)",
           borderRadius: 9,
-          marginTop: '3rem',
+          marginTop: "3rem",
         }}
       >
         <div className="card-body">

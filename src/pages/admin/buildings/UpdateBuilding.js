@@ -1,29 +1,29 @@
-import { mdiCloseCircle, mdiFileImagePlus, mdiMenuDown } from '@mdi/js';
-import Icon from '@mdi/react';
-import React, { useEffect, useState } from 'react';
-import Select from 'react-select';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
-import * as yup from 'yup';
-import Spinner from '../../../components/admin/Spinner';
-import useGetIcon from '../../../hooks/useGetIcon';
-import useRegion from '../../../hooks/useRegion';
-import { useNavigate, useParams } from 'react-router-dom';
-import useUploadImgBuilding from '../../../hooks/useUploadImgBuilding';
-import { notifySuccess } from '../../../utils/helpers';
-import { ToastContainer } from 'react-toastify';
+import { mdiCloseCircle, mdiFileImagePlus, mdiMenuDown } from "@mdi/js";
+import Icon from "@mdi/react";
+import React, { useEffect, useState } from "react";
+import Select from "react-select";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import * as yup from "yup";
+import Spinner from "../../../components/admin/Spinner";
+import useGetIcon from "../../../hooks/useGetIcon";
+import useRegion from "../../../hooks/useRegion";
+import { useNavigate, useParams } from "react-router-dom";
+import useUploadImgBuilding from "../../../hooks/useUploadImgBuilding";
+import { notifySuccess } from "../../../utils/helpers";
+import { ToastContainer } from "react-toastify";
 import {
   useAddFacilitiesMutation,
   useDeleteFacilitiesMutation,
   useGetBuildingDetailQuery,
   useUpdateBuildingMutation,
-} from '../../../store/building/buildingApiSLice';
-import { BASE_URL } from '../../../utils/constants';
-import Auth from '../../../utils/auth';
+} from "../../../store/building/buildingApiSLice";
+import { BASE_URL } from "../../../utils/constants";
+import Auth from "../../../utils/auth";
 
 const UpdateBuilding = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [selectedMainImg, setSelectedMainImg] = useState('');
+  const [selectedMainImg, setSelectedMainImg] = useState("");
   const [selectedMoreImg, setSelectedMoreImg] = useState([]);
   const [onUpdate, setOnUpdate] = useState(false);
   const { isUpload } = useUploadImgBuilding();
@@ -56,19 +56,19 @@ const UpdateBuilding = () => {
   // Facility Features
   const [addFacilities] = useAddFacilitiesMutation();
   const [deleteFacilities] = useDeleteFacilitiesMutation();
-  const [selectIcon, setSelectIcon] = useState('');
+  const [selectIcon, setSelectIcon] = useState("");
   const [showIconList, setShowIconList] = useState(false);
   const [listFacilities, setListFacilities] = useState([]);
   const [formStateFacilities, setFormStateFacilities] = useState({
-    Name: '',
-    icon: '',
-    description: '',
+    Name: "",
+    icon: "",
+    description: "",
     IconID: null,
   });
   const icons = useGetIcon();
 
   // Images
-  const [errorImg, setErrorImg] = useState('');
+  const [errorImg, setErrorImg] = useState("");
   const [formDataImages, setFormDataImages] = useState([]);
   // CONFIG FORM
   const initialValues = {
@@ -85,11 +85,11 @@ const UpdateBuilding = () => {
   };
 
   const validationSchema = yup.object({
-    buildingName: yup.string().required('name is a required field').trim(),
+    buildingName: yup.string().required("name is a required field").trim(),
     city: yup.number().required(),
     district: yup.number().required(),
     address: yup.string().required().trim(),
-    capacity: yup.number('not a number').required().max(1000),
+    capacity: yup.number("not a number").required().max(1000),
     annual: yup.number().required(),
     monthly: yup.number().required(),
     description: yup.string().required().trim(),
@@ -115,10 +115,9 @@ const UpdateBuilding = () => {
     refetch();
 
     // RESET
-    notifySuccess('building updated successfully');
+    notifySuccess("building updated successfully");
     setListFacilities([]);
   };
-  console.log(building?.data?.isPublished);
   if (isLoading) return <Spinner />;
 
   return (
@@ -162,10 +161,10 @@ const UpdateBuilding = () => {
                         <div
                           className="delete-img"
                           onClick={() => {
-                            setSelectedMainImg('');
+                            setSelectedMainImg("");
                             const formDataNew = formDataImages.filter(
                               (file) => {
-                                return file?.get('index') !== '0';
+                                return file?.get("index") !== "0";
                               }
                             );
                             setFormDataImages(formDataNew);
@@ -195,13 +194,13 @@ const UpdateBuilding = () => {
                             // get file
                             const selectedImg = e.target.files[0];
                             const formData = new FormData();
-                            formData.append('picture', selectedImg);
-                            formData.append('index', 0);
-                            formData.append('alt', 'Main photo');
+                            formData.append("picture", selectedImg);
+                            formData.append("index", 0);
+                            formData.append("alt", "Main photo");
                             setFormDataImages([...formDataImages, formData]);
                             // add values images
                             const urlImg = URL.createObjectURL(selectedImg);
-                            props.setFieldValue('images', [urlImg]);
+                            props.setFieldValue("images", [urlImg]);
                             setSelectedMainImg(urlImg);
                           }}
                         />
@@ -224,7 +223,7 @@ const UpdateBuilding = () => {
                                 await fetch(
                                   `${BASE_URL}/admin/buildings/${building?.data?.id}/pictures/${urlImg.id}`,
                                   {
-                                    method: 'DELETE',
+                                    method: "DELETE",
                                     headers: {
                                       Authorization: `Bearer ${Auth.getAccessToken()}`,
                                     },
@@ -258,20 +257,20 @@ const UpdateBuilding = () => {
                           accept="image/*"
                           onChange={async (e) => {
                             if (e.target.files.length > 9) {
-                              setErrorImg('Maximum image is 10');
+                              setErrorImg("Maximum image is 10");
                               return;
                             }
                             const formData = new FormData();
-                            formData.append('picture', e.target.files[0]);
-                            formData.append('index', 1);
-                            formData.append('alt', 'Alt photo');
-                            setErrorImg('');
+                            formData.append("picture", e.target.files[0]);
+                            formData.append("index", 1);
+                            formData.append("alt", "Alt photo");
+                            setErrorImg("");
 
                             setOnUpdate(true);
                             await fetch(
                               `${BASE_URL}/admin/buildings/${building?.data?.id}/pictures`,
                               {
-                                method: 'POST',
+                                method: "POST",
                                 body: formData,
                                 headers: {
                                   Authorization: `Bearer ${Auth.getAccessToken()}`,
@@ -334,18 +333,18 @@ const UpdateBuilding = () => {
                     styles={{
                       control: (provided, state) => ({
                         ...provided,
-                        border: '1px',
-                        borderColor: state.isFocused ? '#3583EF' : '#3583EF',
+                        border: "1px",
+                        borderColor: state.isFocused ? "#3583EF" : "#3583EF",
                       }),
                     }}
                     options={optionCity}
                     onChange={async (e) => {
                       getDistrict(e.value);
-                      props.setFieldValue('city', e.value);
+                      props.setFieldValue("city", e.value);
                     }}
                     theme={(theme) => ({
                       ...theme,
-                      borderRadius: '10px',
+                      borderRadius: "10px",
                     })}
                   />
                   <ErrorMessage name="city">
@@ -372,15 +371,15 @@ const UpdateBuilding = () => {
                     styles={{
                       control: (provided, state) => ({
                         ...provided,
-                        border: '1px',
-                        borderColor: state.isFocused ? '#3583EF' : '#3583EF',
+                        border: "1px",
+                        borderColor: state.isFocused ? "#3583EF" : "#3583EF",
                       }),
                     }}
                     options={optionDistrict}
-                    onChange={(e) => props.setFieldValue('district', e.value)}
+                    onChange={(e) => props.setFieldValue("district", e.value)}
                     theme={(theme) => ({
                       ...theme,
-                      borderRadius: '10px',
+                      borderRadius: "10px",
                     })}
                   />
                   <ErrorMessage name="district">
@@ -442,32 +441,32 @@ const UpdateBuilding = () => {
                         <div
                           key={i}
                           style={{
-                            borderBottom: 'solid 1px black',
-                            marginBottom: '1rem',
+                            borderBottom: "solid 1px black",
+                            marginBottom: "1rem",
                           }}
                         >
                           <div
                             className="title-facility fw-bold d-flex"
                             style={{
-                              gap: '.5rem',
-                              display: 'flex',
-                              justifyContent: 'space-between',
-                              alignItems: 'center',
+                              gap: ".5rem",
+                              display: "flex",
+                              justifyContent: "space-between",
+                              alignItems: "center",
                             }}
                           >
                             <div>
                               <div
                                 style={{
-                                  gap: '.5rem',
-                                  display: 'flex',
-                                  alignItems: 'center',
+                                  gap: ".5rem",
+                                  display: "flex",
+                                  alignItems: "center",
                                 }}
                               >
                                 <img
                                   src={list?.icon}
                                   alt="icons"
                                   style={{
-                                    width: '1.5rem',
+                                    width: "1.5rem",
                                   }}
                                 />
                                 <span>{list?.name}</span>
@@ -575,9 +574,9 @@ const UpdateBuilding = () => {
                           { ...formStateFacilities, id: Date.now() },
                         ]);
                         setFormStateFacilities({
-                          Name: '',
-                          icon: '',
-                          description: '',
+                          Name: "",
+                          icon: "",
+                          description: "",
                           IconID: null,
                         });
                         const newFacility = [
@@ -594,7 +593,7 @@ const UpdateBuilding = () => {
 
                         refetch();
 
-                        setSelectIcon('');
+                        setSelectIcon("");
                       }
                     }}
                     type="button"
@@ -689,7 +688,7 @@ const UpdateBuilding = () => {
                   className="col-3 button text-white me-3 bg-primary"
                   disabled={props.isSubmitting && isUpload}
                 >
-                  {props.isSubmitting && isUpload ? 'Please Wait' : 'Save'}
+                  {props.isSubmitting && isUpload ? "Please Wait" : "Save"}
                 </button>
               </div>
             </Form>

@@ -40,9 +40,6 @@ const DetailReservation = () => {
   // Message State
   const [message, setMessage] = useState("");
 
-  // console.log(error);
-  console.log(reservation?.data);
-
   const [deleteReservation, { isSuccess, errorDelete }] =
     useDeleteReservationMutation();
 

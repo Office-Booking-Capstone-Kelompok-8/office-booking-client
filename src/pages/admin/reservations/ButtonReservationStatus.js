@@ -1,9 +1,9 @@
-import React from 'react';
-import Spinner from '../../../components/admin/Spinner';
+import React from "react";
+import Spinner from "../../../components/admin/Spinner";
 import {
   useUpdateReservationsMutation,
   useUpdateReservationsStatusMutation,
-} from '../../../store/reservations/reservationsApiSlice';
+} from "../../../store/reservations/reservationsApiSlice";
 
 const ButtonReservationStatus = ({
   statusId,
@@ -16,8 +16,6 @@ const ButtonReservationStatus = ({
     useUpdateReservationsMutation();
   const [updateReservationStatus, { isLoading: isLoadingSTatus }] =
     useUpdateReservationsStatusMutation();
-  console.log(error);
-  console.log(isLoadingSTatus);
 
   return (
     <div className="d-flex justify-content-end mt-4 gap-4">
@@ -40,7 +38,7 @@ const ButtonReservationStatus = ({
                   statusId: statusId + 1,
                 });
                 await refetch();
-                setMessage('');
+                setMessage("");
               }}
             >
               Reject
@@ -59,7 +57,7 @@ const ButtonReservationStatus = ({
                   statusId: statusId + 3,
                 });
                 await refetch();
-                setMessage('');
+                setMessage("");
               }}
             >
               Process Payment
@@ -83,7 +81,7 @@ const ButtonReservationStatus = ({
                 statusId: statusId - 1,
               });
               await refetch();
-              setMessage('');
+              setMessage("");
             }}
           >
             Cancel
@@ -102,7 +100,7 @@ const ButtonReservationStatus = ({
                 statusId: statusId + 1,
               });
               await refetch();
-              setMessage('');
+              setMessage("");
             }}
           >
             Activate
@@ -125,7 +123,7 @@ const ButtonReservationStatus = ({
                 statusId: statusId + 1,
               });
               await refetch();
-              setMessage('');
+              setMessage("");
             }}
           >
             Complete

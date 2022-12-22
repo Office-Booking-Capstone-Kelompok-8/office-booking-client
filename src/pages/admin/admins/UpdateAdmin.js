@@ -1,19 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { mdiCloseCircle, mdiFileImagePlus } from '@mdi/js';
-import Icon from '@mdi/react';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import Spinner from '../../../components/admin/Spinner';
-import useUploadPictureUser from '../../../hooks/uploadPictureUser';
+import { mdiCloseCircle, mdiFileImagePlus } from "@mdi/js";
+import Icon from "@mdi/react";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import Spinner from "../../../components/admin/Spinner";
+import useUploadPictureUser from "../../../hooks/uploadPictureUser";
 import {
   useDetailCustomerQuery,
   useUpdateUserMutation,
-} from '../../../store/users/usersApiSlice';
-import { notifySuccess } from '../../../utils/helpers';
-import NotFound from '../../error/NotFound';
-import * as yup from 'yup';
-import { ToastContainer } from 'react-toastify';
+} from "../../../store/users/usersApiSlice";
+import { notifySuccess } from "../../../utils/helpers";
+import NotFound from "../../error/NotFound";
+import * as yup from "yup";
+import { ToastContainer } from "react-toastify";
 
 const UpdateAdmin = () => {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ const UpdateAdmin = () => {
   } = useDetailCustomerQuery({ id: id });
   const [updateCustomer, { isSuccess: successUpdate }] =
     useUpdateUserMutation();
-  const [selectedPhotoProfile, setSelectedPhotoProfile] = useState('');
+  const [selectedPhotoProfile, setSelectedPhotoProfile] = useState("");
   const { uploadPicture, isUpload } = useUploadPictureUser();
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const UpdateAdmin = () => {
       setSelectedPhotoProfile(admin?.data?.picture);
     }
     if (successUpdate) {
-      notifySuccess('admin updated successfully');
+      notifySuccess("admin updated successfully");
     }
   }, [admin]);
 
@@ -51,7 +51,7 @@ const UpdateAdmin = () => {
     email: yup.string().required().trim().email(),
     phone: yup
       .string()
-      .matches(/^[0-9]+$/, 'number is invalid')
+      .matches(/^[0-9]+$/, "number is invalid")
       .required(),
   });
 
@@ -66,7 +66,6 @@ const UpdateAdmin = () => {
 
   if (isError) {
     if (error.status === 404) {
-      console.log(error);
       return <NotFound />;
     }
   }
@@ -109,11 +108,11 @@ const UpdateAdmin = () => {
                         src={selectedPhotoProfile}
                         alt="images-preview"
                         className="img-preview"
-                        style={{ objectFit: 'cover', objectPosition: 'center' }}
+                        style={{ objectFit: "cover", objectPosition: "center" }}
                       />
                       <div
                         className="delete-img"
-                        onClick={() => setSelectedPhotoProfile('')}
+                        onClick={() => setSelectedPhotoProfile("")}
                       >
                         <Icon path={mdiCloseCircle} />
                       </div>
@@ -135,7 +134,7 @@ const UpdateAdmin = () => {
                           const selectedImg = e.target.files[0];
                           // add values images
                           const formData = new FormData();
-                          formData.append('picture', selectedImg);
+                          formData.append("picture", selectedImg);
 
                           // Upload picture
                           await uploadPicture(id, formData);
@@ -221,8 +220,8 @@ const UpdateAdmin = () => {
                 className={`col-3 button text-white me-3 bg-primary`}
               >
                 {props.isSubmitting || isUpload
-                  ? 'Please Wait'
-                  : 'Update Admin'}
+                  ? "Please Wait"
+                  : "Update Admin"}
               </button>
             </div>
           </Form>

@@ -1,20 +1,20 @@
-import { mdiCloseCircle, mdiFileImagePlus, mdiMenuDown } from '@mdi/js';
-import Icon from '@mdi/react';
-import React, { useState } from 'react';
-import Select from 'react-select';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
-import * as yup from 'yup';
-import Spinner from '../../../components/admin/Spinner';
-import useGetIcon from '../../../hooks/useGetIcon';
-import useRegion from '../../../hooks/useRegion';
-import { useNavigate } from 'react-router-dom';
-import useUploadImgBuilding from '../../../hooks/useUploadImgBuilding';
-import { notifySuccess } from '../../../utils/helpers';
-import { ToastContainer } from 'react-toastify';
+import { mdiCloseCircle, mdiFileImagePlus, mdiMenuDown } from "@mdi/js";
+import Icon from "@mdi/react";
+import React, { useState } from "react";
+import Select from "react-select";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import * as yup from "yup";
+import Spinner from "../../../components/admin/Spinner";
+import useGetIcon from "../../../hooks/useGetIcon";
+import useRegion from "../../../hooks/useRegion";
+import { useNavigate } from "react-router-dom";
+import useUploadImgBuilding from "../../../hooks/useUploadImgBuilding";
+import { notifySuccess } from "../../../utils/helpers";
+import { ToastContainer } from "react-toastify";
 
 const AddBuilding = () => {
   const navigate = useNavigate();
-  const [selectedMainImg, setSelectedMainImg] = useState('');
+  const [selectedMainImg, setSelectedMainImg] = useState("");
   const [selectedMoreImg, setSelectedMoreImg] = useState([]);
   const { isUpload, uploadPicture } = useUploadImgBuilding();
 
@@ -27,42 +27,42 @@ const AddBuilding = () => {
   }));
 
   // Facility Features
-  const [selectIcon, setSelectIcon] = useState('');
+  const [selectIcon, setSelectIcon] = useState("");
   const [showIconList, setShowIconList] = useState(false);
   const [listFacilities, setListFacilities] = useState([]);
   const [formStateFacilities, setFormStateFacilities] = useState({
-    Name: '',
-    icon: '',
-    description: '',
+    Name: "",
+    icon: "",
+    description: "",
     IconID: null,
   });
   const icons = useGetIcon();
 
   // Images
-  const [errorImg, setErrorImg] = useState('');
+  const [errorImg, setErrorImg] = useState("");
   const [formDataImages, setFormDataImages] = useState([]);
 
   // CONFIG FORM
   const initialValues = {
     images: [],
-    buildingName: '',
-    city: '',
-    district: '',
-    address: '',
-    capacity: '',
+    buildingName: "",
+    city: "",
+    district: "",
+    address: "",
+    capacity: "",
     facilities: [],
-    annual: '',
-    monthly: '',
-    description: '',
+    annual: "",
+    monthly: "",
+    description: "",
   };
 
   const validationSchema = yup.object({
     images: yup.array().min(1).max(10).required(),
-    buildingName: yup.string().required('name is a required field').trim(),
+    buildingName: yup.string().required("name is a required field").trim(),
     city: yup.number().required(),
     district: yup.number().required(),
     address: yup.string().required().trim(),
-    capacity: yup.number('not a number').required().max(1000),
+    capacity: yup.number("not a number").required().max(1000),
     facilities: yup.array().min(1),
     annual: yup.number().required(),
     monthly: yup.number().required(),
@@ -87,9 +87,9 @@ const AddBuilding = () => {
     // RESET
     props.resetForm();
     setFormDataImages([]);
-    setSelectedMainImg('');
+    setSelectedMainImg("");
     setSelectedMoreImg([]);
-    notifySuccess('building created successfully');
+    notifySuccess("building created successfully");
     setListFacilities([]);
   };
 
@@ -115,7 +115,6 @@ const AddBuilding = () => {
         validateOnChange={false}
       >
         {(props) => {
-          // console.log(props.errors);
           return (
             <Form>
               {/* IMAGES */}
@@ -135,11 +134,10 @@ const AddBuilding = () => {
                         <div
                           className="delete-img"
                           onClick={() => {
-                            setSelectedMainImg('');
+                            setSelectedMainImg("");
                             const formDataNew = formDataImages.filter(
                               (file) => {
-                                console.log(file?.get('index'));
-                                return file?.get('index') !== '0';
+                                return file?.get("index") !== "0";
                               }
                             );
                             setFormDataImages(formDataNew);
@@ -167,13 +165,13 @@ const AddBuilding = () => {
                             // get file
                             const selectedImg = e.target.files[0];
                             const formData = new FormData();
-                            formData.append('picture', selectedImg);
-                            formData.append('index', 0);
-                            formData.append('alt', 'Main photo');
+                            formData.append("picture", selectedImg);
+                            formData.append("index", 0);
+                            formData.append("alt", "Main photo");
                             setFormDataImages([...formDataImages, formData]);
                             // add values images
                             const urlImg = URL.createObjectURL(selectedImg);
-                            props.setFieldValue('images', [urlImg]);
+                            props.setFieldValue("images", [urlImg]);
                             setSelectedMainImg(urlImg);
                           }}
                         />
@@ -214,16 +212,16 @@ const AddBuilding = () => {
                           accept="image/*"
                           onChange={(e) => {
                             if (e.target.files.length > 9) {
-                              setErrorImg('Maximum image is 10');
+                              setErrorImg("Maximum image is 10");
                               return;
                             }
-                            setErrorImg('');
+                            setErrorImg("");
                             for (let file of e.target.files) {
                               const urlFileBlob = URL.createObjectURL(file);
                               const formData = new FormData();
-                              formData.append('picture', file);
-                              formData.append('index', 1);
-                              formData.append('alt', 'Alt photo');
+                              formData.append("picture", file);
+                              formData.append("index", 1);
+                              formData.append("alt", "Alt photo");
                               setFormDataImages([...formDataImages, formData]);
                               setSelectedMoreImg((prev) => [
                                 ...prev,
@@ -277,18 +275,18 @@ const AddBuilding = () => {
                     styles={{
                       control: (provided, state) => ({
                         ...provided,
-                        border: '1px',
-                        borderColor: state.isFocused ? '#3583EF' : '#3583EF',
+                        border: "1px",
+                        borderColor: state.isFocused ? "#3583EF" : "#3583EF",
                       }),
                     }}
                     options={optionCity}
                     onChange={async (e) => {
                       getDistrict(e.value);
-                      props.setFieldValue('city', e.value);
+                      props.setFieldValue("city", e.value);
                     }}
                     theme={(theme) => ({
                       ...theme,
-                      borderRadius: '10px',
+                      borderRadius: "10px",
                     })}
                   />
                   <ErrorMessage name="city">
@@ -311,15 +309,15 @@ const AddBuilding = () => {
                     styles={{
                       control: (provided, state) => ({
                         ...provided,
-                        border: '1px',
-                        borderColor: state.isFocused ? '#3583EF' : '#3583EF',
+                        border: "1px",
+                        borderColor: state.isFocused ? "#3583EF" : "#3583EF",
                       }),
                     }}
                     options={optionDistrict}
-                    onChange={(e) => props.setFieldValue('district', e.value)}
+                    onChange={(e) => props.setFieldValue("district", e.value)}
                     theme={(theme) => ({
                       ...theme,
-                      borderRadius: '10px',
+                      borderRadius: "10px",
                     })}
                   />
                   <ErrorMessage name="district">
@@ -381,32 +379,32 @@ const AddBuilding = () => {
                         <div
                           key={i}
                           style={{
-                            borderBottom: 'solid 1px black',
-                            marginBottom: '1rem',
+                            borderBottom: "solid 1px black",
+                            marginBottom: "1rem",
                           }}
                         >
                           <div
                             className="title-facility fw-bold d-flex"
                             style={{
-                              gap: '.5rem',
-                              display: 'flex',
-                              justifyContent: 'space-between',
-                              alignItems: 'center',
+                              gap: ".5rem",
+                              display: "flex",
+                              justifyContent: "space-between",
+                              alignItems: "center",
                             }}
                           >
                             <div>
                               <div
                                 style={{
-                                  gap: '.5rem',
-                                  display: 'flex',
-                                  alignItems: 'center',
+                                  gap: ".5rem",
+                                  display: "flex",
+                                  alignItems: "center",
                                 }}
                               >
                                 <img
                                   src={list?.icon}
                                   alt="icons"
                                   style={{
-                                    width: '1.5rem',
+                                    width: "1.5rem",
                                   }}
                                 />
                                 <span>{list?.Name}</span>
@@ -513,12 +511,12 @@ const AddBuilding = () => {
                           { ...formStateFacilities, id: Date.now() },
                         ]);
                         setFormStateFacilities({
-                          Name: '',
-                          icon: '',
-                          description: '',
+                          Name: "",
+                          icon: "",
+                          description: "",
                           IconID: null,
                         });
-                        props.setFieldValue('facilities', [
+                        props.setFieldValue("facilities", [
                           ...props.values.facilities,
                           {
                             name: formStateFacilities.Name,
@@ -526,7 +524,7 @@ const AddBuilding = () => {
                             description: formStateFacilities.description,
                           },
                         ]);
-                        setSelectIcon('');
+                        setSelectIcon("");
                       }
                     }}
                     type="button"
@@ -621,7 +619,7 @@ const AddBuilding = () => {
                   className="col-3 button text-white me-3 bg-primary"
                   disabled={props.isSubmitting && isUpload}
                 >
-                  {props.isSubmitting && isUpload ? 'Please Wait' : 'Save'}
+                  {props.isSubmitting && isUpload ? "Please Wait" : "Save"}
                 </button>
               </div>
             </Form>

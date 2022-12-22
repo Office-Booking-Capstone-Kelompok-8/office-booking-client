@@ -36,8 +36,6 @@ const BuildingItem = ({ building }) => {
     });
   };
 
-  console.log(building);
-
   return (
     <tr>
       <td

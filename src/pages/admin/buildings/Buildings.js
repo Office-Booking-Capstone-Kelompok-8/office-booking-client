@@ -18,8 +18,6 @@ const Buildings = () => {
   const { data: dataTotal, error: errorTotal } = useGetBuildingTotalQuery();
   const [buildingData, setBuildingData] = useState(null);
 
-  console.log(dataTotal, errorTotal);
-
   useEffect(() => {
     if (isSuccess) {
       setBuildingData(data.data);
@@ -92,23 +90,25 @@ const Buildings = () => {
                   </h3>
                   <span className="text-sm ">Total Buildings</span>
                   <div>
-                    <div style={{
-                            gap: '.5rem',
-                            display: 'flex',
-                            alignItems: 'center',
-                          }}>
-                      <h3
-                      className="text-primary text-sm px-2 py-2"
+                    <div
                       style={{
-                        background: "rgba(202, 222, 251, 0.6)",
-                        borderRadius: 9,
+                        gap: ".5rem",
+                        display: "flex",
+                        alignItems: "center",
                       }}
                     >
-                      {dataTotal?.data?.byTimeFrame?.thisMonth} +
-                    </h3>
-                    <span className="text-sm text-gray-dark">
-                      new buildings this month
-                    </span>
+                      <h3
+                        className="text-primary text-sm px-2 py-2"
+                        style={{
+                          background: "rgba(202, 222, 251, 0.6)",
+                          borderRadius: 9,
+                        }}
+                      >
+                        {dataTotal?.data?.byTimeFrame?.thisMonth} +
+                      </h3>
+                      <span className="text-sm text-gray-dark">
+                        new buildings this month
+                      </span>
                     </div>
                   </div>
                 </div>

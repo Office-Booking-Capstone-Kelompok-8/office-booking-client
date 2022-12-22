@@ -1,15 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-import Pagination from '../../../components/admin/Pagination';
-import Spinner from '../../../components/admin/Spinner';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import Pagination from "../../../components/admin/Pagination";
+import Spinner from "../../../components/admin/Spinner";
 import {
   useGetUsersNumberQuery,
   useGetUsersQuery,
-} from '../../../store/users/usersApiSlice';
-import customers from './../../../assets/img/customers.png';
-import CustomerItem from './CustomerItem';
+} from "../../../store/users/usersApiSlice";
+import customers from "./../../../assets/img/customers.png";
+import CustomerItem from "./CustomerItem";
 
 const Customers = () => {
   const {
@@ -20,9 +20,7 @@ const Customers = () => {
     role: 1,
   });
 
-  const { data: userThisMonth, error: errorThisMonth } =
-    useGetUsersNumberQuery();
-  console.log(userThisMonth, errorThisMonth);
+  const { data: userThisMonth } = useGetUsersNumberQuery();
 
   const [customer, setCustomer] = useState(null);
 
@@ -87,9 +85,9 @@ const Customers = () => {
                   <h3
                     className="text-primary text-sm px-2 py-2"
                     style={{
-                      background: 'rgba(202, 222, 251, 0.6)',
+                      background: "rgba(202, 222, 251, 0.6)",
                       borderRadius: 9,
-                      marginRight: '1rem',
+                      marginRight: "1rem",
                     }}
                   >
                     {userThisMonth?.data?.thisMonth}+
@@ -119,7 +117,7 @@ const Customers = () => {
         <div
           className="card"
           style={{
-            boxShadow: '0px 8px 24px rgba(112, 144, 176, 0.25)',
+            boxShadow: "0px 8px 24px rgba(112, 144, 176, 0.25)",
             borderRadius: 9,
           }}
         >

@@ -1,79 +1,78 @@
-import React from 'react';
-import '../styles.css';
-import Navbar from '../../../components/landingpage/navbar/Navbar';
-import Footer from '../../../components/landingpage/navbar/Footer';
-import rectangle from './../../../assets/img/rectangle.png';
-import central from './../../../assets/img/central-jakarta.png';
-import west from './../../../assets/img/west-jakarta.png';
-import south from './../../../assets/img/south-jakarta.png';
-import north from './../../../assets/img/north-jakarta.png';
-import east from './../../../assets/img/east-jakarta.png';
-import room1 from './../../../assets/img/room1.png';
-import room2 from './../../../assets/img/room2.png';
-import google from './../../../assets/img/google.png';
-import appstore from './../../../assets/img/app-store.png';
-import Icon from '@mdi/react';
-import { mdiBank, mdiTextBoxOutline, mdiAlert } from '@mdi/js';
-import Select from 'react-select';
-import useRegion from '../../../hooks/useRegion';
-import { Form, Formik, Field } from 'formik';
-import { useNavigate } from 'react-router-dom';
-import { notifyError } from '../../../utils/helpers';
-import { ToastContainer } from 'react-toastify';
+import React from "react";
+import "../styles.css";
+import Navbar from "../../../components/landingpage/navbar/Navbar";
+import Footer from "../../../components/landingpage/navbar/Footer";
+import rectangle from "./../../../assets/img/rectangle.png";
+import central from "./../../../assets/img/central-jakarta.png";
+import west from "./../../../assets/img/west-jakarta.png";
+import south from "./../../../assets/img/south-jakarta.png";
+import north from "./../../../assets/img/north-jakarta.png";
+import east from "./../../../assets/img/east-jakarta.png";
+import room1 from "./../../../assets/img/room1.png";
+import room2 from "./../../../assets/img/room2.png";
+import google from "./../../../assets/img/google.png";
+import appstore from "./../../../assets/img/app-store.png";
+import Icon from "@mdi/react";
+import { mdiBank, mdiTextBoxOutline, mdiAlert } from "@mdi/js";
+import Select from "react-select";
+import useRegion from "../../../hooks/useRegion";
+import { Form, Formik, Field } from "formik";
+import { useNavigate } from "react-router-dom";
+import { notifyError } from "../../../utils/helpers";
+import { ToastContainer } from "react-toastify";
 
 const LandingPage = () => {
   const navigate = useNavigate();
   const { city } = useRegion();
   const optionCity = city.map((c) => ({ value: c?.id, label: c?.name }));
   const optionCapacity = [
-    { value: { min: 1, max: 50 }, label: '1 - 50 Person' },
-    { value: { min: 50, max: 100 }, label: '50 - 100 Person' },
-    { value: { min: 100, max: 200 }, label: '100 - 200 Person' },
-    { value: { min: 200, max: 500 }, label: '200 - 500 Person' },
-    { value: { min: 500, max: 1000 }, label: '500 - 1000 Person' },
+    { value: { min: 1, max: 50 }, label: "1 - 50 Person" },
+    { value: { min: 50, max: 100 }, label: "50 - 100 Person" },
+    { value: { min: 100, max: 200 }, label: "100 - 200 Person" },
+    { value: { min: 200, max: 500 }, label: "200 - 500 Person" },
+    { value: { min: 500, max: 1000 }, label: "500 - 1000 Person" },
   ];
   const optionDuration = [
-    { value: 1, label: '1 Month' },
-    { value: 2, label: '2 Month' },
-    { value: 3, label: '3 Month' },
-    { value: 4, label: '4 Month' },
-    { value: 5, label: '5 Month' },
-    { value: 6, label: '6 Month' },
-    { value: 7, label: '7 Month' },
-    { value: 8, label: '8 Month' },
-    { value: 9, label: '9 Month' },
-    { value: 10, label: '10 Month' },
-    { value: 11, label: '11 Month' },
-    { value: 12, label: '12 Month' },
+    { value: 1, label: "1 Month" },
+    { value: 2, label: "2 Month" },
+    { value: 3, label: "3 Month" },
+    { value: 4, label: "4 Month" },
+    { value: 5, label: "5 Month" },
+    { value: 6, label: "6 Month" },
+    { value: 7, label: "7 Month" },
+    { value: 8, label: "8 Month" },
+    { value: 9, label: "9 Month" },
+    { value: 10, label: "10 Month" },
+    { value: 11, label: "11 Month" },
+    { value: 12, label: "12 Month" },
   ];
 
   const initialValues = {
-    date: '',
+    date: "",
     capacity: {
-      value: { min: '', max: '' },
-      label: '',
+      value: { min: "", max: "" },
+      label: "",
     },
     duration: {
-      value: '',
-      label: '',
+      value: "",
+      label: "",
     },
     city: {
-      value: '',
-      label: '',
+      value: "",
+      label: "",
     },
   };
 
   const onSubmit = (values) => {
-    console.log(values);
     if (values.date && values.duration.value) {
-      navigate('/search-building', { state: values });
+      navigate("/search-building", { state: values });
     } else {
-      notifyError('Date & Duration is required');
+      notifyError("Date & Duration is required");
     }
   };
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div style={{ position: "relative" }}>
       <ToastContainer
         position="top-center"
         autoClose={3000}
@@ -87,14 +86,14 @@ const LandingPage = () => {
         theme="colored"
       />
       <Navbar />
-      <div className="mt-5" style={{ backgroundColor: '#FAFAFA' }}>
+      <div className="mt-5" style={{ backgroundColor: "#FAFAFA" }}>
         <div className="banner px-5">
           <div
             className="row d-flex-justify-content-center mx-auto"
-            style={{ marginLeft: '7rem' }}
+            style={{ marginLeft: "7rem" }}
           >
             <h1 className="text-white fw-bold" style={{ fontSize: 50 }}>
-              Find your own Office Zone{' '}
+              Find your own Office Zone{" "}
             </h1>
             <h3 className="text-white fw-bold pt-3" style={{ fontSize: 20 }}>
               With our global network of workspaces, find the office zone you
@@ -102,7 +101,6 @@ const LandingPage = () => {
             </h3>
             <Formik initialValues={initialValues} onSubmit={onSubmit}>
               {(props) => {
-                console.log(props.values);
                 return (
                   <Form className="d-flex flex-column gap-3">
                     <div className="row">
@@ -111,7 +109,7 @@ const LandingPage = () => {
                         options={optionCity}
                         className="col-8"
                         onChange={(e) => {
-                          props.setFieldValue('city', {
+                          props.setFieldValue("city", {
                             value: e.value,
                             label: e.label,
                           });
@@ -127,7 +125,7 @@ const LandingPage = () => {
                         className="col-4"
                         options={optionCapacity}
                         onChange={(e) => {
-                          props.setFieldValue('capacity', {
+                          props.setFieldValue("capacity", {
                             value: { min: e.value.min, max: e.value.max },
                             label: e.label,
                           });
@@ -136,7 +134,7 @@ const LandingPage = () => {
                       <Field
                         type="date"
                         className="col-4 rounded"
-                        style={{ border: 'none', outline: 'none' }}
+                        style={{ border: "none", outline: "none" }}
                         name="date"
                       />
                       <Select
@@ -144,7 +142,7 @@ const LandingPage = () => {
                         className="col-4"
                         options={optionDuration}
                         onChange={(e) => {
-                          props.setFieldValue('duration', {
+                          props.setFieldValue("duration", {
                             value: e.value,
                             label: e.label,
                           });
@@ -180,7 +178,7 @@ const LandingPage = () => {
           </div>
         </div>
 
-        <div id="workspace" style={{ background: 'rgba(134, 181, 246, 0.2)' }}>
+        <div id="workspace" style={{ background: "rgba(134, 181, 246, 0.2)" }}>
           <div className="container pt-5">
             <h1 className="col-md-4 fw-bold" style={{ fontSize: 34 }}>
               Take control of your workspace
@@ -193,7 +191,7 @@ const LandingPage = () => {
                       <Icon
                         path={mdiBank}
                         size={1.3}
-                        style={{ marginRight: '.7rem' }}
+                        style={{ marginRight: ".7rem" }}
                       />
                       <h3 style={{ fontSize: 30 }}>Right space</h3>
                     </div>
@@ -208,7 +206,7 @@ const LandingPage = () => {
                       <Icon
                         path={mdiTextBoxOutline}
                         size={1.3}
-                        style={{ marginRight: '.7rem' }}
+                        style={{ marginRight: ".7rem" }}
                       />
                       <h3 style={{ fontSize: 30 }}>As you need</h3>
                     </div>
@@ -222,7 +220,7 @@ const LandingPage = () => {
                       <Icon
                         path={mdiAlert}
                         size={1.3}
-                        style={{ marginRight: '.7rem' }}
+                        style={{ marginRight: ".7rem" }}
                       />
                       <h3 style={{ fontSize: 30 }}>Privacy and Safety</h3>
                     </div>
@@ -250,7 +248,7 @@ const LandingPage = () => {
                   <div
                     className="col-md-2 col-lg-2 me-4"
                     style={{
-                      backgroundImage: 'url(' + central + ')',
+                      backgroundImage: "url(" + central + ")",
                       width: 240,
                       height: 320,
                     }}
@@ -265,7 +263,7 @@ const LandingPage = () => {
                   <div
                     className="col-md-2 col-lg-2 me-4"
                     style={{
-                      backgroundImage: 'url(' + west + ')',
+                      backgroundImage: "url(" + west + ")",
                       width: 240,
                       height: 320,
                     }}
@@ -280,7 +278,7 @@ const LandingPage = () => {
                   <div
                     className="col-md-2 col-lg-2 me-4"
                     style={{
-                      backgroundImage: 'url(' + south + ')',
+                      backgroundImage: "url(" + south + ")",
                       width: 240,
                       height: 320,
                     }}
@@ -295,7 +293,7 @@ const LandingPage = () => {
                   <div
                     className="col-md-2 col-lg-2 me-4"
                     style={{
-                      backgroundImage: 'url(' + north + ')',
+                      backgroundImage: "url(" + north + ")",
                       width: 240,
                       height: 320,
                     }}
@@ -310,7 +308,7 @@ const LandingPage = () => {
                   <div
                     className="col-md-2 col-lg-2 "
                     style={{
-                      backgroundImage: 'url(' + east + ')',
+                      backgroundImage: "url(" + east + ")",
                       width: 240,
                       height: 320,
                     }}
@@ -355,11 +353,11 @@ const LandingPage = () => {
                     >
                       <div
                         className="accordion-item pt-3"
-                        style={{ backgroundColor: '#FAFAFA' }}
+                        style={{ backgroundColor: "#FAFAFA" }}
                       >
                         <h2 className="accordion-header" id="flush-headingOne">
                           <button
-                            style={{ fontSize: 20, backgroundColor: '#FAFAFA' }}
+                            style={{ fontSize: 20, backgroundColor: "#FAFAFA" }}
                             className="accordion-button collapsed"
                             type="button"
                             data-bs-toggle="collapse"
@@ -387,11 +385,11 @@ const LandingPage = () => {
                       </div>
                       <div
                         className="accordion-item pt-3"
-                        style={{ backgroundColor: '#FAFAFA' }}
+                        style={{ backgroundColor: "#FAFAFA" }}
                       >
                         <h2 className="accordion-header" id="flush-headingTwo">
                           <button
-                            style={{ fontSize: 20, backgroundColor: '#FAFAFA' }}
+                            style={{ fontSize: 20, backgroundColor: "#FAFAFA" }}
                             className="accordion-button collapsed"
                             type="button"
                             data-bs-toggle="collapse"
@@ -422,14 +420,14 @@ const LandingPage = () => {
                       </div>
                       <div
                         className="accordion-item pt-3"
-                        style={{ backgroundColor: '#FAFAFA' }}
+                        style={{ backgroundColor: "#FAFAFA" }}
                       >
                         <h2
                           className="accordion-header"
                           id="flush-headingThree"
                         >
                           <button
-                            style={{ fontSize: 20, backgroundColor: '#FAFAFA' }}
+                            style={{ fontSize: 20, backgroundColor: "#FAFAFA" }}
                             className="accordion-button collapsed"
                             type="button"
                             data-bs-toggle="collapse"
@@ -460,11 +458,11 @@ const LandingPage = () => {
                       </div>
                       <div
                         className="accordion-item pt-3"
-                        style={{ backgroundColor: '#FAFAFA' }}
+                        style={{ backgroundColor: "#FAFAFA" }}
                       >
                         <h2 className="accordion-header" id="flush-headingFour">
                           <button
-                            style={{ fontSize: 20, backgroundColor: '#FAFAFA' }}
+                            style={{ fontSize: 20, backgroundColor: "#FAFAFA" }}
                             className="accordion-button collapsed"
                             type="button"
                             data-bs-toggle="collapse"
@@ -516,7 +514,7 @@ const LandingPage = () => {
                     <h3 className="fw-bold">
                       Find the room you need in
                       <span className="text-primary fw-bold">
-                        Office Zone{' '}
+                        Office Zone{" "}
                         <span className="text-black fw-bold"> app</span>
                       </span>
                     </h3>

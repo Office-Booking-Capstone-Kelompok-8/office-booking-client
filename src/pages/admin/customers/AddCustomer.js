@@ -1,17 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { mdiCloseCircle, mdiFileImagePlus } from '@mdi/js';
-import Icon from '@mdi/react';
-import React, { useEffect, useState } from 'react';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
-import * as yup from 'yup';
-import { useAddUsersMutation } from '../../../store/users/usersApiSlice';
-import { notifyError, notifySuccess } from '../../../utils/helpers';
-import { ToastContainer } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
-import useUploadPictureUser from '../../../hooks/uploadPictureUser';
+import { mdiCloseCircle, mdiFileImagePlus } from "@mdi/js";
+import Icon from "@mdi/react";
+import React, { useEffect, useState } from "react";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import * as yup from "yup";
+import { useAddUsersMutation } from "../../../store/users/usersApiSlice";
+import { notifyError, notifySuccess } from "../../../utils/helpers";
+import { ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import useUploadPictureUser from "../../../hooks/uploadPictureUser";
 
 const AddCustomer = () => {
-  const [selectedPhotoProfile, setSelectedPhotoProfile] = useState('');
+  const [selectedPhotoProfile, setSelectedPhotoProfile] = useState("");
   const [formDataState, setFormDataState] = useState(null);
   const [addCustomer, { error }] = useAddUsersMutation();
   const navigate = useNavigate();
@@ -19,20 +19,18 @@ const AddCustomer = () => {
 
   useEffect(() => {
     if (error?.status === 409) {
-      notifyError('Email already used');
+      notifyError("Email already used");
     }
   }, [error]);
 
-  console.log(error);
-
   // CONFIG FORM
   const initialValues = {
-    name: '',
-    email: '',
-    phone: '',
-    password: '',
-    confirmPassword: '',
-    images: '',
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
+    confirmPassword: "",
+    images: "",
   };
 
   const validationSchema = yup.object({
@@ -41,17 +39,17 @@ const AddCustomer = () => {
     email: yup.string().required().trim().email(),
     phone: yup
       .string()
-      .matches(/^[0-9]+$/, 'number is invalid')
+      .matches(/^[0-9]+$/, "number is invalid")
       .required(),
     password: yup
       .string()
       .required()
       .trim()
-      .min(8, 'password must be at least 8 characters in length'),
+      .min(8, "password must be at least 8 characters in length"),
     confirmPassword: yup
       .string()
-      .oneOf([yup.ref('password'), null], 'password must match')
-      .required('confirm password is a required field'),
+      .oneOf([yup.ref("password"), null], "password must match")
+      .required("confirm password is a required field"),
   });
 
   const onSubmit = async (values, props) => {
@@ -62,9 +60,9 @@ const AddCustomer = () => {
       password: values.password,
     }).then(async (res) => {
       await uploadPicture(res.data?.data.uid, formDataState);
-      notifySuccess('customer created successfully');
+      notifySuccess("customer created successfully");
       props.resetForm();
-      setSelectedPhotoProfile('');
+      setSelectedPhotoProfile("");
     });
   };
 
@@ -107,7 +105,7 @@ const AddCustomer = () => {
                         />
                         <div
                           className="delete-img"
-                          onClick={() => setSelectedPhotoProfile('')}
+                          onClick={() => setSelectedPhotoProfile("")}
                         >
                           <Icon path={mdiCloseCircle} />
                         </div>
@@ -129,12 +127,12 @@ const AddCustomer = () => {
                             const selectedImg = e.target.files[0];
                             // add values images
                             const formData = new FormData();
-                            formData.append('picture', selectedImg);
+                            formData.append("picture", selectedImg);
                             setFormDataState(formData);
 
                             // generate url
                             const urlImg = URL.createObjectURL(selectedImg);
-                            props.setFieldValue('images', urlImg);
+                            props.setFieldValue("images", urlImg);
                             setSelectedPhotoProfile(urlImg);
                           }}
                         />
@@ -255,8 +253,8 @@ const AddCustomer = () => {
                   className="col-3 button text-white me-3 bg-primary"
                 >
                   {props.isSubmitting || isUpload
-                    ? 'Please Wait'
-                    : 'Add Customer'}
+                    ? "Please Wait"
+                    : "Add Customer"}
                 </button>
               </div>
             </Form>

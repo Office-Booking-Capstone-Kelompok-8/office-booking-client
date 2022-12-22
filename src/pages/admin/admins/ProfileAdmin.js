@@ -1,21 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { mdiCamera } from '@mdi/js';
-import Icon from '@mdi/react';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
-import Cookies from 'js-cookie';
-import React, { useEffect, useState } from 'react';
-import { useChangePasswordMutation } from '../../../store/currentUser/currentUserApiSlice';
-import * as yup from 'yup';
-import Spinner from '../../../components/admin/Spinner';
-import { notifyError, notifySuccess } from '../../../utils/helpers';
-import { ToastContainer } from 'react-toastify';
+import { mdiCamera } from "@mdi/js";
+import Icon from "@mdi/react";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import Cookies from "js-cookie";
+import React, { useEffect, useState } from "react";
+import { useChangePasswordMutation } from "../../../store/currentUser/currentUserApiSlice";
+import * as yup from "yup";
+import Spinner from "../../../components/admin/Spinner";
+import { notifyError, notifySuccess } from "../../../utils/helpers";
+import { ToastContainer } from "react-toastify";
 import {
   useDetailCustomerQuery,
   useUpdateUserMutation,
-} from '../../../store/users/usersApiSlice';
-import useUploadPictureUser from '../../../hooks/uploadPictureUser';
-import { useDispatch } from 'react-redux';
-import { setPhoto } from '../../../store/auth/authSlice';
+} from "../../../store/users/usersApiSlice";
+import useUploadPictureUser from "../../../hooks/uploadPictureUser";
+import { useDispatch } from "react-redux";
+import { setPhoto } from "../../../store/auth/authSlice";
 
 const ProfileAdmin = () => {
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const ProfileAdmin = () => {
     error,
     isError,
     isLoading,
-  } = useDetailCustomerQuery({ id: Cookies.get('id') });
+  } = useDetailCustomerQuery({ id: Cookies.get("id") });
 
   const [
     updateCurrentUser,
@@ -42,33 +42,27 @@ const ProfileAdmin = () => {
 
   const { uploadPicture } = useUploadPictureUser();
   // Store picture
-  const [profileBlob, setProfileBlob] = useState('');
-
-  if (isError || isErrorUpdate || isErrorPassword) {
-    console.log(error);
-    console.log(errorUpdate);
-    console.log(errorPassword);
-  }
+  const [profileBlob, setProfileBlob] = useState("");
 
   useEffect(() => {
     dispatch(setPhoto({ picture: currentUser?.data?.picture }));
     if (isErrorUpdate) {
       if (errorUpdate.status === 409) {
-        notifyError('Email already in use');
+        notifyError("Email already in use");
       } else {
-        notifyError('Update Failed');
+        notifyError("Update Failed");
       }
     }
     if (successUpdate || successPassword) {
-      notifySuccess('admin updated successfully');
+      notifySuccess("admin updated successfully");
     }
   }, [isErrorUpdate, successUpdate, successPassword, errorUpdate]);
 
   // CONFIG FORM PASSWORD
   const initialValuesPassword = {
-    oldPassword: '',
-    newPassword: '',
-    confirmPassword: '',
+    oldPassword: "",
+    newPassword: "",
+    confirmPassword: "",
   };
 
   const validationSchemaPassword = yup.object({
@@ -76,8 +70,8 @@ const ProfileAdmin = () => {
     newPassword: yup.string().required().trim(),
     confirmPassword: yup
       .string()
-      .oneOf([yup.ref('newPassword'), null], 'password must match')
-      .required('confirm password is a required field'),
+      .oneOf([yup.ref("newPassword"), null], "password must match")
+      .required("confirm password is a required field"),
   });
 
   const onSubmitPassword = async (values, props) => {
@@ -101,12 +95,12 @@ const ProfileAdmin = () => {
     phone: yup
       .string()
       .required()
-      .matches(/^[0-9]+$/, 'number is invalid'),
+      .matches(/^[0-9]+$/, "number is invalid"),
   });
 
   const onSubmit = async (values) => {
     updateCurrentUser({
-      userID: Cookies.get('id'),
+      userID: Cookies.get("id"),
       name: values?.name,
       email: values?.email,
       phone: values?.phone,
@@ -145,7 +139,7 @@ const ProfileAdmin = () => {
                       const selectedImg = e.target.files[0];
                       // add values images
                       const formData = new FormData();
-                      formData.append('picture', selectedImg);
+                      formData.append("picture", selectedImg);
 
                       // Add blob file
                       const urlImg = URL.createObjectURL(selectedImg);
@@ -158,9 +152,9 @@ const ProfileAdmin = () => {
                       dispatch(
                         setPhoto({ picture: currentUser?.data?.picture })
                       );
-                      localStorage.removeItem('picture');
+                      localStorage.removeItem("picture");
                       localStorage.setItem(
-                        'picture',
+                        "picture",
                         currentUser?.data?.picture
                       );
                     }}
@@ -168,15 +162,15 @@ const ProfileAdmin = () => {
                   <label
                     htmlFor="profilePic"
                     className="col-2"
-                    style={{ position: 'relative', cursor: 'pointer' }}
+                    style={{ position: "relative", cursor: "pointer" }}
                   >
                     <Icon
                       path={mdiCamera}
                       style={{
-                        width: '1.7rem',
-                        position: 'absolute',
-                        bottom: '0',
-                        right: '1rem',
+                        width: "1.7rem",
+                        position: "absolute",
+                        bottom: "0",
+                        right: "1rem",
                       }}
                     />
                     <img
