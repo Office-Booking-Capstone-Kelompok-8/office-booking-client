@@ -15,6 +15,7 @@ import { useGetBuildingDetailEndUserQuery } from '../../../store/building/buildi
 const DetailBuildingUser = () => {
   const { id } = useParams();
   const { data: building } = useGetBuildingDetailEndUserQuery({ id: id });
+
   return (
     <div style={{ position: 'relative' }}>
       <Navbar />
@@ -107,66 +108,87 @@ const DetailBuildingUser = () => {
             </div>
           </div>
 
+          <div>
+            <div className='row'>
+              <div className='col-md-8 pt-5'>
+                <h2 className="fw-bold">{building?.data?.name}</h2>
+              </div>
+              <div
+                className="col-md-4 justify-content-end pt-5"
+                style={{
+                  backgroundColor: 'white',
+                  width: 400,
+                  height: 80,
+                  marginLeft: 40,
+                }}
+              >
+                <button
+                  className="btn bg-primary text-white text-md "
+                  style={{ width: 370, height: 45 }}
+                >
+                  Booking now
+                </button>
+              </div>
+            </div>
+          </div>
           <div className="row pt-4">
-            <h2 className="fw-bold">{building?.data?.name}</h2>
-            <div className="col-md-8">
+            <div
+              className="col-md-8"
+              style={{ border: '0.5px solid #BFBFBF' }}
+            ></div>
+              <div>
+                <h5 className=" pt-5">
+                  Start <span className="text-primary pt-5">IDR {Intl.NumberFormat("id-ID").format(building?.data?.price?.monthly)}</span> /month
+                </h5>
+                <div className='row'>
+                    <div className="col-md-4">
+                      <span className='pt-4'>Capacity</span>
+                      <div className="d-flex align-items-center pt-2 text-primary">
+                        <Icon
+                          path={mdiAccountMultipleOutline}
+                          size={1.2}
+                          style={{ marginRight: '.7rem' }}
+                        />
+                        <h3 className="text-md">
+                          50<span> people</span>
+                        </h3>
+                      </div>
+                    </div>
+                    <div className="col-md-4">
+                      <span className='pt-4'>Room Size</span>
+                      <div className="d-flex align-items-center pt-2 text-primary">
+                        <Icon
+                          path={mdiArrowExpandAll}
+                          size={1.2}
+                          style={{ marginRight: '.7rem' }}
+                        />
+                        <h3 className="text-md">
+                          350<span> m2</span>
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+            <div className="col-md-8 pt-5">
+              <div
+                className="col-md-8"
+                style={{ border: '0.5px solid #BFBFBF' }}
+              ></div>
+              <h4 className="fw-bold pt-5">Location</h4>
               <div className="d-flex align-items-center">
                 <Icon
                   path={mdiMapMarker}
                   size={1.2}
                   style={{ marginRight: '.7rem' }}
+                  className="text-primary"
                 />
                 <p className="text-md pt-3">
                   {building?.data?.location?.address}
                 </p>
               </div>
             </div>
-            <div
-              className="col-md-4 justify-content-end pt-3"
-              style={{
-                backgroundColor: 'white',
-                width: 400,
-                height: 80,
-                marginLeft: 40,
-              }}
-            >
-              <button
-                className="btn bg-primary text-white text-md"
-                style={{ width: 370, height: 45 }}
-              >
-                Booking now
-              </button>
-            </div>
-          </div>
-
-          <div className="row pt-4">
-            <div
-              className="col-md-8"
-              style={{ border: '0.5px solid #BFBFBF' }}
-            ></div>
-            <h4 className="fw-bold pt-5">Building specifications</h4>
-            <div className="col-md-8">
-              <div className="d-flex align-items-center pt-4">
-                <Icon
-                  path={mdiAccountMultipleOutline}
-                  size={1.2}
-                  style={{ marginRight: '.7rem' }}
-                />
-                <h3 className="text-md">
-                  50<span> people</span>
-                </h3>
-              </div>
-              <div className="d-flex align-items-center pt-4">
-                <Icon
-                  path={mdiArrowExpandAll}
-                  size={1.2}
-                  style={{ marginRight: '.7rem' }}
-                />
-                <h3 className="text-md">
-                  350<span> m2</span>
-                </h3>
-              </div>
-            </div>
+            
           </div>
 
           <div className="row pt-4">
@@ -191,7 +213,7 @@ const DetailBuildingUser = () => {
                 <div className="col-md-3" key={fac.id}>
                   <h5 className="pt-4">{fac.name}</h5>
                   <div className="d-flex align-items-center gap-2 pt-3">
-                    <img src={fac.icon} alt="icon" />
+                    <img src={fac.icon} alt="icon" style={{width: 37}}/>
                     <span>{fac.description}</span>
                   </div>
                 </div>

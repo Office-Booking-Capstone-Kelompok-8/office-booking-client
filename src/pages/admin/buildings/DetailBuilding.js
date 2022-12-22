@@ -112,6 +112,30 @@ const DetailBuilding = () => {
                       data-bs-slide-to="2"
                       aria-label="Slide 3"
                     ></button>
+                    <button
+                      type="button"
+                      data-bs-target="#carouselExampleIndicators"
+                      data-bs-slide-to="3"
+                      aria-label="Slide 4"
+                    ></button>
+                    <button
+                      type="button"
+                      data-bs-target="#carouselExampleIndicators"
+                      data-bs-slide-to="4"
+                      aria-label="Slide 5"
+                    ></button>
+                    <button
+                      type="button"
+                      data-bs-target="#carouselExampleIndicators"
+                      data-bs-slide-to="5"
+                      aria-label="Slide 6"
+                    ></button>
+                    <button
+                      type="button"
+                      data-bs-target="#carouselExampleIndicators"
+                      data-bs-slide-to="6"
+                      aria-label="Slide 7"
+                    ></button>
                   </div>
                   <div className="carousel-inner" style={{ borderRadius: 12 }}>
                     {building?.data?.pictures?.map((pic, i) => (
@@ -185,14 +209,10 @@ const DetailBuilding = () => {
                   />
                   <div>
                     <h3 className="text-md">
-                      <span>Rp </span>
-                      {building?.data?.price?.monthly}
-                      <span> /month</span>
+                      Rp {Intl.NumberFormat("id-ID").format(building?.data?.price?.monthly)} /month
                     </h3>
                     <h3 className="text-md">
-                      <span>Rp </span>
-                      {building?.data?.price?.annual}
-                      <span> /year</span>
+                      Rp {Intl.NumberFormat("id-ID").format(building?.data?.price?.annual)} /year
                     </h3>
                   </div>
                 </div>
