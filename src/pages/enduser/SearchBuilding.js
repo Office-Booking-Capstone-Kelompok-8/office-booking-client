@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "../../components/landingpage/navbar/Navbar";
-import Footer from "../../components/landingpage/navbar/Footer";
-import Select from "react-select";
-import { Field, Form, Formik } from "formik";
-import useRegion from "../../hooks/useRegion";
-import { useLocation, useNavigate } from "react-router-dom";
-import NotFound from "../error/NotFound";
-import { useGetBuildingCustomerQuery } from "../../store/building/buildingApiSLice";
-import Spinner from "../../components/admin/Spinner";
-import result from "./../.././assets/img/result-found-search.png";
+import React, { useEffect, useState } from 'react';
+import Navbar from '../../components/landingpage/navbar/Navbar';
+import Footer from '../../components/landingpage/navbar/Footer';
+import Select from 'react-select';
+import { Field, Form, Formik } from 'formik';
+import useRegion from '../../hooks/useRegion';
+import { useLocation, useNavigate } from 'react-router-dom';
+import NotFound from '../error/NotFound';
+import { useGetBuildingCustomerQuery } from '../../store/building/buildingApiSLice';
+import Spinner from '../../components/admin/Spinner';
+import result from './../.././assets/img/result-found-search.png';
 
 const SearchBuilding = () => {
   const { city } = useRegion();
@@ -16,25 +16,25 @@ const SearchBuilding = () => {
   const navigate = useNavigate();
 
   const optionCapacity = [
-    { value: { min: 1, max: 50 }, label: "1 - 50 Person" },
-    { value: { min: 50, max: 100 }, label: "50 - 100 Person" },
-    { value: { min: 100, max: 200 }, label: "100 - 200 Person" },
-    { value: { min: 200, max: 500 }, label: "200 - 500 Person" },
-    { value: { min: 500, max: 1000 }, label: "500 - 1000 Person" },
+    { value: { min: 1, max: 50 }, label: '1 - 50 Person' },
+    { value: { min: 50, max: 100 }, label: '50 - 100 Person' },
+    { value: { min: 100, max: 200 }, label: '100 - 200 Person' },
+    { value: { min: 200, max: 500 }, label: '200 - 500 Person' },
+    { value: { min: 500, max: 1000 }, label: '500 - 1000 Person' },
   ];
   const optionDuration = [
-    { value: 1, label: "1 Month" },
-    { value: 2, label: "2 Month" },
-    { value: 3, label: "3 Month" },
-    { value: 4, label: "4 Month" },
-    { value: 5, label: "5 Month" },
-    { value: 6, label: "6 Month" },
-    { value: 7, label: "7 Month" },
-    { value: 8, label: "8 Month" },
-    { value: 9, label: "9 Month" },
-    { value: 10, label: "10 Month" },
-    { value: 11, label: "11 Month" },
-    { value: 12, label: "12 Month" },
+    { value: 1, label: '1 Month' },
+    { value: 2, label: '2 Month' },
+    { value: 3, label: '3 Month' },
+    { value: 4, label: '4 Month' },
+    { value: 5, label: '5 Month' },
+    { value: 6, label: '6 Month' },
+    { value: 7, label: '7 Month' },
+    { value: 8, label: '8 Month' },
+    { value: 9, label: '9 Month' },
+    { value: 10, label: '10 Month' },
+    { value: 11, label: '11 Month' },
+    { value: 12, label: '12 Month' },
   ];
 
   const { state: values } = useLocation();
@@ -87,10 +87,10 @@ const SearchBuilding = () => {
 
   if (values === null) return <NotFound />;
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: 'relative' }}>
       <Navbar />
 
-      <div style={{ marginTop: "8rem", padding: "2rem" }}>
+      <div style={{ marginTop: '8rem', padding: '2rem' }}>
         <Formik onSubmit={onSubmit} initialValues={initialValues}>
           {(props) => {
             return (
@@ -101,7 +101,7 @@ const SearchBuilding = () => {
                     options={optionCity}
                     className="col-8"
                     onChange={(e) => {
-                      props.setFieldValue("city", e.value);
+                      props.setFieldValue('city', e.value);
                     }}
                     defaultValue={values.city}
                   />
@@ -122,7 +122,7 @@ const SearchBuilding = () => {
                       },
                     }}
                     onChange={(e) => {
-                      props.setFieldValue("capacity", {
+                      props.setFieldValue('capacity', {
                         min: e.value.min,
                         max: e.value.max,
                       });
@@ -133,7 +133,7 @@ const SearchBuilding = () => {
                     // defaultValue={values?.date}
                     type="date"
                     className="col-4 rounded"
-                    style={{ border: "1px solid #cccccc", outline: "none" }}
+                    style={{ border: '1px solid #cccccc', outline: 'none' }}
                   />
                   <Select
                     placeholder="Duration"
@@ -141,7 +141,7 @@ const SearchBuilding = () => {
                     options={optionDuration}
                     defaultValue={values.duration}
                     onChange={(e) => {
-                      props.setFieldValue("duration", e.value);
+                      props.setFieldValue('duration', e.value);
                     }}
                   />
                 </div>
@@ -149,14 +149,6 @@ const SearchBuilding = () => {
             );
           }}
         </Formik>
-        <div className="d-flex mt-5 justify-content-end align-items-center gap-3">
-          <span>Sort By</span>
-          <select style={{ padding: "0.5rem 1rem" }}>
-            <option value="" key="">
-              Pil1
-            </option>
-          </select>
-        </div>
         {isLoading ? (
           <Spinner />
         ) : building?.data === null ? (
@@ -174,11 +166,11 @@ const SearchBuilding = () => {
         ) : (
           <div
             style={{
-              marginTop: "3rem",
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr 1fr 1fr",
-              justifyContent: "center",
-              gap: "1rem",
+              marginTop: '3rem',
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr 1fr 1fr',
+              justifyContent: 'center',
+              gap: '1rem',
             }}
           >
             {building?.data?.map((build) => (
@@ -186,9 +178,9 @@ const SearchBuilding = () => {
                 key={build.id}
                 className="card"
                 style={{
-                  boxShadow: "0 8 24 rgba(112, 144, 176, 0.15)",
+                  boxShadow: '0 8 24 rgba(112, 144, 176, 0.15)',
                   borderRadius: 10,
-                  cursor: "pointer",
+                  cursor: 'pointer',
                 }}
                 onClick={() => {
                   navigate(`/detail-building/${build.id}`);
@@ -198,7 +190,7 @@ const SearchBuilding = () => {
                   src={build.pictures}
                   className="card-img"
                   alt="office"
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: 'pointer' }}
                 />
                 <div className="card-body">
                   <h3 className="text-md fw-bold">{build.name}</h3>
