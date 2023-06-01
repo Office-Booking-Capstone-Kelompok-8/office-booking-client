@@ -1,11 +1,18 @@
-import './App.css';
+import { Helmet } from 'react-helmet';
 import SetupRoute from './routes';
 
 function App() {
   return (
-    <div>
+    <main
+      style={{
+        overflowX: 'hidden',
+      }}
+    >
+      <Helmet>
+        <title>Office Zone</title>
+      </Helmet>
       <SetupRoute />
-    </div>
+    </main>
   );
 }
 
